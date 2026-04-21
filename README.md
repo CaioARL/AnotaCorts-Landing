@@ -29,14 +29,7 @@ Landing page responsiva para o ecossistema AnotaCorts, construída com Angular.
 
 ## 🚀 Deployment
 
-O projeto possui CI/CD configurado via GitHub Actions em `.github/workflows/deploy.yml`. 
-O deploy é realizado via **AWS ECR (Docker)** e o acesso externo é gerenciado pelo **Cloudflare Tunnel**.
-
-### Secrets Necessários no GitHub:
-- `AWS_ACCESS_KEY_ID`: Chave de acesso AWS.
-- `AWS_SECRET_ACCESS_KEY`: Chave secreta AWS.
-- `EC2_INSTANCE_ID`: ID da instância EC2.
-- `AWS_REGION`: Região da AWS (padrão `us-east-1`).
+O deploy é realizado de forma automática no **GitHub Pages** via Deploy from a branch
 
 ## 🎨 Design
 
