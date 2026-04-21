@@ -32,7 +32,10 @@ jobs:
         run: npm ci
 
       - name: Build Angular (production)
-        run: npx ng build --configuration production --base-href /AnotaCorts-Landing/
+        run: npx ng build --configuration production --base-href /
+
+      - name: Create CNAME file
+        run: echo "anotacorts.com.br" > dist/anota-corts-web/browser/CNAME
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
