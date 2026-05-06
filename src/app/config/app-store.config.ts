@@ -4,7 +4,6 @@
  * null = ainda não disponível (o botão ficará desabilitado).
  */
 export const APP_STORE_URLS = {
-  googlePlay:
-    'https://play.google.com/store/apps/details?id=com.business.ia.AnotaCorts&pcampaignid=web_share',
-  appleAppStore: null as string | null, // TODO: adicionar URL quando disponível
+  googlePlay: 'https://play.google.com/store/apps/details?id=com.business.ia.AnotaCorts&pcampaignid=web_share',
+  appleAppStore: 'https://apps.apple.com/us/app/anota-corts/id6761080093',
 };
