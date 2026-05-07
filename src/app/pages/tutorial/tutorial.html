@@ -1,0 +1,1369 @@
+<div class="tutorial-page">
+  <!-- Nav -->
+  <nav class="tutorial-nav container">
+    <a routerLink="/" class="logo"> <span class="logo-accent">Anota</span>Corts </a>
+    <a routerLink="/" class="back-link">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </svg>
+      Voltar
+    </a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="tutorial-hero">
+    <div class="hero-orb hero-orb--blue"></div>
+    <div class="hero-orb hero-orb--rose"></div>
+    <div class="container hero-inner">
+      <span class="section-tag animate-fade-in">GUIA COMPLETO</span>
+      <h1 class="hero-title animate-fade-in" style="animation-delay: 0.1s">
+        Tutorial
+        <span class="hero-highlight">AnotaCorts</span>
+      </h1>
+      <p class="hero-description animate-fade-in" style="animation-delay: 0.2s">
+        Aprenda passo a passo como usar todas as funcionalidades do app para gerenciar sua barbearia
+        — do cadastro às finanças, agendamentos e ranking.
+      </p>
+      <div class="hero-line animate-fade-in" style="animation-delay: 0.35s"></div>
+    </div>
+  </section>
+
+  <!-- Search bar (fora do hero pra não ser cortado pelo overflow) -->
+  <div class="search-section container">
+    <div class="search-wrap animate-fade-in" style="animation-delay: 0.45s">
+      <div class="search-box">
+        <svg
+          class="search-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="11" cy="11" r="8" />
+          <path d="M21 21l-4.35-4.35" />
+        </svg>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Buscar tópico (ex: cadastro, despesa, ranking...)"
+          [value]="searchQuery()"
+          (input)="onSearchInput($event)"
+          (focus)="setSearchFocused(true)"
+          (blur)="setSearchFocused(false)"
+          aria-label="Buscar no tutorial"
+        />
+        @if (searchQuery()) {
+          <button class="search-clear" (click)="clearSearch()" aria-label="Limpar busca">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        }
+      </div>
+
+      @if (searchFocused() && searchQuery()) {
+        <div class="search-results">
+          @if (filteredResults().length > 0) {
+            @for (result of filteredResults(); track result.sectionId + result.title) {
+              <button class="search-result" (mousedown)="selectSearchResult(result)">
+                <div class="search-result-main">
+                  <span class="search-result-title">{{ result.title }}</span>
+                  <span class="search-result-desc">{{ result.description }}</span>
+                </div>
+                <span class="search-result-tag">{{ result.sectionId }}</span>
+              </button>
+            }
+          } @else {
+            <div class="search-empty">
+              <span>Nada encontrado para "{{ searchQuery() }}"</span>
+              <small>Tente outra palavra-chave.</small>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Layout TOC + Conteúdo -->
+  <div class="tutorial-layout container">
+    <!-- Toggle TOC mobile -->
+    <button class="toc-toggle" (click)="toggleMenu()" aria-label="Abrir índice">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+      <span>{{ menuOpen() ? 'Fechar' : 'Índice' }}</span>
+    </button>
+
+    <!-- Table of Contents -->
+    <aside class="toc" [class.toc--open]="menuOpen()">
+      <div class="toc-inner">
+        <span class="toc-title">Navegue pelo guia</span>
+        @for (section of sections; track section.id; let i = $index) {
+          <button
+            class="toc-link"
+            [class.toc-link--active]="activeSection() === section.id"
+            (click)="goTo(section.id)"
+          >
+            <span class="toc-num">{{ i + 1 }}</span>
+            <span class="toc-label">{{ section.label }}</span>
+          </button>
+        }
+      </div>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="tutorial-content">
+      <!-- ============================================= -->
+      <!-- 1. PRIMEIROS PASSOS                          -->
+      <!-- ============================================= -->
+      @if (activeSection() === 'inicio') {
+      <section class="t-section animate-fade-in">
+        <div class="t-section-head">
+          <span class="t-section-num">01</span>
+          <div>
+            <span class="section-tag">PRIMEIROS PASSOS</span>
+            <h2 class="t-section-title">Comece a usar o AnotaCorts</h2>
+            <p class="t-section-sub">
+              Crie sua conta, faça login e recupere sua senha quando precisar.
+            </p>
+          </div>
+        </div>
+
+        <!-- 1.1 -->
+        <article class="t-card">
+          <h3 class="t-card-title">1.1 Criar uma conta (Cadastro)</h3>
+          <div class="t-meta">
+            <div class="t-meta-item">
+              <strong>Para que serve:</strong> Criar sua conta de barbeiro/dono de barbearia no
+              AnotaCorts.
+            </div>
+            <div class="t-meta-item">
+              <strong>Como acessar:</strong> Na tela de login, toque em "Cadastrar".
+            </div>
+          </div>
+
+          <p class="t-text">
+            O cadastro tem <strong>3 etapas</strong>. Os dados são salvos automaticamente conforme
+            você avança.
+          </p>
+
+          <h4 class="t-step-title">Etapa 1 — Dados pessoais</h4>
+          <ol class="t-list">
+            <li>Digite seu nome completo.</li>
+            <li>Informe um e-mail válido (será usado para login e recuperação de senha).</li>
+            <li>
+              Crie uma senha forte (mínimo 6 caracteres, com maiúscula, minúscula, número e
+              caractere especial).
+            </li>
+            <li>Confirme a senha digitando ela de novo.</li>
+            <li>Informe seu telefone (formato (00) 00000-0000 — o app formata sozinho).</li>
+            <li>Informe seu CPF (o app formata e valida automaticamente).</li>
+            <li>Toque em <strong>"Próximo"</strong>.</li>
+          </ol>
+
+          <figure class="tutorial-media tutorial-media--phone">
+            <img src="tutorial/screenshorts/cadastro/etapa1.svg" alt="Tela de cadastro - etapa 1" />
+          </figure>
+
+          <h4 class="t-step-title">Etapa 2 — Endereço</h4>
+          <ol class="t-list">
+            <li>Digite seu CEP — o app busca o endereço sozinho.</li>
+            <li>Confira logradouro, bairro, cidade e estado (já preenchidos).</li>
+            <li>Adicione o número e, se houver, o complemento.</li>
+            <li>Toque em <strong>"Próximo"</strong>.</li>
+          </ol>
+
+          <figure class="tutorial-media tutorial-media--phone">
+            <img src="tutorial/screenshorts/cadastro/etapa2.svg" alt="Tela de cadastro - etapa 2" />
+          </figure>
+
+          <h4 class="t-step-title">Etapa 3 — Dados da barbearia</h4>
+          <ol class="t-list">
+            <li>Digite o nome da sua barbearia.</li>
+            <li>Se tiver CNPJ, informe (o app formata automaticamente).</li>
+            <li>Se não tiver CNPJ, marque a opção <strong>"Não possuo CNPJ"</strong>.</li>
+            <li>Toque em <strong>"Finalizar Cadastro"</strong>.</li>
+          </ol>
+          <div class="t-success">✅ Pronto! Você já entra direto no app.</div>
+
+          <div class="media-row">
+            <figure class="tutorial-media tutorial-media--phone">
+              <img src="tutorial/screenshorts/cadastro/etapa3.svg" alt="Tela de cadastro - etapa 3" />
+            </figure>
+
+            <figure class="tutorial-media tutorial-media--phone" #cadastroFig>
+              <video
+                #cadastroVid
+                src="tutorial/screenshorts/cadastro/cadastro-video.mp4"
+                preload="metadata"
+                playsinline
+                (click)="cadastroVid.paused ? cadastroVid.play() : cadastroVid.pause()"
+                (play)="cadastroFig.classList.add('is-playing')"
+                (pause)="cadastroFig.classList.remove('is-playing')"
+                (ended)="cadastroFig.classList.remove('is-playing')"
+              ></video>
+              <button
+                class="video-play-btn"
+                type="button"
+                (click)="cadastroVid.play()"
+                aria-label="Reproduzir vídeo"
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            </figure>
+
+          </div>
+        </article>
+
+        <!-- 1.2 -->
+        <article class="t-card">
+          <h3 class="t-card-title">1.2 Fazer login</h3>
+          <div class="t-meta">
+            <div class="t-meta-item">
+              <strong>Para que serve:</strong> Acessar sua conta no AnotaCorts.
+            </div>
+          </div>
+          <ol class="t-list">
+            <li>Abra o app — você verá a logo enquanto carrega.</li>
+            <li>Digite seu e-mail e senha.</li>
+            <li>Toque em <strong>"Entrar"</strong>.</li>
+            <li>Na primeira vez, aceite os Termos de Uso.</li>
+          </ol>
+          <div class="t-tip">
+            💡 <strong>Dica:</strong> Se esqueceu a senha, toque em "Esqueceu a senha?" logo abaixo
+            do botão.
+          </div>
+
+          <figure class="tutorial-media tutorial-media--phone">
+              <img src="tutorial/screenshorts/login/etapa1.svg" alt="Tela de cadastro - etapa 3" />
+          </figure>
+
+        </article>
+
+        <!-- 1.3 -->
+        <article class="t-card">
+          <h3 class="t-card-title">1.3 Esqueci minha senha</h3>
+          <div class="t-meta">
+            <div class="t-meta-item">
+              <strong>Para que serve:</strong> Recuperar acesso à conta quando você não lembra a
+              senha.
+            </div>
+          </div>
+          <ol class="t-list">
+            <li>Na tela de login, toque em <strong>"Esqueceu a senha?"</strong>.</li>
+            <li>Digite o e-mail que você usou no cadastro.</li>
+            <li>Toque em <strong>"Enviar código"</strong>.</li>
+            <li>Abra seu e-mail e copie o código de recuperação.</li>
+            <li>Volte ao app e cole o código.</li>
+            <li>Crie uma nova senha e confirme.</li>
+            <li>Toque em <strong>"Redefinir senha"</strong> — pronto, faça login com a nova senha.</li>
+          </ol>
+
+          <div class="media-row">
+            <figure class="tutorial-media tutorial-media--phone">
+              <img src="tutorial/screenshorts/login/etapa2.svg" alt="Tela de cadastro - etapa 3" />
+            </figure>
+            
+             <figure class="tutorial-media tutorial-media--phone" #loginFig>
+              <video
+                #loginVid
+                src="tutorial/screenshorts/login/login-senha.mp4"
+                preload="metadata"
+                playsinline
+                (click)="loginVid.paused ? loginVid.play() : loginVid.pause()"
+                (play)="loginFig.classList.add('is-playing')"
+                (pause)="loginFig.classList.remove('is-playing')"
+                (ended)="loginFig.classList.remove('is-playing')"
+              ></video>
+              <button
+                class="video-play-btn"
+                type="button"
+                (click)="loginVid.play()"
+                aria-label="Reproduzir vídeo"
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            </figure>
+          </div>
+        </article>
+      </section>
+      }
+
+      <!-- ============================================= -->
+      <!-- 2. DASHBOARD                                 -->
+      <!-- ============================================= -->
+      @if (activeSection() === 'dashboard') {
+      <section class="t-section animate-fade-in">
+        <div class="t-section-head">
+          <span class="t-section-num">02</span>
+          <div>
+            <span class="section-tag">DASHBOARD</span>
+            <h2 class="t-section-title">Painel principal</h2>
+            <p class="t-section-sub">
+              Resumo financeiro e operacional da sua barbearia em um só lugar.
+            </p>
+          </div>
+        </div>
+
+        <article class="t-card">
+          <div class="t-meta">
+            <div class="t-meta-item">
+              <strong>Para que serve:</strong> Ver receita, lucro, ticket médio, despesas, horários
+              de pico, serviços mais vendidos e muito mais.
+            </div>
+            <div class="t-meta-item">
+              <strong>Como acessar:</strong> Aba "Dashboard" (primeiro ícone na barra inferior).
+            </div>
+          </div>
+
+          <h4 class="t-step-title">2.1 Escolher o período</h4>
+          <p class="t-text">No topo da tela você tem 4 botões:</p>
+          <ul class="t-bullets">
+            <li><strong>Semana</strong> — últimos 7 dias</li>
+            <li><strong>Mês</strong> — mês atual</li>
+            <li><strong>Ano</strong> — ano todo</li>
+            <li><strong>Personalizado</strong> — você escolhe data inicial e final</li>
+          </ul>
+
+          <p class="t-text"><strong>Para usar período personalizado:</strong></p>
+          <ol class="t-list">
+            <li>Toque em <strong>"Personalizado"</strong>.</li>
+            <li>Digite a data de início (formato DD/MM/AAAA).</li>
+            <li>Digite a data final (formato DD/MM/AAAA).</li>
+            <li>Toque em <strong>"Aplicar"</strong>.</li>
+          </ol>
+
+          <div class="t-tip">
+            💡 Use as setas (◀ ▶) ao lado do período pra navegar entre semanas/meses/anos
+            anteriores ou seguintes.
+          </div>
+
+          <figure class="tutorial-media tutorial-media--phone" #dashPeriodoFig>
+            <video
+              #dashPeriodoVid
+              src="tutorial/screenshorts/dashboard/dashboard-periodo.mp4"
+              preload="metadata"
+              playsinline
+              (click)="dashPeriodoVid.paused ? dashPeriodoVid.play() : dashPeriodoVid.pause()"
+              (play)="dashPeriodoFig.classList.add('is-playing')"
+              (pause)="dashPeriodoFig.classList.remove('is-playing')"
+              (ended)="dashPeriodoFig.classList.remove('is-playing')"
+            ></video>
+            <button
+              class="video-play-btn"
+              type="button"
+              (click)="dashPeriodoVid.play()"
+              aria-label="Reproduzir vídeo"
+            >
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </button>
+          </figure>
+
+          <h4 class="t-step-title">2.2 Entender os indicadores</h4>
+          <p class="t-text">
+            Cada cartão tem um ícone de informação (ℹ️) — toque pra ver a explicação.
+          </p>
+
+          <div class="t-grid-2">
+            <div class="t-mini-card">
+              <strong class="t-mini-card-title">Cartões financeiros</strong>
+              <ul class="t-bullets">
+                <li><strong>Receita</strong> — total que entrou no período</li>
+                <li><strong>Lucro Líquido</strong> — receita menos despesas</li>
+                <li><strong>Ticket Médio</strong> — quanto cada cliente gasta em média</li>
+                <li><strong>Margem (%)</strong> — quanto sobra de cada R$ recebido</li>
+              </ul>
+            </div>
+            <div class="t-mini-card">
+              <strong class="t-mini-card-title">Cartões de clientes</strong>
+              <ul class="t-bullets">
+                <li><strong>Novos Clientes</strong> — quantos clientes novos chegaram</li>
+                <li>
+                  <strong>Frequência de Retorno</strong> — em média, de quantos em quantos dias o
+                  cliente volta
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <figure class="tutorial-media tutorial-media--phone">
+            <img src="tutorial/screenshorts/dashboard/etapa2.svg" alt="Tela de cadastro - etapa 3" />
+          </figure>
+
+          <h4 class="t-step-title">2.3 Gráficos e rankings</h4>
+          <p class="t-text">Rolando a tela, você vê:</p>
+          <ul class="t-bullets">
+            <li><strong>Evolução Financeira</strong> — gráfico de receita vs. despesa por dia</li>
+            <li><strong>Distribuição de Custos</strong> — quanto é fixo vs. variável</li>
+            <li>
+              <strong>Atendimentos por Dia da Semana</strong> — qual seu dia mais movimentado
+            </li>
+            <li><strong>Horários de Pico</strong> — quais horários têm mais movimento</li>
+            <li><strong>Serviços Mais Vendidos</strong></li>
+            <li><strong>Despesas por Categoria / Subcategoria</strong></li>
+            <li><strong>Formas de Pagamento</strong> — Receita e Despesas</li>
+          </ul>
+
+          <div class="t-tip">💡 Puxe a tela pra baixo pra atualizar os dados.</div>
+
+          <div class="media-row">
+            <figure class="tutorial-media tutorial-media--phone">
+              <img src="tutorial/screenshorts/dashboard/etapa3.svg" alt="Tela de cadastro - etapa 3" />
+            </figure>
+
+            <figure class="tutorial-media tutorial-media--phone">
+              <img src="tutorial/screenshorts/dashboard/etapa4.svg" alt="Tela de cadastro - etapa 3" />
+            </figure>
+            
+            <figure class="tutorial-media tutorial-media--phone" #dashNavFig>
+              <video
+                #dashNavVid
+                src="tutorial/screenshorts/dashboard/dashboard-navegacao.mp4"
+                preload="metadata"
+                playsinline
+                (click)="dashNavVid.paused ? dashNavVid.play() : dashNavVid.pause()"
+                (play)="dashNavFig.classList.add('is-playing')"
+                (pause)="dashNavFig.classList.remove('is-playing')"
+                (ended)="dashNavFig.classList.remove('is-playing')"
+              ></video>
+              <button
+                class="video-play-btn"
+                type="button"
+                (click)="dashNavVid.play()"
+                aria-label="Reproduzir vídeo"
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            </figure>
+          </div>
+        </article>
+      </section>
+      }
+
+      <!-- ============================================= -->
+      <!-- 3. GERENCIAR                                 -->
+      <!-- ============================================= -->
+      @if (activeSection() === 'gerenciar') {
+      <section class="t-section animate-fade-in">
+        <div class="t-section-head">
+          <span class="t-section-num">03</span>
+          <div>
+            <span class="section-tag">GERENCIAR</span>
+            <h2 class="t-section-title">Aba central de operações</h2>
+            <p class="t-section-sub">
+              Cadastre e gerencie barbearia, clientes, atendimentos, serviços e despesas.
+            </p>
+          </div>
+        </div>
+
+        <article class="t-card">
+          <div class="t-meta">
+            <div class="t-meta-item">
+              <strong>Como acessar:</strong> Aba "Gerenciar" (segundo ícone na barra inferior).
+            </div>
+          </div>
+          <p class="t-text">
+            No topo da tela aparecem <strong>5 sub-abas</strong> que mudam o que você está vendo.
+          </p>
+         
+          <figure class="tutorial-media tutorial-media--phone">
+            <img src="tutorial/screenshorts/barbearia/etapa1.svg" alt="Tela de gerenciamento" />
+          </figure>
+
+        </article>
+
+        <!-- 3.1 Barbearia -->
+        <article class="t-card">
+          <h3 class="t-card-title">3.1 Barbearia</h3>
+          <div class="t-meta">
+            <div class="t-meta-item">
+              <strong>Para que serve:</strong> Editar dados da barbearia e horários de
+              funcionamento.
+            </div>
+          </div>
+
+          <h4 class="t-step-title">Editar dados</h4>
+          <ol class="t-list">
+            <li>Toque em <strong>"Editar Barbearia"</strong>.</li>
+            <li>Atualize nome, telefone e endereço.</li>
+            <li>Toque em <strong>"Salvar"</strong>.</li>
+          </ol>
+
+          <!-- <h4 class="t-step-title">Editar horários</h4>
+          <ol class="t-list">
+            <li>Toque em <strong>"Editar Horário"</strong>.</li>
+            <li>Para cada dia da semana, defina horário de abertura e fechamento.</li>
+            <li>Marque os dias que não funciona como fechados.</li>
+            <li>Toque em <strong>"Salvar"</strong>.</li>
+          </ol> -->
+
+          <div class="media-row">
+            <figure class="tutorial-media tutorial-media--phone">
+              <img src="tutorial/screenshorts/barbearia/etapa1.svg" alt="Tela de gerenciamento" />
+            </figure>
+
+            <!-- <div class="media-placeholder media-placeholder--print">
+              <div class="media-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+                  <circle cx="12" cy="13" r="4"/>
+                </svg>
+              </div>
+              <span class="media-label">PRINT — modal de horários de funcionamento</span>
+            </div> -->
+          </div>
+        </article>
+
+        <!-- 3.2 Clientes -->
+        <article class="t-card">
+          <h3 class="t-card-title">3.2 Clientes</h3>
+          <div class="t-meta">
+            <div class="t-meta-item">
+              <strong>Para que serve:</strong> Cadastrar e gerenciar os clientes da barbearia.
+            </div>
+          </div>
+
+          <h4 class="t-step-title">Cadastrar novo cliente</h4>
+          <ol class="t-list">
+            <li>Na sub-aba "Clientes", toque no botão <strong>"+"</strong> (adicionar).</li>
+            <li>Preencha o nome (obrigatório).</li>
+            <li>Adicione telefone e e-mail se quiser.</li>
+            <li>Toque em <strong>"Salvar"</strong>.</li>
+          </ol>
+
+          <h4 class="t-step-title">Editar cliente</h4>
+          <ol class="t-list">
+            <li>Toque no ícone de lápis (✏️) ao lado do nome.</li>
+            <li>Faça as alterações.</li>
+            <li>Toque em <strong>"Salvar"</strong>.</li>
+          </ol>
+
+          <h4 class="t-step-title">Excluir cliente</h4>
+          <ol class="t-list">
+            <li>Toque no ícone de lixeira (🗑️).</li>
+            <li>Confirme a exclusão.</li>
+          </ol>
+
+          <h4 class="t-step-title">Buscar cliente</h4>
+          <p class="t-text">
+            Use a barra de busca no topo — pode procurar por nome, e-mail ou telefone.
+          </p>
+
+          <div class="media-row">
+            <figure class="tutorial-media tutorial-media--phone">
+              <img src="tutorial/screenshorts/clientes/etapa1.svg" alt="Tela de gerenciamento" />
+            </figure>
+
+            <figure class="tutorial-media tutorial-media--phone">
+              <img src="tutorial/screenshorts/clientes/etapa2.svg" alt="Tela de gerenciamento" />
+            </figure>
+
+           
+            <figure class="tutorial-media tutorial-media--phone" #clienteVidFig>
+              <video
+                #clienteVid
+                src="tutorial/screenshorts/clientes/cliente-video.mp4"
+                preload="metadata"
+                playsinline
+                (click)="clienteVid.paused ? clienteVid.play() : clienteVid.pause()"
+                (play)="clienteVidFig.classList.add('is-playing')"
+                (pause)="clienteVidFig.classList.remove('is-playing')"
+                (ended)="clienteVidFig.classList.remove('is-playing')"
+              ></video>
+              <button
+                class="video-play-btn"
+                type="button"
+                (click)="clienteVid.play()"
+                aria-label="Reproduzir vídeo"
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            </figure>
+          </div>
+        </article>
+
+        <!-- 3.3 Atendimentos -->
+        <article class="t-card">
+          <h3 class="t-card-title">3.3 Atendimentos</h3>
+          <div class="t-meta">
+            <div class="t-meta-item">
+              <strong>Para que serve:</strong> Agendar, acompanhar e atualizar o status de cada
+              atendimento (corte, barba, etc).
+            </div>
+          </div>
+
+          <h4 class="t-step-title">Criar novo atendimento</h4>
+          <ol class="t-list">
+            <li>Na sub-aba "Atendimentos", toque em <strong>"+"</strong> (adicionar).</li>
+            <li>
+              Escolha o cliente — selecione um existente ou cadastre um novo na hora.
+            </li>
+            <li>
+              Selecione os serviços (pode marcar mais de um — o total é calculado automaticamente).
+            </li>
+            <li>Defina data e hora.</li>
+            <li>
+              Escolha a forma de pagamento: Dinheiro, Cartão de Crédito, Débito, PIX, Cheque ou
+              Transferência.
+            </li>
+            <li>Defina o status inicial: geralmente <strong>"AGENDADO"</strong>.</li>
+            <li>Toque em <strong>"Salvar"</strong>.</li>
+          </ol>
+
+          <figure class="tutorial-media tutorial-media--phone">
+            <img src="tutorial/screenshorts/atendimentos/etapa1.svg" alt="Tela de gerenciamento" />
+          </figure>
+
+          <h4 class="t-step-title">Mudar status do atendimento</h4>
+          <ol class="t-list">
+            <li>Na lista, toque na etiqueta de status do atendimento.</li>
+            <li>
+              Escolha o novo status:
+              <ul class="t-bullets t-bullets--inset">
+                <li><strong>AGENDADO</strong> — marcado para uma data futura</li>
+                <li><strong>CONFIRMADO</strong> — cliente confirmou que vem</li>
+                <li><strong>EM ANDAMENTO</strong> — está acontecendo agora</li>
+                <li>
+                  <strong>CONCLUÍDO</strong> — foi feito ✅ (conta no ranking e no faturamento)
+                </li>
+                <li><strong>CANCELADO</strong> — não aconteceu</li>
+                <li><strong>NÃO COMPARECEU</strong> — cliente faltou</li>
+              </ul>
+            </li>
+          </ol>
+
+          <div class="t-warning">
+            ⚠️ <strong>Importante:</strong> só atendimentos CONCLUÍDOS entram no faturamento e no
+            ranking.
+          </div>
+
+           <figure class="tutorial-media tutorial-media--phone">
+            <img src="tutorial/screenshorts/atendimentos/etapa2.svg" alt="Tela de gerenciamento" />
+          </figure>
+
+          <h4 class="t-step-title">Filtrar e ordenar atendimentos</h4>
+          <ul class="t-bullets">
+            <li><strong>Filtro por status</strong> — mostre apenas confirmados, concluídos, etc.</li>
+            <li>
+              <strong>Ordenar por</strong> — data, nome do cliente, valor ou status (toque no
+              cabeçalho).
+            </li>
+            <li><strong>Buscar</strong> — digite o nome do cliente.</li>
+          </ul>
+
+         
+              <figure class="tutorial-media tutorial-media--phone" #atendFig>
+              <video
+                #atendVid
+                src="tutorial/screenshorts/atendimentos/atendimento-video.mp4"
+                preload="metadata"
+                playsinline
+                (click)="atendVid.paused ? atendVid.play() : atendVid.pause()"
+                (play)="atendFig.classList.add('is-playing')"
+                (pause)="atendFig.classList.remove('is-playing')"
+                (ended)="atendFig.classList.remove('is-playing')"
+              ></video>
+              <button
+                class="video-play-btn"
+                type="button"
+                (click)="atendVid.play()"
+                aria-label="Reproduzir vídeo"
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            </figure>
+        </article>
+
+        <!-- 3.4 Serviços -->
+        <article class="t-card">
+          <h3 class="t-card-title">3.4 Serviços</h3>
+          <div class="t-meta">
+            <div class="t-meta-item">
+              <strong>Para que serve:</strong> Cadastrar os serviços que você oferece (corte,
+              barba, sobrancelha, etc) com preço e duração.
+            </div>
+          </div>
+
+          <h4 class="t-step-title">Cadastrar novo serviço</h4>
+          <ol class="t-list">
+            <li>Na sub-aba "Serviços", toque em <strong>"Adicionar Serviço"</strong>.</li>
+            <li>Digite o nome (ex: "Corte Masculino").</li>
+            <li>Adicione descrição se quiser.</li>
+            <li>Informe o preço (ex: R$ 35,00).</li>
+            <li>Adicione a duração em minutos (ex: 30).</li>
+            <li>Escolha uma categoria se quiser organizar.</li>
+            <li>Toque em <strong>"Salvar"</strong>.</li>
+          </ol>
+
+          <h4 class="t-step-title">Ativar/desativar serviço</h4>
+          <p class="t-text">
+            Use o interruptor (toggle) ao lado do nome — útil quando você não oferece mais um
+            serviço mas não quer excluir o histórico.
+          </p>
+
+          <h4 class="t-step-title">Editar / excluir</h4>
+          <ul class="t-bullets">
+            <li>Toque no card pra editar.</li>
+            <li>Toque na lixeira pra excluir.</li>
+          </ul>
+
+          <div class="media-row">
+            <figure class="tutorial-media tutorial-media--phone">
+              <img src="tutorial/screenshorts/serviços/etapa1.svg" alt="Tela de cadastro - etapa 3" />
+            </figure>
+            <figure class="tutorial-media tutorial-media--phone">
+              <img src="tutorial/screenshorts/serviços/etapa2.svg" alt="Tela de cadastro - etapa 3" />
+            </figure>
+          </div>
+        </article>
+
+        <!-- 3.5 Despesas -->
+        <article class="t-card">
+          <h3 class="t-card-title">3.5 Despesas</h3>
+          <div class="t-meta">
+            <div class="t-meta-item">
+              <strong>Para que serve:</strong> Registrar todos os gastos da barbearia (aluguel,
+              produtos, salários, contas, etc) — vão aparecer no Dashboard.
+            </div>
+          </div>
+
+          <h4 class="t-step-title">Registrar nova despesa</h4>
+          <ol class="t-list">
+            <li>Na sub-aba "Despesas", toque em <strong>"Adicionar Despesa"</strong>.</li>
+            <li>Digite a descrição (ex: "Aluguel de novembro").</li>
+            <li>Informe o valor.</li>
+            <li>Escolha a data do gasto.</li>
+            <li>Selecione a categoria (Aluguel, Suprimentos, Pessoal, Utilidades, etc).</li>
+            <li>Adicione subcategoria se quiser detalhar mais.</li>
+            <li>Escolha a forma de pagamento.</li>
+            <li>Adicione observações se necessário.</li>
+            <li>Toque em <strong>"Salvar"</strong>.</li>
+          </ol>
+
+          <div class="media-row">
+            <figure class="tutorial-media tutorial-media--phone">
+              <img src="tutorial/screenshorts/despesas/etapa1.svg" alt="Tela de cadastro - etapa 3" />
+            </figure>
+
+            <figure class="tutorial-media tutorial-media--phone">
+              <img src="tutorial/screenshorts/despesas/etapa2.svg" alt="Tela de cadastro - etapa 3" />
+            </figure>
+
+            <div class="media-placeholder media-placeholder--video">
+              <div class="media-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="23 7 16 12 23 17 23 7"/>
+                  <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                </svg>
+              </div>
+              <span class="media-label">registrando uma despesa do começo ao fim</span>
+            </div>
+          </div>
+        </article>
+      </section>
+      }
+
+      <!-- ============================================= -->
+      <!-- 4. RANKING                                   -->
+      <!-- ============================================= -->
+      @if (activeSection() === 'ranking') {
+      <section class="t-section animate-fade-in">
+        <div class="t-section-head">
+          <span class="t-section-num">04</span>
+          <div>
+            <span class="section-tag">RANKING</span>
+            <h2 class="t-section-title">Competição de cortes</h2>
+            <p class="t-section-sub">
+              Os 3 primeiros aparecem no pódio (ouro, prata, bronze) e os demais numa lista.
+            </p>
+          </div>
+        </div>
+
+        <article class="t-card">
+          <div class="t-meta">
+            <div class="t-meta-item">
+              <strong>Como acessar:</strong> Aba "Ranking" (terceiro ícone na barra inferior).
+            </div>
+          </div>
+
+          <h4 class="t-step-title">O que você vê</h4>
+          <ul class="t-bullets">
+            <li>
+              <strong>Pódio dos top 3</strong> — coroa no 1º lugar, foto, nome, barbearia e número
+              de cortes.
+            </li>
+            <li>
+              <strong>Banner da campanha</strong> — mostra a data limite (ex: "Vale até
+              30/08/2026").
+            </li>
+            <li>
+              <strong>Lista a partir do 4º lugar</strong> — posição, nome, barbearia, barra de
+              progresso e total de cortes.
+            </li>
+            <li>
+              <strong>Indicadores de mudança</strong> — quando alguém sobe ou desce posições,
+              aparece um selo verde (↑) ou vermelho (↓) com o número de posições.
+            </li>
+            <li>
+              <strong>Animação de movimento</strong> — ao atualizar, quem mudou de posição
+              "desliza" para o novo lugar.
+            </li>
+          </ul>
+
+          <div class="t-tip">💡 Atualizar: puxe a tela pra baixo pra ver as últimas posições.</div>
+          <div class="t-warning">
+            ⚠️ <strong>Como entrar no ranking:</strong> apenas atendimentos com status CONCLUÍDO
+            contam.
+          </div>
+
+          <div class="media-row">
+            <div class="media-placeholder media-placeholder--print">
+              <div class="media-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+                  <circle cx="12" cy="13" r="4"/>
+                </svg>
+              </div>
+              <span class="media-label">tela de ranking com pódio</span>
+            </div>
+            <div class="media-placeholder media-placeholder--print">
+              <div class="media-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+                  <circle cx="12" cy="13" r="4"/>
+                </svg>
+              </div>
+              <span class="media-label">linha da lista com selo de subida/descida</span>
+            </div>
+            <div class="media-placeholder media-placeholder--video">
+              <div class="media-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="23 7 16 12 23 17 23 7"/>
+                  <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                </svg>
+              </div>
+              <span class="media-label"> ranking sendo atualizado com animação</span>
+            </div>
+          </div>
+        </article>
+      </section>
+      }
+
+      <!-- ============================================= -->
+      <!-- 5. PERFIL                                    -->
+      <!-- ============================================= -->
+      @if (activeSection() === 'perfil') {
+      <section class="t-section animate-fade-in">
+        <div class="t-section-head">
+          <span class="t-section-num">05</span>
+          <div>
+            <span class="section-tag">PERFIL</span>
+            <h2 class="t-section-title">Seus dados e configurações</h2>
+            <p class="t-section-sub">
+              Edite seus dados, gerencie assinatura, mude senha e veja políticas.
+            </p>
+          </div>
+        </div>
+
+        <article class="t-card">
+          <div class="t-meta">
+            <div class="t-meta-item">
+              <strong>Como acessar:</strong> Aba "Perfil" (quarto ícone na barra inferior).
+            </div>
+          </div>
+
+          <h4 class="t-step-title">5.1 Editar dados pessoais</h4>
+          <ol class="t-list">
+            <li>Toque em <strong>"Editar perfil"</strong>.</li>
+            <li>
+              Atualize: nome, e-mail, telefone, CPF, data de nascimento, endereço.
+            </li>
+            <li>Se mudar o CEP, o endereço é preenchido automaticamente.</li>
+            <li>
+              Toque em <strong>"Salvar alterações"</strong> — ou <strong>"Cancelar"</strong> pra
+              descartar.
+            </li>
+          </ol>
+
+          <figure class="tutorial-media tutorial-media--phone">
+            <img src="tutorial/screenshorts/perfil/etapa1.svg" alt="Tela de cadastro - etapa 3" />
+          </figure>
+
+          <h4 class="t-step-title">5.2 Atalhos do perfil</h4>
+          <p class="t-text">A partir da tela de perfil, você acessa:</p>
+          <ul class="t-bullets">
+            <li><strong>Assinatura</strong> — gerenciar seu plano (ver seção 6)</li>
+            <li><strong>Notificações</strong> — ver mensagens recebidas (ver seção 7)</li>
+            <li><strong>Alterar senha</strong> — mudar a senha atual</li>
+            <li><strong>Privacidade</strong> — política de privacidade do app</li>
+            <li><strong>Termos de Serviço</strong> — termos de uso</li>
+            <li><strong>Suporte</strong> — falar com a equipe AnotaCorts</li>
+            <li><strong>Informações</strong> — versão do app e dados da empresa</li>
+            <li><strong>Excluir Conta</strong> — solicitar exclusão definitiva</li>
+          </ul>
+
+          <figure class="tutorial-media tutorial-media--phone">
+            <img src="tutorial/screenshorts/perfil/etapa2.svg" alt="Tela de cadastro - etapa 3" />
+          </figure> 
+
+          <h4 class="t-step-title">5.3 Excluir conta</h4>
+          <div class="t-warning">
+            ⚠️ <strong>Atenção:</strong> ao solicitar exclusão, você tem 7 dias pra desistir antes
+            da remoção definitiva.
+          </div>
+          <ol class="t-list">
+            <li>Em Perfil, toque em <strong>"Excluir Conta"</strong>.</li>
+            <li>Confirme a solicitação.</li>
+            <li>
+              Durante 7 dias, ao abrir o app, você verá um aviso com a opção
+              <strong>"Cancelar exclusão"</strong>.
+            </li>
+            <li>Após 7 dias, a conta e todos os dados são removidos permanentemente.</li>
+          </ol>
+
+          <h4 class="t-step-title">5.4 Sair (Logout)</h4>
+          <ol class="t-list">
+            <li>Em Perfil, role até o final.</li>
+            <li>Toque em <strong>"Sair"</strong>.</li>
+          </ol>
+
+          <figure class="tutorial-media tutorial-media--phone">
+            <img src="tutorial/screenshorts/perfil/etapa3.svg" alt="Tela de cadastro - etapa 3" />
+          </figure> 
+        </article>
+      </section>
+      }
+
+      <!-- ============================================= -->
+      <!-- 6. ASSINATURA                                -->
+      <!-- ============================================= -->
+      @if (activeSection() === 'assinatura') {
+      <section class="t-section animate-fade-in">
+        <div class="t-section-head">
+          <span class="t-section-num">06</span>
+          <div>
+            <span class="section-tag">ASSINATURA</span>
+            <h2 class="t-section-title">Plano, pagamentos e cartões</h2>
+            <p class="t-section-sub">
+              Gerencie seu plano AnotaCorts, métodos de pagamento e veja histórico de cobranças.
+            </p>
+          </div>
+        </div>
+
+        <article class="t-card">
+          <div class="t-meta">
+            <div class="t-meta-item">
+              <strong>Como acessar:</strong> Perfil → Assinatura.
+            </div>
+          </div>
+
+          <h4 class="t-step-title">6.1 Assinar um plano</h4>
+          <ol class="t-list">
+            <li>Veja os planos disponíveis com nome, preço e benefícios.</li>
+            <li>Escolha o que quer e toque em <strong>"Assinar"</strong>.</li>
+            <li>Confirme os dados no modal de confirmação.</li>
+            <li>
+              <strong>No iPhone:</strong> o pagamento é feito pela App Store (Apple).
+            </li>
+            <li>
+              <strong>Outros casos:</strong> você é direcionado pra forma de pagamento (cartão ou
+              PIX).
+            </li>
+            <li>Após confirmação, aparece a mensagem de sucesso.</li>
+          </ol>
+
+          <div class="media-placeholder media-placeholder--print">
+            <div class="media-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+              </svg>
+            </div>
+            <span class="media-label">lista de planos disponíveis</span>
+          </div>
+
+          <h4 class="t-step-title">6.2 Ver histórico de pagamentos</h4>
+          <p class="t-text">
+            Role pra baixo na tela de Assinatura — você vê data, valor, status e forma de pagamento
+            de cada cobrança.
+          </p>
+
+          <h4 class="t-step-title">6.3 Gerenciar cartões</h4>
+          <ol class="t-list">
+            <li>Toque em <strong>"Gerenciar cartões"</strong>.</li>
+            <li>
+              Pra adicionar: <strong>"+ Novo cartão"</strong> → preencha número, nome, validade e
+              CVV.
+            </li>
+            <li>Pra remover: toque no cartão e em <strong>"Excluir"</strong>.</li>
+            <li>Defina um cartão padrão pras renovações.</li>
+          </ol>
+
+          <div class="media-placeholder media-placeholder--print">
+            <div class="media-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+              </svg>
+            </div>
+            <span class="media-label">tela de cartões salvos</span>
+          </div>
+
+          <h4 class="t-step-title">6.4 Cancelar assinatura</h4>
+          <ol class="t-list">
+            <li>Em Assinatura, toque em <strong>"Cancelar assinatura"</strong>.</li>
+            <li>Confirme a operação.</li>
+            <li>Você continua com acesso até o fim do período pago.</li>
+          </ol>
+
+          <div class="media-placeholder media-placeholder--video">
+            <div class="media-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="23 7 16 12 23 17 23 7"/>
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+              </svg>
+            </div>
+            <span class="media-label">assinando um plano do início ao fim</span>
+          </div>
+        </article>
+      </section>
+      }
+
+      <!-- ============================================= -->
+      <!-- 7. NOTIFICAÇÕES                              -->
+      <!-- ============================================= -->
+      @if (activeSection() === 'notificacoes') {
+      <section class="t-section animate-fade-in">
+        <div class="t-section-head">
+          <span class="t-section-num">07</span>
+          <div>
+            <span class="section-tag">NOTIFICAÇÕES</span>
+            <h2 class="t-section-title">Avisos e mensagens</h2>
+            <p class="t-section-sub">
+              Confirmações de pagamento, lembretes e atualizações em um lugar só.
+            </p>
+          </div>
+        </div>
+
+        <article class="t-card">
+          <div class="t-meta">
+            <div class="t-meta-item">
+              <strong>Como acessar:</strong> Toque no sino (🔔) no topo direito de qualquer tela
+              principal.
+            </div>
+          </div>
+
+          <h4 class="t-step-title">Ações disponíveis</h4>
+          <ul class="t-bullets">
+            <li><strong>Toque numa notificação</strong> — marca como lida.</li>
+            <li><strong>Pressione e segure</strong> — entra no modo de seleção múltipla.</li>
+            <li><strong>Selecionar várias</strong> — marque as que quiser.</li>
+            <li><strong>Marcar como lidas</strong> — botão no topo.</li>
+            <li><strong>Excluir selecionadas</strong> — ícone de lixeira.</li>
+            <li>
+              <strong>Selecionar todas / Desmarcar todas</strong> — atalhos no topo.
+            </li>
+          </ul>
+
+          <div class="media-row">
+            <figure class="tutorial-media tutorial-media--phone">
+              <img src="tutorial/screenshorts/notificacoes/etapa1.svg" alt="Tela de cadastro - etapa 3" />
+            </figure> 
+
+            <figure class="tutorial-media tutorial-media--phone">
+              <img src="tutorial/screenshorts/notificacoes/etapa2.svg" alt="Tela de cadastro - etapa 3" />
+            </figure> 
+          </div>
+        </article>
+      </section>
+      }
+
+      <!-- ============================================= -->
+      <!-- 8. TEMA                                      -->
+      <!-- ============================================= -->
+      @if (activeSection() === 'tema') {
+      <section class="t-section animate-fade-in">
+        <div class="t-section-head">
+          <span class="t-section-num">08</span>
+          <div>
+            <span class="section-tag">APARÊNCIA</span>
+            <h2 class="t-section-title">Modo escuro / claro</h2>
+            <p class="t-section-sub">Troque o tema a qualquer momento conforme sua preferência.</p>
+          </div>
+        </div>
+
+        <article class="t-card">
+          <ol class="t-list">
+            <li>
+              Toque no ícone de <strong>sol/lua</strong> no canto superior das telas principais
+              (Dashboard, Gerenciar, Perfil, Ranking).
+            </li>
+            <li>A preferência é salva automaticamente.</li>
+          </ol>
+
+          <figure class="tutorial-media tutorial-media--phone" #temaFig>
+              <video
+                #temaVid
+                src="tutorial/screenshorts/tema/darck-video.mp4"
+                preload="metadata"
+                playsinline
+                (click)="temaVid.paused ? temaVid.play() : temaVid.pause()"
+                (play)="temaFig.classList.add('is-playing')"
+                (pause)="temaFig.classList.remove('is-playing')"
+                (ended)="temaFig.classList.remove('is-playing')"
+              ></video>
+              <button
+                class="video-play-btn"
+                type="button"
+                (click)="temaVid.play()"
+                aria-label="Reproduzir vídeo"
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            </figure>
+        </article>
+      </section>
+      }
+
+      <!-- ============================================= -->
+      <!-- 9. FAQ                                       -->
+      <!-- ============================================= -->
+      @if (activeSection() === 'faq') {
+      <section class="t-section animate-fade-in">
+        <div class="t-section-head">
+          <span class="t-section-num">09</span>
+          <div>
+            <span class="section-tag">FAQ</span>
+            <h2 class="t-section-title">Perguntas frequentes</h2>
+            <p class="t-section-sub">As dúvidas mais comuns dos nossos usuários.</p>
+          </div>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>Por que meu atendimento não aparece no Dashboard?</summary>
+            <p>
+              Apenas atendimentos com status <strong>CONCLUÍDO</strong> entram no faturamento e nos
+              gráficos.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Como entro no Ranking?</summary>
+            <p>
+              Cada atendimento concluído conta um ponto pra você. Quanto mais cortes concluídos,
+              melhor sua posição.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Mudei o CEP e o endereço não atualizou.</summary>
+            <p>
+              Verifique se digitou o CEP completo (8 dígitos). Se ainda não preencher, digite o
+              endereço manualmente.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Esqueci minha senha e não recebo o e-mail.</summary>
+            <p>
+              Confira a caixa de spam/lixo eletrônico. Se não chegar em 5 minutos, tente novamente
+              ou entre em contato pelo Suporte.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Como cancelo a exclusão da minha conta?</summary>
+            <p>
+              Você tem 7 dias após solicitar. Abra o app - aparecerá o aviso com a opção
+              <strong>"Cancelar exclusão"</strong>.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Meu cartão foi recusado, e agora?</summary>
+            <p>
+              Verifique limite e dados em <strong>Perfil → Assinatura → Gerenciar cartões</strong>. Se persistir,
+              fale com seu banco ou tente outro cartão.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Posso usar o AnotaCorts em mais de um celular?</summary>
+            <p>
+              Sim - basta fazer login com o mesmo e-mail. Os dados ficam sincronizados.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Posso cadastrar atendimentos de meses passados?</summary>
+            <p>
+              Sim. Em <strong>Gerenciar → Atendimentos</strong>, ao criar um novo atendimento, é só escolher qualquer data — atual ou passada. Tudo entra normalmente nas estatísticas do mês correspondente.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Se eu apagar um serviço, perco o histórico no Dashboard?</summary>
+            <p>
+              Sim. Toda a contabilidade e estatísticas são baseadas no que está cadastrado. Se você excluir um serviço, todos os atendimentos relacionados a ele saem do faturamento
+            </p>
+            <p>
+              💡 Dica: se você não quer mais oferecer um serviço mas quer manter o histórico, use o interruptor de <strong>Ativar/Desativar</strong> ao lado do nome em vez de excluir. Assim ele some das opções de novo atendimento mas continua contando nos relatórios passados.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>O que é o cadastro recorrente?</summary>
+            <p>
+              Permite registrar serviços/despesas que se repetem automaticamente em intervalos definidos (semanal, mensal etc), evitando precisar cadastrar manualmente toda vez.
+            </p>
+          </details>
+        </div>
+      </section>
+      }
+
+      <!-- ============================================= -->
+      <!-- 10. SUPORTE                                  -->
+      <!-- ============================================= -->
+      @if (activeSection() === 'suporte') {
+      <section class="t-section animate-fade-in">
+        <div class="t-section-head">
+          <span class="t-section-num">10</span>
+          <div>
+            <span class="section-tag">SUPORTE</span>
+            <h2 class="t-section-title">Precisa de ajuda?</h2>
+            <p class="t-section-sub">Estamos prontos pra te atender.</p>
+          </div>
+        </div>
+
+        <article class="t-card t-card--cta">
+          <p class="t-text">
+            Em <strong>Perfil → Suporte</strong>, você encontra os contatos da nossa equipe.
+          </p>
+
+          <div class="media-placeholder media-placeholder--video">
+            <div class="media-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="23 7 16 12 23 17 23 7"/>
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+              </svg>
+            </div>
+            <span class="media-label">
+              visão geral do app (1-2 min mostrando todas as telas)</span>
+          </div>
+        </article>
+      </section>
+      }
+
+      <!-- Navegação entre seções -->
+      <nav class="t-pager">
+        @if (prevSection(); as prev) {
+          <button class="t-pager-btn t-pager-btn--prev" (click)="goTo(prev.id)">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+            <div>
+              <span class="t-pager-label">Anterior</span>
+              <span class="t-pager-title">{{ prev.number }} · {{ prev.label }}</span>
+            </div>
+          </button>
+        } @else {
+          <span></span>
+        }
+
+        @if (nextSection(); as next) {
+          <button class="t-pager-btn t-pager-btn--next" (click)="goTo(next.id)">
+            <div>
+              <span class="t-pager-label">Próximo</span>
+              <span class="t-pager-title">{{ next.number }} · {{ next.label }}</span>
+            </div>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        }
+      </nav>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="tutorial-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo"><span class="logo-accent">Anota</span>Corts</div>
+        <p class="footer-copy">&copy; 2026 AnotaCorts. Todos os direitos reservados.</p>
+      </div>
+      <div class="footer-links">
+        <a routerLink="/sobre">Sobre</a>
+        <a routerLink="/privacidade">Privacidade</a>
+        <a routerLink="/termos">Termos</a>
+      </div>
+    </div>
+  </footer>
+</div>
