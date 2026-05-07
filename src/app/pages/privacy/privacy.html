@@ -1,8 +1,6 @@
 <div class="legal-page">
   <nav class="legal-nav container">
-    <a routerLink="/" class="logo">
-      <span style="color: var(--primary)">Anota</span>Corts
-    </a>
+    <a routerLink="/" class="logo"> <span style="color: var(--primary)">Anota</span>Corts </a>
     <a routerLink="/" class="back-link">
       <svg
         width="20"
@@ -373,6 +371,28 @@
     <footer class="legal-footer">
       <p>Anota Corts - Todos os direitos reservados</p>
       <p>Esta política está em conformidade com a LGPD (Lei nº 13.709/2018)</p>
+      <p
+        style="
+          font-size: 0.8rem;
+          margin-top: 0.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          opacity: 0.8;
+        "
+      >
+        <span
+          style="
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+          "
+          >v{{ appVersion.version }}</span
+        >
+        <span>Atualizado em {{ appVersion.releaseDate }}</span>
+      </p>
     </footer>
   </div>
 </div>

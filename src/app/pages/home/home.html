@@ -51,14 +51,14 @@
             />
           </svg>
           <div style="text-align: left; line-height: 1">
-            <span style="font-size: 0.75rem; font-weight: 400; display: block; margin-bottom: 2px"
+            <span
+              style="font-size: 0.75rem; font-weight: 400; display: block; margin-bottom: 2px"
               >{{ storeUrls.appleAppStore ? 'BAIXAR NA' : 'EM BREVE NA' }}</span
             >
             <span style="font-size: 1.1rem">App Store</span>
           </div>
         </a>
       </div>
-
     </div>
 
     <div class="hero-image animate-fade-in">
@@ -74,6 +74,27 @@
           <span style="color: var(--primary)">Anota</span>Corts
         </div>
         <p style="color: var(--text-muted)">© 2026 AnotaCorts. Todos os direitos reservados.</p>
+        <p
+          style="
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+          "
+        >
+          <span
+            style="
+              background: rgba(255, 255, 255, 0.1);
+              padding: 2px 6px;
+              border-radius: 4px;
+              font-weight: 500;
+            "
+            >v{{ appVersion.version }}</span
+          >
+          <span>Atualizado em {{ appVersion.releaseDate }}</span>
+        </p>
       </div>
       <div class="footer-links">
         <a routerLink="/tutorial">Tutorial</a>

@@ -44,7 +44,9 @@
   color: var(--text);
 }
 
-.logo-accent { color: var(--primary); }
+.logo-accent {
+  color: var(--primary);
+}
 
 .back-link {
   display: inline-flex;
@@ -97,8 +99,13 @@
 }
 
 @keyframes orbFloat {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(30px, -20px) scale(1.05); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(30px, -20px) scale(1.05);
+  }
 }
 
 .hero-inner {
@@ -125,8 +132,13 @@
 }
 
 @keyframes gradShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .hero-description {
@@ -145,7 +157,9 @@
   margin: 0 auto;
 }
 
-.about-story { padding: 5rem 0; }
+.about-story {
+  padding: 5rem 0;
+}
 
 .story-grid {
   max-width: 720px;
@@ -153,7 +167,9 @@
   text-align: center;
 }
 
-.story-content .section-tag { margin-bottom: 1.5rem; }
+.story-content .section-tag {
+  margin-bottom: 1.5rem;
+}
 
 .story-title {
   font-size: 2rem;
@@ -166,7 +182,6 @@
   line-height: 1.85;
   margin-bottom: 1.25rem;
 }
-
 
 .about-features {
   position: relative;
@@ -201,13 +216,18 @@
   border-radius: 20px;
   padding: 2.25rem 2rem;
   backdrop-filter: blur(8px);
-  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.3s, box-shadow 0.4s;
+  transition:
+    transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    border-color 0.3s,
+    box-shadow 0.4s;
 }
 
 .feature-card:hover {
   transform: translateY(-5px);
   border-color: rgba(59, 130, 246, 0.25);
-  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.4), 0 0 40px -10px rgba(59, 130, 246, 0.1);
+  box-shadow:
+    0 20px 60px -15px rgba(0, 0, 0, 0.4),
+    0 0 40px -10px rgba(59, 130, 246, 0.1);
 }
 
 .feature-number {
@@ -221,7 +241,9 @@
   transition: color 0.3s;
 }
 
-.feature-card:hover .feature-number { color: var(--primary); }
+.feature-card:hover .feature-number {
+  color: var(--primary);
+}
 
 .feature-icon {
   width: 56px;
@@ -259,7 +281,12 @@
   position: relative;
   padding: 5rem 0 4rem;
   overflow: hidden;
-  background: linear-gradient(180deg, transparent 0%, rgba(59, 130, 246, 0.03) 50%, transparent 100%);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(59, 130, 246, 0.03) 50%,
+    transparent 100%
+  );
 }
 
 .carousel-bg-stripe {
@@ -343,10 +370,10 @@
   position: relative;
   z-index: 1;
   flex: 1;
-    overflow: hidden;
-    border-radius: 20px;
-    background: var(--bg-soft);
-    border: 1px solid var(--glass-border);
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--bg-soft);
+  border: 1px solid var(--glass-border);
 }
 
 .carousel-track {
@@ -456,7 +483,9 @@
   border-radius: 4px;
 }
 
-.dot:hover:not(.active) { background: var(--text-muted); }
+.dot:hover:not(.active) {
+  background: var(--text-muted);
+}
 
 .cta-section {
   position: relative;
@@ -519,9 +548,15 @@
   margin-bottom: 0.75rem;
 }
 
-.footer-copy { color: var(--text-muted); font-size: 0.9rem; }
+.footer-copy {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
 
-.footer-links { display: flex; gap: 2rem; }
+.footer-links {
+  display: flex;
+  gap: 2rem;
+}
 
 .footer-links a {
   color: var(--text-muted);
@@ -531,39 +566,101 @@
   transition: color 0.3s;
 }
 
-.footer-links a:hover { color: var(--primary); }
+.footer-links a:hover {
+  color: var(--primary);
+}
 
 @media (max-width: 900px) {
-  .features-grid { grid-template-columns: 1fr; }
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
-  .about-hero { padding: 4rem 0 3rem; }
-  .hero-title { font-size: 2.5rem; }
-  .hero-description { font-size: 1.05rem; }
-  .story-grid { max-width: 100%; }
-  .story-title { font-size: 1.75rem; }
-  .features-title { font-size: 1.75rem; }
-  .carousel-title { font-size: 1.75rem; }
-  .carousel-btn { width: 40px; height: 40px; }
-  .carousel-viewport { width: 230px; }
-  .cta-section { padding: 2.5rem 1.5rem; border-radius: 20px; }
-  .cta-title { font-size: 1.5rem; }
-  .footer-inner { flex-direction: column; text-align: center; gap: 2rem; }
-  .footer-links { gap: 1.5rem; }
+  .about-hero {
+    padding: 4rem 0 3rem;
+  }
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .hero-description {
+    font-size: 1.05rem;
+  }
+  .story-grid {
+    max-width: 100%;
+  }
+  .story-title {
+    font-size: 1.75rem;
+  }
+  .features-title {
+    font-size: 1.75rem;
+  }
+  .carousel-title {
+    font-size: 1.75rem;
+  }
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+  }
+  .carousel-viewport {
+    width: 230px;
+  }
+  .cta-section {
+    padding: 2.5rem 1.5rem;
+    border-radius: 20px;
+  }
+  .cta-title {
+    font-size: 1.5rem;
+  }
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+  .footer-links {
+    gap: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
-  .hero-title { font-size: 2rem; }
-  .story-title { font-size: 1.5rem; }
-  .features-title { font-size: 1.5rem; }
-  .feature-card { padding: 1.75rem 1.5rem; }
-  .carousel-title { font-size: 1.5rem; }
-  .carousel-btn { width: 36px; height: 36px; }
-  .carousel-btn svg { width: 18px; height: 18px; }
-  .carousel-viewport { width: 200px; border-width: 2px; border-radius: 24px; }
-  .slide-caption { font-size: 0.9rem; }
-  .carousel-showcase { gap: 0.75rem; }
-  .cta-title { font-size: 1.35rem; }
-  .cta-description { font-size: 1rem; }
+  .hero-title {
+    font-size: 2rem;
+  }
+  .story-title {
+    font-size: 1.5rem;
+  }
+  .features-title {
+    font-size: 1.5rem;
+  }
+  .feature-card {
+    padding: 1.75rem 1.5rem;
+  }
+  .carousel-title {
+    font-size: 1.5rem;
+  }
+  .carousel-btn {
+    width: 36px;
+    height: 36px;
+  }
+  .carousel-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+  .carousel-viewport {
+    width: 200px;
+    border-width: 2px;
+    border-radius: 24px;
+  }
+  .slide-caption {
+    font-size: 0.9rem;
+  }
+  .carousel-showcase {
+    gap: 0.75rem;
+  }
+  .cta-title {
+    font-size: 1.35rem;
+  }
+  .cta-description {
+    font-size: 1rem;
+  }
 }

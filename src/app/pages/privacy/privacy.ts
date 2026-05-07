@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { APP_VERSION, AppVersion } from '../../config/version.config';
 
 @Component({
   selector: 'app-privacy',
@@ -7,4 +8,6 @@ import { RouterLink } from '@angular/router';
   templateUrl: './privacy.html',
   styleUrl: './privacy.css',
 })
-export class Privacy {}
+export class Privacy {
+  readonly appVersion: AppVersion = APP_VERSION;
+}

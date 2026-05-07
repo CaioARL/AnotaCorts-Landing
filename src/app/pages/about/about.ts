@@ -3,6 +3,8 @@ import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 
+import { APP_VERSION, AppVersion } from '../../config/version.config';
+
 interface Slide {
   image: string;
   caption: string;
@@ -16,6 +18,7 @@ interface Slide {
   styleUrl: './about.css',
 })
 export class About implements OnInit, OnDestroy {
+  readonly appVersion: AppVersion = APP_VERSION;
   private sanitizer = inject(DomSanitizer);
   currentSlide = signal(0);
   private autoPlayInterval: ReturnType<typeof setInterval> | null = null;

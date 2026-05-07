@@ -330,6 +330,27 @@
       <div class="footer-brand">
         <div class="footer-logo"><span class="logo-accent">Anota</span>Corts</div>
         <p class="footer-copy">&copy; 2026 AnotaCorts. Todos os direitos reservados.</p>
+        <p
+          style="
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+          "
+        >
+          <span
+            style="
+              background: rgba(255, 255, 255, 0.1);
+              padding: 2px 6px;
+              border-radius: 4px;
+              font-weight: 500;
+            "
+            >v{{ appVersion.version }}</span
+          >
+          <span>Atualizado em {{ appVersion.releaseDate }}</span>
+        </p>
       </div>
       <div class="footer-links">
         <a routerLink="/tutorial">Tutorial</a>

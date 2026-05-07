@@ -9,6 +9,7 @@ export interface AppStoreUrls {
 }
 
 export const APP_STORE_URLS: AppStoreUrls = {
-  googlePlay: 'https://play.google.com/store/apps/details?id=com.business.ia.AnotaCorts&pcampaignid=web_share',
+  googlePlay:
+    'https://play.google.com/store/apps/details?id=com.business.ia.AnotaCorts&pcampaignid=web_share',
   appleAppStore: 'https://apps.apple.com/us/app/anota-corts/id6761080093',
 };

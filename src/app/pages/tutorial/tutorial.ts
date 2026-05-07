@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { APP_VERSION, AppVersion } from '../../config/version.config';
 
 interface SectionLink {
   id: string;
@@ -22,6 +23,7 @@ interface SearchItem {
   styleUrl: './tutorial.css',
 })
 export class Tutorial {
+  readonly appVersion: AppVersion = APP_VERSION;
   searchQuery = signal('');
   activeSection = signal<string>('inicio');
   menuOpen = signal(false);
@@ -45,7 +47,8 @@ export class Tutorial {
       sectionId: 'inicio',
       title: 'Criar uma conta (Cadastro)',
       description: 'Como cadastrar uma nova conta no AnotaCorts em 3 etapas',
-      keywords: 'cadastro cadastrar registrar nova conta criar barbeiro etapa nome email senha cpf telefone cep endereço cnpj',
+      keywords:
+        'cadastro cadastrar registrar nova conta criar barbeiro etapa nome email senha cpf telefone cep endereço cnpj',
     },
     {
       sectionId: 'inicio',
@@ -69,19 +72,22 @@ export class Tutorial {
       sectionId: 'dashboard',
       title: 'Indicadores financeiros',
       description: 'Receita, lucro, ticket médio, margem, novos clientes, retorno',
-      keywords: 'receita lucro ticket medio margem clientes novos retorno frequencia indicadores cards',
+      keywords:
+        'receita lucro ticket medio margem clientes novos retorno frequencia indicadores cards',
     },
     {
       sectionId: 'dashboard',
       title: 'Gráficos e rankings',
       description: 'Evolução financeira, horários de pico, serviços mais vendidos',
-      keywords: 'grafico evolução financeira custos atendimentos dia semana horarios pico serviços vendidos despesas categoria pagamento',
+      keywords:
+        'grafico evolução financeira custos atendimentos dia semana horarios pico serviços vendidos despesas categoria pagamento',
     },
     {
       sectionId: 'gerenciar',
       title: 'Editar barbearia e horários',
       description: 'Atualizar dados da barbearia e horários de funcionamento',
-      keywords: 'barbearia editar nome telefone endereço horario funcionamento abertura fechamento dias semana',
+      keywords:
+        'barbearia editar nome telefone endereço horario funcionamento abertura fechamento dias semana',
     },
     {
       sectionId: 'gerenciar',
@@ -105,13 +111,15 @@ export class Tutorial {
       sectionId: 'gerenciar',
       title: 'Criar novo atendimento',
       description: 'Agendar um corte, barba ou serviço para um cliente',
-      keywords: 'atendimento agendar agendamento criar novo corte barba servico cliente data hora pagamento status',
+      keywords:
+        'atendimento agendar agendamento criar novo corte barba servico cliente data hora pagamento status',
     },
     {
       sectionId: 'gerenciar',
       title: 'Mudar status do atendimento',
       description: 'Agendado, confirmado, em andamento, concluído, cancelado, não compareceu',
-      keywords: 'status atendimento agendado confirmado andamento concluido cancelado nao compareceu mudar alterar etiqueta',
+      keywords:
+        'status atendimento agendado confirmado andamento concluido cancelado nao compareceu mudar alterar etiqueta',
     },
     {
       sectionId: 'gerenciar',
@@ -135,7 +143,8 @@ export class Tutorial {
       sectionId: 'gerenciar',
       title: 'Registrar nova despesa',
       description: 'Cadastrar gastos da barbearia (aluguel, produtos, salários)',
-      keywords: 'despesa gasto registrar adicionar nova aluguel produto salario conta categoria subcategoria pagamento',
+      keywords:
+        'despesa gasto registrar adicionar nova aluguel produto salario conta categoria subcategoria pagamento',
     },
     // {
     //   sectionId: 'ranking',
@@ -171,7 +180,8 @@ export class Tutorial {
       sectionId: 'assinatura',
       title: 'Assinar um plano',
       description: 'Escolher e assinar um plano AnotaCorts',
-      keywords: 'assinatura plano assinar contratar comprar app store iphone android pix cartão pagamento',
+      keywords:
+        'assinatura plano assinar contratar comprar app store iphone android pix cartão pagamento',
     },
     {
       sectionId: 'assinatura',
@@ -195,7 +205,8 @@ export class Tutorial {
       sectionId: 'notificacoes',
       title: 'Ver e gerenciar notificações',
       description: 'Marcar como lidas, excluir, selecionar várias',
-      keywords: 'notificação notificações sino aviso mensagem ler marcar lida excluir selecionar todas',
+      keywords:
+        'notificação notificações sino aviso mensagem ler marcar lida excluir selecionar todas',
     },
     {
       sectionId: 'tema',
@@ -229,9 +240,7 @@ export class Tutorial {
       .slice(0, 8);
   });
 
-  currentIndex = computed(() =>
-    this.sections.findIndex((s) => s.id === this.activeSection()),
-  );
+  currentIndex = computed(() => this.sections.findIndex((s) => s.id === this.activeSection()));
 
   currentSection = computed(() => this.sections[this.currentIndex()] ?? this.sections[0]);
 
@@ -271,9 +280,6 @@ export class Tutorial {
   goTo(id: string) {
     this.activeSection.set(id);
     this.menuOpen.set(false);
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
   }
 
   toggleMenu() {

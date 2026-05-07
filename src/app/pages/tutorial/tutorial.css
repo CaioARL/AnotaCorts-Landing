@@ -3,7 +3,6 @@
   min-height: 100vh;
   background-color: var(--bg);
   position: relative;
-  overflow: hidden;
 }
 
 .section-tag {
@@ -96,8 +95,13 @@
 }
 
 @keyframes orbFloat {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(30px, -20px) scale(1.05); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(30px, -20px) scale(1.05);
+  }
 }
 
 .hero-inner {
@@ -124,8 +128,13 @@
 }
 
 @keyframes gradShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .hero-description {
@@ -167,13 +176,17 @@
   border: 1px solid var(--glass-border);
   border-radius: 14px;
   padding: 0.4rem 0.5rem 0.4rem 1.1rem;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
   backdrop-filter: blur(10px);
 }
 
 .search-box:focus-within {
   border-color: rgba(59, 130, 246, 0.45);
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1), 0 12px 30px -10px rgba(59, 130, 246, 0.25);
+  box-shadow:
+    0 0 0 4px rgba(59, 130, 246, 0.1),
+    0 12px 30px -10px rgba(59, 130, 246, 0.25);
 }
 
 .search-icon {
@@ -371,8 +384,10 @@
 /* TOC */
 .toc {
   position: sticky;
-  top: 2rem;
-  z-index: 1;
+  top: 6rem;
+  z-index: 10;
+  height: fit-content;
+  align-self: start;
 }
 
 .toc-inner {
@@ -891,9 +906,13 @@
   align-items: center;
   justify-content: center;
   z-index: 5;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 0 8px rgba(59, 130, 246, 0.18);
-  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    box-shadow 0.25s, background 0.25s;
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.55),
+    0 0 0 8px rgba(59, 130, 246, 0.18);
+  transition:
+    transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.25s,
+    background 0.25s;
   padding: 0;
   padding-left: 6px;
   animation: pulsePlay 2s ease-in-out infinite;
@@ -901,7 +920,9 @@
 
 .video-play-btn:hover {
   transform: translate(-50%, -50%) scale(1.1);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 0 12px rgba(59, 130, 246, 0.28);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.65),
+    0 0 0 12px rgba(59, 130, 246, 0.28);
 }
 
 .video-play-btn:active {
@@ -912,15 +933,22 @@
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
-  transition: opacity 0.2s, visibility 0.2s;
+  transition:
+    opacity 0.2s,
+    visibility 0.2s;
 }
 
 @keyframes pulsePlay {
-  0%, 100% {
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 0 8px rgba(59, 130, 246, 0.18);
+  0%,
+  100% {
+    box-shadow:
+      0 12px 32px rgba(0, 0, 0, 0.55),
+      0 0 0 8px rgba(59, 130, 246, 0.18);
   }
   50% {
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 0 14px rgba(59, 130, 246, 0.08);
+    box-shadow:
+      0 12px 32px rgba(0, 0, 0, 0.55),
+      0 0 0 14px rgba(59, 130, 246, 0.08);
   }
 }
 
@@ -1156,6 +1184,8 @@
 
   .toc-inner {
     padding: 1rem;
+    position: static;
+    height: auto;
   }
 }
 
