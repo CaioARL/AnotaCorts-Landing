@@ -832,24 +832,28 @@
                 />
               </figure>
 
-              <div class="media-placeholder media-placeholder--video">
-                <div class="media-icon">
-                  <svg
-                    width="22"
-                    height="22"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <polygon points="23 7 16 12 23 17 23 7" />
-                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+              <figure class="tutorial-media tutorial-media--phone" #despesasFig>
+                <video
+                  #despesasVid
+                  src="tutorial/screenshorts/despesas/video-despesas.mp4"
+                  preload="metadata"
+                  playsinline
+                  (click)="despesasVid.paused ? despesasVid.play() : despesasVid.pause()"
+                  (play)="despesasFig.classList.add('is-playing')"
+                  (pause)="despesasFig.classList.remove('is-playing')"
+                  (ended)="despesasFig.classList.remove('is-playing')"
+                ></video>
+                <button
+                  class="video-play-btn"
+                  type="button"
+                  (click)="despesasVid.play()"
+                  aria-label="Reproduzir vídeo"
+                >
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
                   </svg>
-                </div>
-                <span class="media-label">registrando uma despesa do começo ao fim</span>
-              </div>
+                </button>
+              </figure>
             </div>
           </article>
         </section>
@@ -1091,26 +1095,12 @@
               <li>Após confirmação, aparece a mensagem de sucesso.</li>
             </ol>
 
-            <div class="media-placeholder media-placeholder--print">
-              <div class="media-icon">
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"
-                  />
-                  <circle cx="12" cy="13" r="4" />
-                </svg>
-              </div>
-              <span class="media-label">lista de planos disponíveis</span>
-            </div>
+            <figure class="tutorial-media tutorial-media--phone">
+              <img
+                src="tutorial/screenshorts/assinatura/etapa1.svg"
+                alt="Tela de cadastro - etapa 3"
+              />
+            </figure>
 
             <h4 class="t-step-title">6.2 Ver histórico de pagamentos</h4>
             <p class="t-text">
@@ -1118,7 +1108,7 @@
               pagamento de cada cobrança.
             </p>
 
-            <h4 class="t-step-title">6.3 Gerenciar cartões</h4>
+            <h4 class="t-step-title">6.3 Gerenciar cartões - (Em Breve...)</h4>
             <ol class="t-list">
               <li>Toque em <strong>"Gerenciar cartões"</strong>.</li>
               <li>
@@ -1129,7 +1119,7 @@
               <li>Defina um cartão padrão pras renovações.</li>
             </ol>
 
-            <div class="media-placeholder media-placeholder--print">
+            <!-- <div class="media-placeholder media-placeholder--print">
               <div class="media-icon">
                 <svg
                   width="22"
@@ -1148,7 +1138,7 @@
                 </svg>
               </div>
               <span class="media-label">tela de cartões salvos</span>
-            </div>
+            </div> -->
 
             <h4 class="t-step-title">6.4 Cancelar assinatura</h4>
             <ol class="t-list">
@@ -1157,24 +1147,28 @@
               <li>Você continua com acesso até o fim do período pago.</li>
             </ol>
 
-            <div class="media-placeholder media-placeholder--video">
-              <div class="media-icon">
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <polygon points="23 7 16 12 23 17 23 7" />
-                  <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+            <figure class="tutorial-media tutorial-media--phone" #assinaturaFig>
+              <video
+                #assinaturaVid
+                src="tutorial/screenshorts/assinatura/assinatura-video.mp4"
+                preload="metadata"
+                playsinline
+                (click)="assinaturaVid.paused ? assinaturaVid.play() : assinaturaVid.pause()"
+                (play)="assinaturaFig.classList.add('is-playing')"
+                (pause)="assinaturaFig.classList.remove('is-playing')"
+                (ended)="assinaturaFig.classList.remove('is-playing')"
+              ></video>
+              <button
+                class="video-play-btn"
+                type="button"
+                (click)="assinaturaVid.play()"
+                aria-label="Reproduzir vídeo"
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
                 </svg>
-              </div>
-              <span class="media-label">assinando um plano do início ao fim</span>
-            </div>
+              </button>
+            </figure>
           </article>
         </section>
       }
@@ -1406,7 +1400,7 @@
               Em <strong>Perfil → Suporte</strong>, você encontra os contatos da nossa equipe.
             </p>
 
-            <div class="media-placeholder media-placeholder--video">
+            <!-- <div class="media-placeholder media-placeholder--video">
               <div class="media-icon">
                 <svg
                   width="22"
@@ -1425,7 +1419,7 @@
               <span class="media-label">
                 visão geral do app (1-2 min mostrando todas as telas)</span
               >
-            </div>
+            </div> -->
           </article>
         </section>
       }
