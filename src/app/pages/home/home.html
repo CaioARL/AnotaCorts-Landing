@@ -67,6 +67,188 @@
     </div>
   </header>
 
+  <!-- Seção de Estatísticas do Ecossistema -->
+  <section
+    class="stats-section container animate-fade-in"
+    *ngIf="!loading() && !error() && stats()"
+  >
+    <div class="stats-header">
+      <h2 class="stats-section-title">
+        A evolução do <span class="title-gradient">nosso ecossistema</span>
+      </h2>
+      <p class="stats-section-subtitle">
+        Acompanhe em tempo real os indicadores de escala, frequência e engajamento das barbearias
+        que confiam e crescem junto com o AnotaCorts.
+      </p>
+    </div>
+
+    <!-- Indicadores Principais -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-card-glow"></div>
+        <div class="stat-icon-wrapper">
+          <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </div>
+        <h3 class="stat-number">{{ stats()?.totalBarbeariasAtivas }}</h3>
+        <p class="stat-label">Barbearias Ativas</p>
+        <span class="stat-badge">Profissionais de elite</span>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-card-glow"></div>
+        <div class="stat-icon-wrapper">
+          <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <h3 class="stat-number">{{ stats()?.totalAtendimentosRealizados }}</h3>
+        <p class="stat-label">Cortes Agendados</p>
+        <span class="stat-badge">Atendimentos concluídos</span>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-card-glow"></div>
+        <div class="stat-icon-wrapper">
+          <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+        </div>
+        <h3 class="stat-number">{{ stats()?.mediaAtendimentosPorBarbearia }}</h3>
+        <p class="stat-label">Média de Cortes</p>
+        <span class="stat-badge">Por estabelecimento</span>
+      </div>
+    </div>
+
+    <!-- Indicadores de Frequência de Uso -->
+    <div class="engagement-container">
+      <div class="engagement-info">
+        <h3 class="engagement-title">Fidelização e uso recorrente</h3>
+        <p class="engagement-desc">
+          O AnotaCorts não é apenas mais um aplicativo baixado; ele é inserido no coração da rotina
+          diária das barbearias brasileiras. Nosso índice de engajamento ativo demonstra que os
+          usuários utilizam o sistema com alta frequência:
+        </p>
+
+        <div class="engagement-bars">
+          <div class="bar-item">
+            <div class="bar-header">
+              <span>Uso Regular (>= 10 cortes registrados)</span>
+              <span class="bar-percentage">{{ stats()?.taxaUsoRegular }}%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill" [style.width.%]="stats()?.taxaUsoRegular"></div>
+            </div>
+          </div>
+
+          <div class="bar-item">
+            <div class="bar-header">
+              <span>Uso Frequente (>= 50 cortes registrados)</span>
+              <span class="bar-percentage">{{ stats()?.taxaUsoFrequente }}%</span>
+            </div>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                [style.width.%]="stats()?.taxaUsoFrequente"
+                style="background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%)"
+              ></div>
+            </div>
+          </div>
+
+          <div class="bar-item">
+            <div class="bar-header">
+              <span>Uso Intenso (>= 100 cortes registrados)</span>
+              <span class="bar-percentage">{{ stats()?.taxaUsoIntenso }}%</span>
+            </div>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                [style.width.%]="stats()?.taxaUsoIntenso"
+                style="background: var(--secondary)"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="states-card">
+        <div class="states-header">
+          <h4>Atividade por Estado</h4>
+          <span
+            class="platform-badge"
+            [class.operational]="stats()?.statusPlataforma === 'OPERATIONAL'"
+          >
+            <span class="pulse-dot"></span> Online ({{ stats()?.uptimePlataforma }}%)
+          </span>
+        </div>
+        <p class="states-subtitle">
+          Nossa abrangência em estados com barbearias ativas na plataforma:
+        </p>
+
+        <div class="states-list">
+          <div class="state-row" *ngFor="let state of stats()?.barbeariasPorEstado | keyvalue">
+            <span class="state-name">{{ state.key }}</span>
+            <div class="state-bar-track">
+              <div
+                class="state-bar-fill"
+                [style.width.%]="(state.value / (stats()?.totalBarbeariasAtivas || 1)) * 100"
+              ></div>
+            </div>
+            <span class="state-count"
+              >{{ state.value }} {{ state.value === 1 ? 'ativa' : 'ativas' }}</span
+            >
+          </div>
+          <div class="no-states" *ngIf="(stats()?.barbeariasPorEstado | keyvalue)?.length === 0">
+            Nenhuma barbearia ativa cadastrada fora do distrito federal.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Estado de Carregamento -->
+  <section class="stats-loading container" *ngIf="loading() && !error()">
+    <div class="loading-spinner"></div>
+    <p>Carregando indicadores de atividade...</p>
+  </section>
+
   <footer class="home-footer">
     <div class="container footer-content">
       <div>
