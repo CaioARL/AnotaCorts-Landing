@@ -1,39 +1,15 @@
 <div class="tutorial-page">
-  <!-- Nav -->
-  <nav class="tutorial-nav container">
-    <a routerLink="/" class="logo"> <span class="logo-accent">Anota</span>Corts </a>
-    <a routerLink="/" class="back-link">
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M19 12H5M12 19l-7-7 7-7" />
-      </svg>
-      Voltar
-    </a>
-  </nav>
+  <app-navbar></app-navbar>
 
   <!-- Hero -->
   <section class="tutorial-hero">
-    <div class="hero-orb hero-orb--blue"></div>
-    <div class="hero-orb hero-orb--rose"></div>
     <div class="container hero-inner">
-      <span class="section-tag animate-fade-in">GUIA COMPLETO</span>
-      <h1 class="hero-title animate-fade-in" style="animation-delay: 0.1s">
-        Tutorial
-        <span class="hero-highlight">AnotaCorts</span>
+      <span class="section-tag animate-fade-in">{{ t.hero.eyebrow }}</span>
+      <h1 class="hero-title animate-fade-in">
+        {{ t.hero.title }}
+        <span class="hero-highlight">{{ t.hero.titleHighlight }}</span>
       </h1>
-      <p class="hero-description animate-fade-in" style="animation-delay: 0.2s">
-        Aprenda passo a passo como usar todas as funcionalidades do app para gerenciar sua barbearia
-        — do cadastro às finanças, agendamentos e ranking.
-      </p>
-      <div class="hero-line animate-fade-in" style="animation-delay: 0.35s"></div>
+      <p class="hero-description animate-fade-in">{{ t.hero.description }}</p>
     </div>
   </section>
 
@@ -58,7 +34,7 @@
         <input
           type="text"
           class="search-input"
-          placeholder="Buscar tópico (ex: cadastro, despesa, ranking...)"
+          placeholder="{{ t.search.placeholder }}"
           [value]="searchQuery()"
           (input)="onSearchInput($event)"
           (focus)="setSearchFocused(true)"
@@ -1035,20 +1011,41 @@
 
             <h4 class="t-step-title">5.3 Excluir conta</h4>
             <div class="t-warning">
-              ⚠️ <strong>Atenção:</strong> ao solicitar exclusão, você tem 7 dias pra desistir antes
+              ⚠️ <strong>Atenção:</strong> ao solicitar exclusão, você tem <strong>90 dias</strong> pra desistir antes
               da remoção definitiva.
             </div>
             <ol class="t-list">
               <li>Em Perfil, toque em <strong>"Excluir Conta"</strong>.</li>
               <li>Confirme a solicitação.</li>
               <li>
-                Durante 7 dias, ao abrir o app, você verá um aviso com a opção
+                Durante 90 dias, ao abrir o app, você verá um aviso com a opção
                 <strong>"Cancelar exclusão"</strong>.
               </li>
-              <li>Após 7 dias, a conta e todos os dados são removidos permanentemente.</li>
+              <li>Após 90 dias, a conta e todos os dados são removidos permanentemente.</li>
             </ol>
 
-            <h4 class="t-step-title">5.4 Sair (Logout)</h4>
+            <h4 class="t-step-title">5.4 Cancelar exclusão e reativar conta</h4>
+            <div class="t-tip">
+              💡 Mudou de ideia? Você pode cancelar a exclusão a qualquer momento dentro dos 90 dias
+              — tanto dentro do app quanto diretamente pela tela de login.
+            </div>
+            <p class="t-text"><strong>Opção A — pelo app (conta ainda acessível):</strong></p>
+            <ol class="t-list">
+              <li>Abra o app — um aviso de exclusão pendente aparecerá na tela.</li>
+              <li>Toque em <strong>"Cancelar exclusão"</strong>.</li>
+              <li>Digite seu e-mail e senha para confirmar.</li>
+              <li>Sua conta é reativada imediatamente.</li>
+            </ol>
+            <p class="t-text"><strong>Opção B — pela tela de login (token expirado ou já deslogado):</strong></p>
+            <ol class="t-list">
+              <li>Tente fazer login normalmente com seu e-mail e senha.</li>
+              <li>O app exibirá uma mensagem informando que a conta está em processo de exclusão.</li>
+              <li>Uma janela de confirmação aparecerá perguntando se deseja <strong>reativar a conta</strong>.</li>
+              <li>Confirme — a conta é restaurada e o login acontece automaticamente.</li>
+            </ol>
+            <div class="t-success">✅ Após reativar, sua assinatura e todos os dados voltam normalmente.</div>
+
+            <h4 class="t-step-title">5.5 Sair (Logout)</h4>
             <ol class="t-list">
               <li>Em Perfil, role até o final.</li>
               <li>Toque em <strong>"Sair"</strong>.</li>
@@ -1327,8 +1324,9 @@
             <details class="faq-item">
               <summary>Como cancelo a exclusão da minha conta?</summary>
               <p>
-                Você tem 7 dias após solicitar. Abra o app - aparecerá o aviso com a opção
-                <strong>"Cancelar exclusão"</strong>.
+                Você tem <strong>90 dias</strong> após solicitar. Pode cancelar de duas formas:
+                (1) pelo app — um aviso aparece ao abrir, basta tocar em "Cancelar exclusão" e confirmar com e-mail e senha;
+                (2) pela tela de login — tente entrar normalmente e o app oferecerá reativar sua conta automaticamente.
               </p>
             </details>
 
@@ -1473,39 +1471,5 @@
     </main>
   </div>
 
-  <!-- Footer -->
-  <footer class="tutorial-footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <div class="footer-logo"><span class="logo-accent">Anota</span>Corts</div>
-        <p class="footer-copy">&copy; 2026 AnotaCorts. Todos os direitos reservados.</p>
-        <p
-          style="
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-          "
-        >
-          <span
-            style="
-              background: rgba(255, 255, 255, 0.1);
-              padding: 2px 6px;
-              border-radius: 4px;
-              font-weight: 500;
-            "
-            >v{{ appVersion.version }}</span
-          >
-          <span>Atualizado em {{ appVersion.releaseDate }}</span>
-        </p>
-      </div>
-      <div class="footer-links">
-        <a routerLink="/sobre">Sobre</a>
-        <a routerLink="/privacidade">Privacidade</a>
-        <a routerLink="/termos">Termos</a>
-      </div>
-    </div>
-  </footer>
+  <app-footer></app-footer>
 </div>

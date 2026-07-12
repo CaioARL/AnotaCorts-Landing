@@ -4,6 +4,9 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 
 import { APP_VERSION, AppVersion } from '../../config/version.config';
+import { COPY } from '../../config/copy';
+import { Navbar } from '../../shared/navbar/navbar';
+import { Footer } from '../../shared/footer/footer';
 
 interface Slide {
   image: string;
@@ -13,12 +16,14 @@ interface Slide {
 
 @Component({
   selector: 'app-about',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, Navbar, Footer],
   templateUrl: './about.html',
   styleUrl: './about.css',
 })
 export class About implements OnInit, OnDestroy {
   readonly appVersion: AppVersion = APP_VERSION;
+  readonly t = COPY.about;
+  readonly brand = COPY.brand;
   private sanitizer = inject(DomSanitizer);
   currentSlide = signal(0);
   private autoPlayInterval: ReturnType<typeof setInterval> | null = null;
@@ -41,7 +46,7 @@ export class About implements OnInit, OnDestroy {
     },
     {
       image: 'screenshots/atendimento.png',
-      caption: 'Controle agendamentos e atendimentos do dia',
+      caption: 'Controle atendimentos do dia',
       icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg>',
     },
     {

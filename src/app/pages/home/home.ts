@@ -1,35 +1,27 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { APP_STORE_URLS, AppStoreUrls } from '../../config/app-store.config';
+import { COPY } from '../../config/copy';
 import { APP_VERSION, AppVersion } from '../../config/version.config';
-import { API_BASE_URL } from '../../config/api.config';
+import { LandingMetrics, MetricsService } from '../../services/metrics.service';
+import { Footer } from '../../shared/footer/footer';
+import { Navbar } from '../../shared/navbar/navbar';
 
-export interface LandingStats {
-  timestamp: string;
-  totalBarbeariasAtivas: number;
-  totalAtendimentosRealizados: number;
-  mediaAtendimentosPorBarbearia: number;
-  taxaUsoRegular: number;
-  taxaUsoFrequente: number;
-  taxaUsoIntenso: number;
-  barbeariasPorEstado: Record<string, number>;
-  statusPlataforma: string;
-  uptimePlataforma: number;
-}
+export type LandingStats = LandingMetrics;
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, CommonModule],
+  imports: [CommonModule, Navbar, Footer],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home implements OnInit {
-  private readonly http = inject(HttpClient);
+  private readonly metricsService = inject(MetricsService);
 
   readonly storeUrls: AppStoreUrls = APP_STORE_URLS;
   readonly appVersion: AppVersion = APP_VERSION;
+  readonly t = COPY.home;
+  readonly brand = COPY.brand;
 
   readonly stats = signal<LandingStats | null>(null);
   readonly loading = signal<boolean>(true);
@@ -42,10 +34,11 @@ export class Home implements OnInit {
   fetchStats(): void {
     this.loading.set(true);
     this.error.set(false);
-    this.http.get<LandingStats>(`${API_BASE_URL}/v1/public/statistics/landing`).subscribe({
+    this.metricsService.getOverview().subscribe({
       next: (data) => {
         this.stats.set(data);
         this.loading.set(false);
+        requestAnimationFrame(() => requestAnimationFrame(() => this.setupRevealObserver()));
       },
       error: (err) => {
         console.error('Erro ao buscar estatísticas da landing page:', err);
@@ -53,5 +46,21 @@ export class Home implements OnInit {
         this.loading.set(false);
       },
     });
+  }
+
+  private setupRevealObserver(): void {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.07 },
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
   }
 }

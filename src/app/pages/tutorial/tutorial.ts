@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { APP_VERSION, AppVersion } from '../../config/version.config';
+import { COPY } from '../../config/copy';
+import { Navbar } from '../../shared/navbar/navbar';
+import { Footer } from '../../shared/footer/footer';
 
 interface SectionLink {
   id: string;
@@ -18,12 +21,13 @@ interface SearchItem {
 
 @Component({
   selector: 'app-tutorial',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, Navbar, Footer],
   templateUrl: './tutorial.html',
   styleUrl: './tutorial.css',
 })
 export class Tutorial {
   readonly appVersion: AppVersion = APP_VERSION;
+  readonly t = COPY.tutorial;
   searchQuery = signal('');
   activeSection = signal<string>('inicio');
   menuOpen = signal(false);
@@ -112,7 +116,7 @@ export class Tutorial {
       title: 'Criar novo atendimento',
       description: 'Agendar um corte, barba ou serviço para um cliente',
       keywords:
-        'atendimento agendar agendamento criar novo corte barba servico cliente data hora pagamento status',
+        'criar novo corte barba servico cliente data hora pagamento status',
     },
     {
       sectionId: 'gerenciar',
@@ -167,8 +171,15 @@ export class Tutorial {
     {
       sectionId: 'perfil',
       title: 'Excluir conta',
-      description: 'Solicitar exclusão definitiva — você tem 7 dias para desistir',
-      keywords: 'excluir conta deletar remover apagar 7 dias cancelar exclusão definitiva',
+      description: 'Solicitar exclusão definitiva — você tem 90 dias para desistir',
+      keywords: 'excluir conta deletar remover apagar 90 dias cancelar exclusão definitiva',
+    },
+    {
+      sectionId: 'perfil',
+      title: 'Cancelar exclusão e reativar conta',
+      description: 'Reverter solicitação de exclusão pelo app ou pela tela de login',
+      keywords:
+        'reativar conta cancelar exclusão login tela acesso reativar restaurar 90 dias pendente',
     },
     {
       sectionId: 'perfil',

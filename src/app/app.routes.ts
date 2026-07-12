@@ -14,6 +14,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/tutorial/tutorial').then((m) => m.Tutorial),
   },
   {
+    path: 'metricas',
+    loadComponent: () => import('./pages/metrics/metrics').then((m) => m.Metrics),
+  },
+  {
     path: 'termos',
     loadComponent: () => import('./pages/terms/terms').then((m) => m.Terms),
   },

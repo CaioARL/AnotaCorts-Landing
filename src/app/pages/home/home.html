@@ -1,288 +1,120 @@
-<div class="landing">
-  <nav class="home-nav container">
-    <div class="home-logo"><span style="color: var(--primary)">Anota</span>Corts</div>
-    <div class="nav-links">
-      <a routerLink="/sobre">Sobre</a>
-      <a routerLink="/tutorial">Tutorial</a>
-    </div>
-  </nav>
+<div class="home-page">
+  <app-navbar></app-navbar>
 
+  <!-- Hero -->
   <header class="hero container">
     <div class="hero-content animate-fade-in">
+      <span class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        {{ t.hero.eyebrow }}
+      </span>
       <h1 class="hero-title">
-        Sua Barbearia <br />
-        <span class="title-gradient">no próximo nível.</span>
+        {{ t.hero.title }}<br />
+        <span class="title-gradient">{{ t.hero.titleHighlight }}</span>
       </h1>
-      <p class="hero-description">
-        Gerencie agendamentos, despesas e faturamento em um só lugar. A solução completa para
-        barbeiros que buscam excelência e praticidade.
-      </p>
-
+      <p class="hero-desc">{{ t.hero.description }}</p>
       <div class="store-buttons">
-        <a
-          [href]="storeUrls.googlePlay"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn store-btn"
-        >
-          <svg viewBox="0 0 512 512" width="24" height="24" fill="currentColor">
-            <path
-              d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-10.3 18-28.5-1.2-40.8zM325.3 277.7l60.1 60.1L104.6 499l220.7-221.3z"
-            />
-          </svg>
-          <div style="text-align: left; line-height: 1">
-            <span style="font-size: 0.75rem; font-weight: 400; display: block; margin-bottom: 2px"
-              >DISPONÍVEL NO</span
-            >
-            <span style="font-size: 1.1rem">Google Play</span>
+        <a [href]="storeUrls.googlePlay" target="_blank" rel="noopener noreferrer" class="btn store-btn">
+          <svg viewBox="0 0 512 512" width="22" height="22" fill="currentColor"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-10.3 18-28.5-1.2-40.8zM325.3 277.7l60.1 60.1L104.6 499l220.7-221.3z"/></svg>
+          <div class="store-btn-text">
+            <span class="store-prefix">{{ t.store.googlePlay.prefix }}</span>
+            <span class="store-name">{{ t.store.googlePlay.label }}</span>
           </div>
         </a>
-        <a
-          [href]="storeUrls.appleAppStore ?? '#'"
-          [class.store-btn-disabled]="!storeUrls.appleAppStore"
-          [attr.target]="storeUrls.appleAppStore ? '_blank' : null"
-          [attr.rel]="storeUrls.appleAppStore ? 'noopener noreferrer' : null"
-          [attr.aria-disabled]="!storeUrls.appleAppStore"
-          class="btn store-btn"
-        >
-          <svg viewBox="0 0 384 512" width="24" height="24" fill="currentColor">
-            <path
-              d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"
-            />
-          </svg>
-          <div style="text-align: left; line-height: 1">
-            <span
-              style="font-size: 0.75rem; font-weight: 400; display: block; margin-bottom: 2px"
-              >{{ storeUrls.appleAppStore ? 'BAIXAR NA' : 'EM BREVE NA' }}</span
-            >
-            <span style="font-size: 1.1rem">App Store</span>
+        <a [href]="storeUrls.appleAppStore ?? '#'" [class.store-btn-disabled]="!storeUrls.appleAppStore" [attr.target]="storeUrls.appleAppStore ? '_blank' : null" [attr.rel]="storeUrls.appleAppStore ? 'noopener noreferrer' : null" class="btn store-btn">
+          <svg viewBox="0 0 384 512" width="22" height="22" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+          <div class="store-btn-text">
+            <span class="store-prefix">{{ storeUrls.appleAppStore ? t.store.appStore.prefixAvailable : t.store.appStore.prefixSoon }}</span>
+            <span class="store-name">{{ t.store.appStore.label }}</span>
           </div>
         </a>
       </div>
     </div>
-
-    <div class="hero-image animate-fade-in">
-      <div class="hero-image-glow"></div>
+    <div class="hero-visual animate-fade-in">
+      <div class="hero-mockup-glow"></div>
       <img src="mobile2.png" alt="AnotaCorts App" class="hero-mockup" />
     </div>
   </header>
 
-  <!-- Seção de Estatísticas do Ecossistema -->
-  <section
-    class="stats-section container animate-fade-in"
-    *ngIf="!loading() && !error() && stats()"
-  >
-    <div class="stats-header">
-      <h2 class="stats-section-title">
-        A evolução do <span class="title-gradient">nosso ecossistema</span>
-      </h2>
-      <p class="stats-section-subtitle">
-        Acompanhe em tempo real os indicadores de escala, frequência e engajamento das barbearias
-        que confiam e crescem junto com o AnotaCorts.
-      </p>
-    </div>
-
-    <!-- Indicadores Principais -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-card-glow"></div>
-        <div class="stat-icon-wrapper">
-          <svg
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
-        </div>
-        <h3 class="stat-number">{{ stats()?.totalBarbeariasAtivas }}</h3>
-        <p class="stat-label">Barbearias Ativas</p>
-        <span class="stat-badge">Profissionais de elite</span>
+  <!-- Stats -->
+  @if (!loading() && !error() && stats()) {
+    <section class="stats-section container reveal">
+      <div class="section-header">
+        <span class="eyebrow">{{ t.stats.sectionTag }}</span>
+        <h2 class="section-title">{{ t.stats.title }} <span class="title-gradient">{{ t.stats.titleHighlight }}</span></h2>
+        <p class="section-subtitle">{{ t.stats.subtitle }}</p>
       </div>
-
-      <div class="stat-card">
-        <div class="stat-card-glow"></div>
-        <div class="stat-icon-wrapper">
-          <svg
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <line x1="16" y1="13" x2="8" y2="13"></line>
-            <line x1="16" y1="17" x2="8" y2="17"></line>
-            <polyline points="10 9 9 9 8 9"></polyline>
-          </svg>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-number">{{ stats()?.totalBarbeariasAtivas }}</p>
+          <p class="stat-label">{{ t.stats.cards[0].label }}</p>
+          <span class="stat-badge">{{ t.stats.cards[0].badge }}</span>
         </div>
-        <h3 class="stat-number">{{ stats()?.totalAtendimentosRealizados }}</h3>
-        <p class="stat-label">Cortes Agendados</p>
-        <span class="stat-badge">Atendimentos concluídos</span>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-card-glow"></div>
-        <div class="stat-icon-wrapper">
-          <svg
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="18" y1="20" x2="18" y2="10"></line>
-            <line x1="12" y1="20" x2="12" y2="4"></line>
-            <line x1="6" y1="20" x2="6" y2="14"></line>
-          </svg>
+        <div class="stat-card">
+          <p class="stat-number">{{ stats()?.totalAtendimentosRealizados }}</p>
+          <p class="stat-label">{{ t.stats.cards[1].label }}</p>
+          <span class="stat-badge">{{ t.stats.cards[1].badge }}</span>
         </div>
-        <h3 class="stat-number">{{ stats()?.mediaAtendimentosPorBarbearia }}</h3>
-        <p class="stat-label">Média de Cortes</p>
-        <span class="stat-badge">Por estabelecimento</span>
+        <div class="stat-card">
+          <p class="stat-number">{{ stats()?.mediaAtendimentosPorBarbearia }}</p>
+          <p class="stat-label">{{ t.stats.cards[2].label }}</p>
+          <span class="stat-badge">{{ t.stats.cards[2].badge }}</span>
+        </div>
       </div>
-    </div>
-
-    <!-- Indicadores de Frequência de Uso -->
-    <div class="engagement-container">
-      <div class="engagement-info">
-        <h3 class="engagement-title">Fidelização e uso recorrente</h3>
-        <p class="engagement-desc">
-          O AnotaCorts não é apenas mais um aplicativo baixado; ele é inserido no coração da rotina
-          diária das barbearias brasileiras. Nosso índice de engajamento ativo demonstra que os
-          usuários utilizam o sistema com alta frequência:
-        </p>
-
-        <div class="engagement-bars">
-          <div class="bar-item">
-            <div class="bar-header">
-              <span>Uso Regular (>= 10 cortes registrados)</span>
-              <span class="bar-percentage">{{ stats()?.taxaUsoRegular }}%</span>
-            </div>
-            <div class="bar-track">
-              <div class="bar-fill" [style.width.%]="stats()?.taxaUsoRegular"></div>
-            </div>
+      <div class="engagement-row reveal">
+        <div class="engagement-info">
+          <h3 class="engagement-title">{{ t.stats.engagement.title }}</h3>
+          <p class="engagement-desc">{{ t.stats.engagement.description }}</p>
+          <div class="bars">
+            @for (bar of t.stats.engagement.bars; track bar.label; let i = $index) {
+              <div class="bar-item">
+                <div class="bar-header">
+                  <span>{{ bar.label }}</span>
+                  <span class="bar-pct">
+                    @if (i === 0) { {{ stats()?.taxaUsoRegular }}% }
+                    @else if (i === 1) { {{ stats()?.taxaUsoFrequente }}% }
+                    @else { {{ stats()?.taxaUsoIntenso }}% }
+                  </span>
+                </div>
+                <div class="bar-track">
+                  <div class="bar-fill" [style.width.%]="i === 0 ? stats()?.taxaUsoRegular : i === 1 ? stats()?.taxaUsoFrequente : stats()?.taxaUsoIntenso" [class.fill-mid]="i === 1" [class.fill-high]="i === 2"></div>
+                </div>
+              </div>
+            }
           </div>
-
-          <div class="bar-item">
-            <div class="bar-header">
-              <span>Uso Frequente (>= 50 cortes registrados)</span>
-              <span class="bar-percentage">{{ stats()?.taxaUsoFrequente }}%</span>
-            </div>
-            <div class="bar-track">
-              <div
-                class="bar-fill"
-                [style.width.%]="stats()?.taxaUsoFrequente"
-                style="background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%)"
-              ></div>
-            </div>
+        </div>
+        <div class="states-card">
+          <div class="states-head">
+            <h4>{{ t.stats.states.title }}</h4>
+            <span class="status-pill" [class.online]="stats()?.statusPlataforma === 'OPERATIONAL'">
+              <span class="pulse-dot" [class.online]="stats()?.statusPlataforma === 'OPERATIONAL'"></span>
+              {{ stats()?.uptimePlataforma }}%
+            </span>
           </div>
-
-          <div class="bar-item">
-            <div class="bar-header">
-              <span>Uso Intenso (>= 100 cortes registrados)</span>
-              <span class="bar-percentage">{{ stats()?.taxaUsoIntenso }}%</span>
-            </div>
-            <div class="bar-track">
-              <div
-                class="bar-fill"
-                [style.width.%]="stats()?.taxaUsoIntenso"
-                style="background: var(--secondary)"
-              ></div>
-            </div>
+          <p class="states-sub">{{ t.stats.states.subtitle }}</p>
+          <div class="states-list">
+            @for (state of stats()?.barbeariasPorEstado | keyvalue; track state.key) {
+              <div class="state-row">
+                <span class="state-name">{{ state.key }}</span>
+                <div class="state-bar-track">
+                  <div class="state-bar-fill" [style.width.%]="(state.value / (stats()?.totalBarbeariasAtivas || 1)) * 100"></div>
+                </div>
+                <span class="state-count">{{ state.value }} {{ state.value === 1 ? 'ativa' : 'ativas' }}</span>
+              </div>
+            } @empty {
+              <p class="empty-msg">{{ t.stats.states.empty }}</p>
+            }
           </div>
         </div>
       </div>
+    </section>
+  }
+  @if (loading() && !error()) {
+    <section class="loading-section container">
+      <div class="loading-spinner"></div>
+      <p>{{ t.loading }}</p>
+    </section>
+  }
 
-      <div class="states-card">
-        <div class="states-header">
-          <h4>Atividade por Estado</h4>
-          <span
-            class="platform-badge"
-            [class.operational]="stats()?.statusPlataforma === 'OPERATIONAL'"
-          >
-            <span class="pulse-dot"></span> Online ({{ stats()?.uptimePlataforma }}%)
-          </span>
-        </div>
-        <p class="states-subtitle">
-          Nossa abrangência em estados com barbearias ativas na plataforma:
-        </p>
-
-        <div class="states-list">
-          <div class="state-row" *ngFor="let state of stats()?.barbeariasPorEstado | keyvalue">
-            <span class="state-name">{{ state.key }}</span>
-            <div class="state-bar-track">
-              <div
-                class="state-bar-fill"
-                [style.width.%]="(state.value / (stats()?.totalBarbeariasAtivas || 1)) * 100"
-              ></div>
-            </div>
-            <span class="state-count"
-              >{{ state.value }} {{ state.value === 1 ? 'ativa' : 'ativas' }}</span
-            >
-          </div>
-          <div class="no-states" *ngIf="(stats()?.barbeariasPorEstado | keyvalue)?.length === 0">
-            Nenhuma barbearia ativa cadastrada fora do distrito federal.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Estado de Carregamento -->
-  <section class="stats-loading container" *ngIf="loading() && !error()">
-    <div class="loading-spinner"></div>
-    <p>Carregando indicadores de atividade...</p>
-  </section>
-
-  <footer class="home-footer">
-    <div class="container footer-content">
-      <div>
-        <div class="home-logo" style="margin-bottom: 1rem">
-          <span style="color: var(--primary)">Anota</span>Corts
-        </div>
-        <p style="color: var(--text-muted)">© 2026 AnotaCorts. Todos os direitos reservados.</p>
-        <p
-          style="
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-          "
-        >
-          <span
-            style="
-              background: rgba(255, 255, 255, 0.1);
-              padding: 2px 6px;
-              border-radius: 4px;
-              font-weight: 500;
-            "
-            >v{{ appVersion.version }}</span
-          >
-          <span>Atualizado em {{ appVersion.releaseDate }}</span>
-        </p>
-      </div>
-      <div class="footer-links">
-        <a routerLink="/tutorial">Tutorial</a>
-        <a routerLink="/privacidade">Privacidade</a>
-        <a routerLink="/termos">Termos</a>
-      </div>
-    </div>
-  </footer>
+  <app-footer></app-footer>
 </div>

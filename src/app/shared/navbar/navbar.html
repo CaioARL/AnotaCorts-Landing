@@ -1,0 +1,47 @@
+<nav class="navbar">
+  <div class="navbar-inner container">
+    <a routerLink="/" class="navbar-logo" (click)="close()">
+      <span class="logo-accent">{{ brand.logoAccent }}</span>{{ brand.logoRest }}
+    </a>
+
+    <ul class="navbar-links" role="list">
+      @for (link of links; track link.route) {
+        <li>
+          <a
+            [routerLink]="link.route"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: link.route === '/' }"
+            class="nav-link"
+          >{{ link.label }}</a>
+        </li>
+      }
+    </ul>
+
+    <button
+      class="navbar-burger"
+      [class.open]="mobileOpen()"
+      (click)="toggle()"
+      aria-label="Menu de navegação"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" [class.open]="mobileOpen()">
+    <ul class="mobile-links" role="list">
+      @for (link of links; track link.route) {
+        <li>
+          <a
+            [routerLink]="link.route"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: link.route === '/' }"
+            class="mobile-link"
+            (click)="close()"
+          >{{ link.label }}</a>
+        </li>
+      }
+    </ul>
+  </div>
+</nav>
