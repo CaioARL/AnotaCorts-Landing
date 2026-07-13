@@ -503,6 +503,14 @@
   margin-top: 0.5rem;
 }
 
+.growth-chart-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 320px;
+  margin-top: 0.5rem;
+}
+
 .growth-chart {
   display: flex;
   align-items: flex-end;

@@ -308,7 +308,7 @@
 
           <div class="growth-summary">
             <span class="growth-total in">+{{ format(growthChart().totalEntradas) }} entraram</span>
-            <span class="growth-period">pico mensal de {{ format(growthChart().max) }} usuários</span>
+            <span class="growth-period">{{ peakLabel() }} de {{ format(growthChart().max) }} usuários</span>
           </div>
         </div>
 
@@ -318,8 +318,14 @@
             [options]="growthChartOption()"
             class="echarts-growth"
           ></div>
-        } @else {
+        } @else if (!growthLoading()) {
           <div class="no-states">{{ t.growth.noData }}</div>
+        }
+
+        @if (growthLoading()) {
+          <div class="growth-chart-loading">
+            <div class="loading-spinner"></div>
+          </div>
         }
       </section>
 

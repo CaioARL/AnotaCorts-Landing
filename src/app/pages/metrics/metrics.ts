@@ -82,6 +82,14 @@ export class Metrics implements OnInit {
   readonly startDate = signal<string>('');
   readonly endDate = signal<string>('');
 
+  /** Indica carregamento parcial (apenas o gráfico de crescimento, sem ocultar a página inteira). */
+  readonly growthLoading = signal<boolean>(false);
+
+  /** Rótulo do pico no resumo: "pico mensal" ou "pico diário" conforme granularidade. */
+  readonly peakLabel = computed<string>(() =>
+    this.granularity() === 'DAILY' ? 'pico diário' : 'pico mensal',
+  );
+
   /** Rótulo dinâmico da section tag e cabeçalho do gráfico. */
   readonly periodLabel = computed<string>(() => {
     if (this.granularity() === 'DAILY') {
@@ -239,10 +247,14 @@ export class Metrics implements OnInit {
     this.fetchMetrics();
   }
 
-  fetchMetrics(): void {
-    this.loading.set(true);
-    this.error.set(false);
-    this.displayValues.set({ ...ZERO_VALUES });
+  fetchMetrics(granularitySwitch = false): void {
+    if (granularitySwitch) {
+      this.growthLoading.set(true);
+    } else {
+      this.loading.set(true);
+      this.error.set(false);
+      this.displayValues.set({ ...ZERO_VALUES });
+    }
 
     const params: GrowthParams =
       this.granularity() === 'DAILY'
@@ -252,33 +264,40 @@ export class Metrics implements OnInit {
     this.metricsService.getOverview(params).subscribe({
       next: (data) => {
         this.metrics.set(data);
+        this.growthLoading.set(false);
         this.loading.set(false);
-        this.animateCounters(data);
-        requestAnimationFrame(() => requestAnimationFrame(() => this.setupRevealObserver()));
+        if (!granularitySwitch) {
+          this.animateCounters(data);
+          requestAnimationFrame(() => requestAnimationFrame(() => this.setupRevealObserver()));
+        }
       },
       error: (err) => {
         console.error('Erro ao buscar métricas da plataforma:', err);
-        this.error.set(true);
+        this.growthLoading.set(false);
+        if (!granularitySwitch) {
+          this.error.set(true);
+        }
         this.loading.set(false);
       },
     });
   }
 
-  /** Alterna a granularidade e recarrega o gráfico. */
+  /** Alterna a granularidade e recarrega apenas o gráfico de crescimento. */
   setGranularity(g: 'DAILY' | 'MONTHLY'): void {
+    if (this.granularity() === g) return;
     this.granularity.set(g);
     if (g === 'DAILY' && !this.startDate()) {
       const { start, end } = this.defaultDailyRange();
       this.startDate.set(start);
       this.endDate.set(end);
     }
-    this.fetchMetrics();
+    this.fetchMetrics(true);
   }
 
-  /** Aplica o intervalo personalizado e recarrega. */
+  /** Aplica o intervalo personalizado e recarrega apenas o gráfico de crescimento. */
   applyCustomRange(): void {
     if (this.startDate() && this.endDate()) {
-      this.fetchMetrics();
+      this.fetchMetrics(true);
     }
   }
 
