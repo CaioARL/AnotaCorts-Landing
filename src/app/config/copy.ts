@@ -33,8 +33,7 @@ export const COPY = {
       eyebrow: 'App de gestão para barbearias',
       title: 'Sua barbearia,',
       titleHighlight: 'no próximo nível.',
-      description:
-        'Gerencie atendimentos, despesas e faturamento em um só lugar.',
+      description: 'Gerencie atendimentos, despesas e faturamento em um só lugar.',
     },
     store: {
       googlePlay: { prefix: 'DISPONÍVEL NO', label: 'Google Play' },
@@ -160,7 +159,10 @@ export const COPY = {
       fresh: 'Dados recém-atualizados',
     },
     userStats: {
-      registered: { label: 'Usuários cadastrados', sub: 'total de contas registradas na plataforma' },
+      registered: {
+        label: 'Usuários cadastrados',
+        sub: 'total de contas registradas na plataforma',
+      },
       active: { label: 'Usuários ativos', subSuffix: '% da base — não excluíram a conta' },
     },
     kpis: {

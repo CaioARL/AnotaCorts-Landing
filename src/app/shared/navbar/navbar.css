@@ -54,7 +54,9 @@
   font-weight: 500;
   padding: 0.4rem 0.75rem;
   border-radius: 8px;
-  transition: color 0.2s, background 0.2s;
+  transition:
+    color 0.2s,
+    background 0.2s;
 }
 
 .nav-link:hover {
@@ -113,7 +115,9 @@
   max-height: 0;
   transition: max-height 0.3s ease;
   border-top: 0px solid transparent;
-  transition: max-height 0.3s ease, border-top 0.3s;
+  transition:
+    max-height 0.3s ease,
+    border-top 0.3s;
 }
 
 .mobile-menu.open {
@@ -133,7 +137,9 @@
   text-decoration: none;
   font-weight: 500;
   font-size: 0.95rem;
-  transition: color 0.2s, background 0.2s;
+  transition:
+    color 0.2s,
+    background 0.2s;
 }
 
 .mobile-link:hover,

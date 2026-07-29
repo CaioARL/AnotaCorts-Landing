@@ -1,7 +1,8 @@
 <nav class="navbar">
   <div class="navbar-inner container">
     <a routerLink="/" class="navbar-logo" (click)="close()">
-      <span class="logo-accent">{{ brand.logoAccent }}</span>{{ brand.logoRest }}
+      <span class="logo-accent">{{ brand.logoAccent }}</span
+      >{{ brand.logoRest }}
     </a>
 
     <ul class="navbar-links" role="list">
@@ -12,7 +13,8 @@
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: link.route === '/' }"
             class="nav-link"
-          >{{ link.label }}</a>
+            >{{ link.label }}</a
+          >
         </li>
       }
     </ul>
@@ -39,7 +41,8 @@
             [routerLinkActiveOptions]="{ exact: link.route === '/' }"
             class="mobile-link"
             (click)="close()"
-          >{{ link.label }}</a>
+            >{{ link.label }}</a
+          >
         </li>
       }
     </ul>

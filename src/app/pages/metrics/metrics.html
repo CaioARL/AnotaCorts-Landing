@@ -16,11 +16,21 @@
       <div class="hero-meta">
         <span class="status-pill" [class.online]="isOperational()">
           <span class="pulse-dot" [class.online]="isOperational()"></span>
-          Plataforma {{ isOperational() ? t.status.online : t.status.unstable }} · {{ metrics()?.uptimePlataforma }}% uptime
+          Plataforma {{ isOperational() ? t.status.online : t.status.unstable }} ·
+          {{ metrics()?.uptimePlataforma }}% uptime
         </span>
         <span class="updated-at">Atualizado em {{ formatTimestamp(metrics()?.timestamp) }}</span>
         <span class="cache-pill" [class.expiring]="cacheTimeRemaining() === t.cache.fresh">
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg
+            viewBox="0 0 24 24"
+            width="13"
+            height="13"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
             <circle cx="12" cy="12" r="10"></circle>
             <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
@@ -46,7 +56,16 @@
   @if (error()) {
     <section class="metrics-state container">
       <div class="state-icon error">
-        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          viewBox="0 0 24 24"
+          width="28"
+          height="28"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <circle cx="12" cy="12" r="10"></circle>
           <line x1="12" y1="8" x2="12" y2="12"></line>
           <line x1="12" y1="16" x2="12.01" y2="16"></line>
@@ -65,7 +84,16 @@
         <div class="metric-card">
           <div class="metric-glow"></div>
           <div class="metric-icon">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
               <circle cx="9" cy="7" r="4"></circle>
               <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -74,13 +102,24 @@
           </div>
           <h3 class="metric-number">{{ format(displayValues().barbeariasAtivas) }}</h3>
           <p class="metric-label">{{ t.kpis.barbeariasAtivas.label }}</p>
-          <span class="metric-badge">{{ format(data.totalBarbeariasCadastradas) }} cadastradas no total</span>
+          <span class="metric-badge"
+            >{{ format(data.totalBarbeariasCadastradas) }} cadastradas no total</span
+          >
         </div>
 
         <div class="metric-card">
           <div class="metric-glow"></div>
           <div class="metric-icon">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <circle cx="6" cy="6" r="3"></circle>
               <circle cx="6" cy="18" r="3"></circle>
               <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
@@ -94,7 +133,16 @@
         <div class="metric-card">
           <div class="metric-glow"></div>
           <div class="metric-icon">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
               <circle cx="8.5" cy="7" r="4"></circle>
               <polyline points="17 11 19 13 23 9"></polyline>
@@ -108,8 +156,19 @@
         <div class="metric-card">
           <div class="metric-glow"></div>
           <div class="metric-icon">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"
+              ></path>
               <line x1="7" y1="7" x2="7.01" y2="7"></line>
             </svg>
           </div>
@@ -121,7 +180,16 @@
         <div class="metric-card">
           <div class="metric-glow"></div>
           <div class="metric-icon">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
               <line x1="16" y1="2" x2="16" y2="6"></line>
               <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -136,7 +204,16 @@
         <div class="metric-card">
           <div class="metric-glow"></div>
           <div class="metric-icon">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path>
               <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path>
               <path d="M18 12a2 2 0 0 0 0 4h4v-4z"></path>
@@ -171,44 +248,75 @@
         <div class="section-tag">{{ periodLabel() }}</div>
 
         <div class="user-stat-row">
-            <div class="user-stat-item">
-              <div class="user-stat-icon">
-                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg>
-              </div>
-              <div class="user-stat-body">
-                <span class="user-stat-label">{{ t.userStats.registered.label }}</span>
-                <strong class="user-stat-value">{{ format(data.totalBarbeariasCadastradas) }}</strong>
-                <span class="user-stat-sub">{{ t.userStats.registered.sub }}</span>
-              </div>
-            </div>
-
-            <div class="user-stat-sep" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
+          <div class="user-stat-item">
+            <div class="user-stat-icon">
+              <svg
+                viewBox="0 0 24 24"
+                width="28"
+                height="28"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
               </svg>
             </div>
-
-            <div class="user-stat-item active">
-              <div class="user-stat-icon active">
-                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="8.5" cy="7" r="4"></circle>
-                  <polyline points="17 11 19 13 23 9"></polyline>
-                </svg>
-              </div>
-              <div class="user-stat-body">
-                <span class="user-stat-label">{{ t.userStats.active.label }}</span>
-                <strong class="user-stat-value active">{{ format(data.totalBarbeariasAtivas) }}</strong>
-                <span class="user-stat-sub">{{ taxaAtivosGlobal() }}{{ t.userStats.active.subSuffix }}</span>
-              </div>
+            <div class="user-stat-body">
+              <span class="user-stat-label">{{ t.userStats.registered.label }}</span>
+              <strong class="user-stat-value">{{ format(data.totalBarbeariasCadastradas) }}</strong>
+              <span class="user-stat-sub">{{ t.userStats.registered.sub }}</span>
             </div>
           </div>
+
+          <div class="user-stat-sep" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+
+          <div class="user-stat-item active">
+            <div class="user-stat-icon active">
+              <svg
+                viewBox="0 0 24 24"
+                width="28"
+                height="28"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="8.5" cy="7" r="4"></circle>
+                <polyline points="17 11 19 13 23 9"></polyline>
+              </svg>
+            </div>
+            <div class="user-stat-body">
+              <span class="user-stat-label">{{ t.userStats.active.label }}</span>
+              <strong class="user-stat-value active">{{
+                format(data.totalBarbeariasAtivas)
+              }}</strong>
+              <span class="user-stat-sub"
+                >{{ taxaAtivosGlobal() }}{{ t.userStats.active.subSuffix }}</span
+              >
+            </div>
+          </div>
+        </div>
 
         <div class="growth-header">
           <div>
@@ -216,7 +324,9 @@
             <p class="growth-desc">{{ t.growth.description }}</p>
           </div>
           <div class="growth-legend">
-            <span class="legend-item"><span class="legend-dot in"></span> {{ t.growth.legend }}</span>
+            <span class="legend-item"
+              ><span class="legend-dot in"></span> {{ t.growth.legend }}</span
+            >
           </div>
         </div>
 
@@ -228,7 +338,16 @@
               [class.active]="granularity() === 'MONTHLY'"
               (click)="setGranularity('MONTHLY')"
             >
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                viewBox="0 0 24 24"
+                width="15"
+                height="15"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <rect x="3" y="4" width="18" height="18" rx="2"></rect>
                 <line x1="16" y1="2" x2="16" y2="6"></line>
                 <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -241,7 +360,16 @@
               [class.active]="granularity() === 'DAILY'"
               (click)="setGranularity('DAILY')"
             >
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                viewBox="0 0 24 24"
+                width="15"
+                height="15"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <rect x="3" y="4" width="18" height="18" rx="2"></rect>
                 <line x1="16" y1="2" x2="16" y2="6"></line>
                 <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -276,7 +404,9 @@
                 class="btn-apply"
                 (click)="applyCustomRange()"
                 [disabled]="!startDate() || !endDate()"
-              >{{ t.growth.apply }}</button>
+              >
+                {{ t.growth.apply }}
+              </button>
             </div>
           }
         </div>
@@ -285,20 +415,25 @@
           <div class="growth-kpi-grid">
             <article class="growth-kpi-card">
               <span class="growth-kpi-label">{{ t.growth.kpis.monitorados.label }}</span>
-              <strong class="growth-kpi-value">{{ format(userBaseSummary().totalUsuariosMonitorados) }}</strong>
+              <strong class="growth-kpi-value">{{
+                format(userBaseSummary().totalUsuariosMonitorados)
+              }}</strong>
               <span class="growth-kpi-note">{{ t.growth.kpis.monitorados.note }}</span>
             </article>
 
             <article class="growth-kpi-card accent">
               <span class="growth-kpi-label">{{ t.growth.kpis.ativos.label }}</span>
-              <strong class="growth-kpi-value">{{ format(userBaseSummary().usuariosAtivos) }}</strong>
+              <strong class="growth-kpi-value">{{
+                format(userBaseSummary().usuariosAtivos)
+              }}</strong>
               <span class="growth-kpi-note">{{ t.growth.kpis.ativos.note }}</span>
             </article>
 
             <article class="growth-kpi-card compact wide success">
               <span class="growth-kpi-label">{{ t.growth.kpis.saldo.label }}</span>
               <strong class="growth-kpi-value"
-                >{{ userBaseSummary().saldoUsuarios >= 0 ? '+' : '' }}{{ format(userBaseSummary().saldoUsuarios) }}</strong
+                >{{ userBaseSummary().saldoUsuarios >= 0 ? '+' : ''
+                }}{{ format(userBaseSummary().saldoUsuarios) }}</strong
               >
               <span class="growth-kpi-note"
                 >{{ userBaseSummary().taxaAtivos }}% da base monitorada segue ativa</span
@@ -308,16 +443,14 @@
 
           <div class="growth-summary">
             <span class="growth-total in">+{{ format(growthChart().totalEntradas) }} entraram</span>
-            <span class="growth-period">{{ peakLabel() }} de {{ format(growthChart().max) }} usuários</span>
+            <span class="growth-period"
+              >{{ peakLabel() }} de {{ format(growthChart().max) }} usuários</span
+            >
           </div>
         </div>
 
         @if (growthChart().hasData) {
-          <div
-            echarts
-            [options]="growthChartOption()"
-            class="echarts-growth"
-          ></div>
+          <div echarts [options]="growthChartOption()" class="echarts-growth"></div>
         } @else if (!growthLoading()) {
           <div class="no-states">{{ t.growth.noData }}</div>
         }

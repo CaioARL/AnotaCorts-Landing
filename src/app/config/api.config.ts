@@ -1,5 +1,3 @@
-import { isDevMode } from '@angular/core';
+import { environment } from '../../environments/environment';
 
-export const API_BASE_URL = isDevMode()
-  ? 'https://api.anotacorts.com.br/anota-corts'
-  : 'https://api.anotacorts.com.br/anota-corts';
+export const API_BASE_URL = environment.apiBaseUrl;

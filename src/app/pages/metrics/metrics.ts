@@ -175,8 +175,11 @@ export class Metrics implements OnInit {
         borderColor: 'rgba(139,92,246,0.3)',
         borderWidth: 1,
         textStyle: { color: '#e2e8f0', fontFamily: 'inherit', fontSize: 13 },
-        formatter: (params: any) => {
-          const p = Array.isArray(params) ? params[0] : params;
+        formatter: (params: unknown) => {
+          const p = (Array.isArray(params) ? params[0] : params) as {
+            axisValue: string;
+            value: number;
+          };
           return `<b>${p.axisValue}</b><br/>Entradas: <b style="color:#a78bfa">${p.value}</b>`;
         },
       },
@@ -192,7 +195,12 @@ export class Metrics implements OnInit {
         type: 'value',
         axisLine: { show: false },
         axisTick: { show: false },
-        axisLabel: { color: '#94a3b8', fontSize: 11, fontFamily: 'inherit', formatter: (v: number) => v.toLocaleString('pt-BR') },
+        axisLabel: {
+          color: '#94a3b8',
+          fontSize: 11,
+          fontFamily: 'inherit',
+          formatter: (v: number) => v.toLocaleString('pt-BR'),
+        },
         splitLine: { lineStyle: { color: 'rgba(255,255,255,0.06)', type: 'dashed' } },
       },
       series: [
@@ -205,7 +213,10 @@ export class Metrics implements OnInit {
             borderRadius: [6, 6, 0, 0],
             color: {
               type: 'linear',
-              x: 0, y: 0, x2: 0, y2: 1,
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
               colorStops: [
                 { offset: 0, color: '#a78bfa' },
                 { offset: 1, color: '#7c3aed' },
@@ -220,7 +231,8 @@ export class Metrics implements OnInit {
     };
   });
 
-  readonly userBaseSummary = computed<UserBaseSummary>(() => {    const chart = this.growthChart();
+  readonly userBaseSummary = computed<UserBaseSummary>(() => {
+    const chart = this.growthChart();
     const total = chart.totalEntradas;
     const saidas = chart.totalSaidas;
     const ativos = Math.max(total - saidas, 0);
@@ -258,7 +270,11 @@ export class Metrics implements OnInit {
 
     const params: GrowthParams =
       this.granularity() === 'DAILY'
-        ? { granularity: 'DAILY', startDate: this.startDate() || undefined, endDate: this.endDate() || undefined }
+        ? {
+            granularity: 'DAILY',
+            startDate: this.startDate() || undefined,
+            endDate: this.endDate() || undefined,
+          }
         : { granularity: 'MONTHLY' };
 
     this.metricsService.getOverview(params).subscribe({

@@ -1,10 +1,38 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <title>AnotaCorts - Gestão Digital para sua Barbearia</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="AnotaCorts: app completo de gestão para barbearias. Agendamentos, clientes, despesas, dashboard financeiro e ranking. Disponível para Android e iOS."
+    />
+    <meta name="theme-color" content="#080c14" />
+    <link rel="canonical" href="https://anotacorts.com.br/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AnotaCorts" />
+    <meta property="og:title" content="AnotaCorts - Gestão Digital para sua Barbearia" />
+    <meta
+      property="og:description"
+      content="App completo de gestão para barbearias: agendamentos, clientes, despesas e dashboard financeiro."
+    />
+    <meta property="og:url" content="https://anotacorts.com.br/" />
+    <meta property="og:image" content="https://anotacorts.com.br/AnotaCorts.png" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AnotaCorts - Gestão Digital para sua Barbearia" />
+    <meta
+      name="twitter:description"
+      content="App completo de gestão para barbearias: agendamentos, clientes, despesas e dashboard financeiro."
+    />
+    <meta name="twitter:image" content="https://anotacorts.com.br/AnotaCorts.png" />
+
     <link rel="icon" type="image/png" href="AnotaCorts.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,6 +40,36 @@
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Structured Data (schema.org) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "MobileApplication",
+        "name": "AnotaCorts",
+        "operatingSystem": "ANDROID, IOS",
+        "applicationCategory": "BusinessApplication",
+        "description": "App completo de gestão para barbearias: agendamentos, clientes, despesas e dashboard financeiro.",
+        "url": "https://anotacorts.com.br/",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" }
+      }
+    </script>
+
+    <!-- SPA fallback do GitHub Pages: restaura a rota codificada pelo 404.html -->
+    <script>
+      (function (l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search
+            .slice(1)
+            .split('&')
+            .map(function (s) {
+              return s.replace(/~and~/g, '&');
+            })
+            .join('?');
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })(window.location);
+    </script>
   </head>
   <body>
     <app-root></app-root>

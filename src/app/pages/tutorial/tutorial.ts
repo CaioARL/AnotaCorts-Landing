@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { APP_VERSION, AppVersion } from '../../config/version.config';
 import { COPY } from '../../config/copy';
 import { Navbar } from '../../shared/navbar/navbar';
@@ -115,8 +114,7 @@ export class Tutorial {
       sectionId: 'gerenciar',
       title: 'Criar novo atendimento',
       description: 'Agendar um corte, barba ou serviço para um cliente',
-      keywords:
-        'criar novo corte barba servico cliente data hora pagamento status',
+      keywords: 'criar novo corte barba servico cliente data hora pagamento status',
     },
     {
       sectionId: 'gerenciar',

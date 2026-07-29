@@ -7,9 +7,12 @@
 }
 
 /* Old nav removed — using shared <app-navbar> */
-.metrics-nav { display: none; }
-.metrics-logo { display: none; }
-
+.metrics-nav {
+  display: none;
+}
+.metrics-logo {
+  display: none;
+}
 
 /* Cabeçalho */
 .metrics-hero {
@@ -344,7 +347,10 @@
   font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    box-shadow 0.2s;
   font-family: var(--font-main);
 }
 
@@ -401,7 +407,10 @@
   font-weight: 700;
   font-family: var(--font-main);
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s, opacity 0.2s;
+  transition:
+    background 0.2s,
+    transform 0.15s,
+    opacity 0.2s;
   box-shadow: 0 2px 12px rgba(59, 130, 246, 0.35);
 }
 
@@ -906,7 +915,8 @@
 .page-grid {
   position: fixed;
   inset: 0;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
   background-size: 52px 52px;
   pointer-events: none;
@@ -940,7 +950,8 @@
 .reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -992,11 +1003,7 @@
   display: flex;
   align-items: center;
   gap: 2rem;
-  background: linear-gradient(
-    135deg,
-    rgba(59, 130, 246, 0.07) 0%,
-    rgba(59, 130, 246, 0.02) 100%
-  );
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.07) 0%, rgba(59, 130, 246, 0.02) 100%);
   border: 1px solid rgba(59, 130, 246, 0.22);
   border-radius: 22px;
   padding: 2rem 2.5rem;
@@ -1105,7 +1112,9 @@
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
 }
 
 .growth-kpi-card:hover {
@@ -1313,8 +1322,12 @@
   border-radius: 20px;
   padding: 1px;
   background: linear-gradient(135deg, var(--primary), var(--secondary));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
   mask-composite: exclude;
   opacity: 0;

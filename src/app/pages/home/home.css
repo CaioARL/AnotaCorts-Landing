@@ -315,8 +315,13 @@
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .states-sub {
@@ -392,7 +397,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ── CTA ─────────────────────────────────────────────────── */
@@ -430,13 +437,25 @@
     padding: 4rem 0;
     text-align: center;
   }
-  .hero-content { max-width: 100%; }
-  .store-buttons { justify-content: center; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .engagement-row { grid-template-columns: 1fr; }
+  .hero-content {
+    max-width: 100%;
+  }
+  .store-buttons {
+    justify-content: center;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .engagement-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 640px) {
-  .stats-grid { grid-template-columns: 1fr; }
-  .hero-mockup { width: 200px; }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-mockup {
+    width: 200px;
+  }
 }

@@ -52,14 +52,14 @@ AnotaCorts-Landing/
 
 ## Páginas
 
-| Página          | Rota           | Descrição                                                                 |
-| :-------------- | :------------- | :------------------------------------------------------------------------ |
-| **Home**        | `/`            | Hero, botões de download, indicadores de atividade e CTA                  |
-| **Sobre**       | `/sobre`       | História, funcionalidades e carrossel de screenshots                      |
-| **Métricas**    | `/metricas`    | KPIs em tempo real, gráfico de crescimento (ECharts), engajamento por UF  |
-| **Tutorial**    | `/tutorial`    | Guia passo a passo com busca, TOC navegável e mídia demonstrativa         |
-| **Privacidade** | `/privacidade` | Política de Privacidade em conformidade com a LGPD                        |
-| **Termos**      | `/termos`      | Termos e Condições de Uso                                                 |
+| Página          | Rota           | Descrição                                                                |
+| :-------------- | :------------- | :----------------------------------------------------------------------- |
+| **Home**        | `/`            | Hero, botões de download, indicadores de atividade e CTA                 |
+| **Sobre**       | `/sobre`       | História, funcionalidades e carrossel de screenshots                     |
+| **Métricas**    | `/metricas`    | KPIs em tempo real, gráfico de crescimento (ECharts), engajamento por UF |
+| **Tutorial**    | `/tutorial`    | Guia passo a passo com busca, TOC navegável e mídia demonstrativa        |
+| **Privacidade** | `/privacidade` | Política de Privacidade em conformidade com a LGPD                       |
+| **Termos**      | `/termos`      | Termos e Condições de Uso                                                |
 
 ---
 
@@ -74,15 +74,15 @@ src/app/config/copy.ts
 Para alterar qualquer string de UI — títulos, descrições, labels, botões — edite apenas esse arquivo. Está organizado por página/seção:
 
 ```typescript
-COPY.brand        // nome e logo
-COPY.nav          // links de navegação
-COPY.footer       // copyright e links do rodapé
-COPY.home         // hero, stats, engagement, CTA
-COPY.about        // hero, história, features, galeria, CTA
-COPY.metrics      // todos os KPIs, highlights, gráfico, engajamento, CTA
-COPY.tutorial     // hero, busca
-COPY.privacy      // título, data, intro
-COPY.terms        // título, data, intro
+COPY.brand; // nome e logo
+COPY.nav; // links de navegação
+COPY.footer; // copyright e links do rodapé
+COPY.home; // hero, stats, engagement, CTA
+COPY.about; // hero, história, features, galeria, CTA
+COPY.metrics; // todos os KPIs, highlights, gráfico, engajamento, CTA
+COPY.tutorial; // hero, busca
+COPY.privacy; // título, data, intro
+COPY.terms; // título, data, intro
 ```
 
 ---
@@ -91,11 +91,11 @@ COPY.terms        // título, data, intro
 
 A versão é mantida em **3 arquivos sincronizados**:
 
-| Arquivo | Propósito |
-| :--- | :--- |
-| `package.json` | Versão npm padrão |
-| `public/version.json` | API pública de versão (lida por integrações externas) |
-| `src/app/config/version.config.ts` | Versão interna renderizada no rodapé do site |
+| Arquivo                            | Propósito                                             |
+| :--------------------------------- | :---------------------------------------------------- |
+| `package.json`                     | Versão npm padrão                                     |
+| `public/version.json`              | API pública de versão (lida por integrações externas) |
+| `src/app/config/version.config.ts` | Versão interna renderizada no rodapé do site          |
 
 ### Atualizar versão
 
@@ -139,14 +139,14 @@ npm run build
 
 ### Scripts disponíveis
 
-| Comando | Descrição |
-| :--- | :--- |
-| `npm start` | Servidor local na porta 4200 |
-| `npm run build` | Build otimizado para produção |
-| `npm run watch` | Build em modo watch (desenvolvimento) |
-| `npm run format` | Formata todos os arquivos via Prettier |
-| `npm run update-version` | Bump de versão (veja seção acima) |
-| `npm test` | Executa a suíte de testes |
+| Comando                  | Descrição                              |
+| :----------------------- | :------------------------------------- |
+| `npm start`              | Servidor local na porta 4200           |
+| `npm run build`          | Build otimizado para produção          |
+| `npm run watch`          | Build em modo watch (desenvolvimento)  |
+| `npm run format`         | Formata todos os arquivos via Prettier |
+| `npm run update-version` | Bump de versão (veja seção acima)      |
+| `npm test`               | Executa a suíte de testes              |
 
 ---
 
@@ -168,5 +168,3 @@ Deploy automatizado via **GitHub Actions** → **GitHub Pages** a cada push na b
 ---
 
 Feito com carinho pela equipe **AnotaCorts**
-
-

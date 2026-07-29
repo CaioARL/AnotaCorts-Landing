@@ -44,7 +44,7 @@ export interface LandingMetrics {
 export interface GrowthParams {
   granularity?: 'DAILY' | 'MONTHLY';
   startDate?: string; // yyyy-MM-dd
-  endDate?: string;   // yyyy-MM-dd
+  endDate?: string; // yyyy-MM-dd
 }
 
 /** Resposta do endpoint público que emite o token assimétrico de métricas. */

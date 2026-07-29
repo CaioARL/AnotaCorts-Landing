@@ -32,19 +32,22 @@ function writeJson(filePath, data) {
 function bumpVersion(current, type) {
   const [major, minor, patch] = current.split('.').map(Number);
   switch (type) {
-    case 'major': return `${major + 1}.0.0`;
-    case 'minor': return `${major}.${minor + 1}.0`;
+    case 'major':
+      return `${major + 1}.0.0`;
+    case 'minor':
+      return `${major}.${minor + 1}.0`;
     case 'patch':
-    default:      return `${major}.${minor}.${patch + 1}`;
+    default:
+      return `${major}.${minor}.${patch + 1}`;
   }
 }
 
 function formatDatePtBr(date) {
-  const day   = String(date.getDate()).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
   const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year  = date.getFullYear();
-  const hh    = String(date.getHours()).padStart(2, '0');
-  const mm    = String(date.getMinutes()).padStart(2, '0');
+  const year = date.getFullYear();
+  const hh = String(date.getHours()).padStart(2, '0');
+  const mm = String(date.getMinutes()).padStart(2, '0');
   return `${day}/${month}/${year} às ${hh}:${mm}`;
 }
 
@@ -63,9 +66,9 @@ if (!SEMVER_RE.test(newVersion)) {
   process.exit(1);
 }
 
-const now         = new Date();
-const isoDate     = now.toISOString();
-const ptBrDate    = formatDatePtBr(now);
+const now = new Date();
+const isoDate = now.toISOString();
+const ptBrDate = formatDatePtBr(now);
 
 console.log(`\n🔖  Atualizando versão: ${currentVersion}  →  ${newVersion}`);
 console.log(`📅  Data: ${ptBrDate}\n`);
@@ -93,7 +96,7 @@ if (fs.existsSync(lockPath)) {
 
 const versionJsonPath = path.join(ROOT, 'public', 'version.json');
 const versionJson = readJson(versionJsonPath);
-versionJson.version   = newVersion;
+versionJson.version = newVersion;
 versionJson.buildDate = isoDate;
 writeJson(versionJsonPath, versionJson);
 console.log('✔  public/version.json');
@@ -104,8 +107,8 @@ const configPath = path.join(ROOT, 'src', 'app', 'config', 'version.config.ts');
 let configContent = fs.readFileSync(configPath, 'utf8');
 
 configContent = configContent
-  .replace(/(version:\s*')[^']+(')/,    `$1${newVersion}$2`)
-  .replace(/(releaseDate:\s*')[^']+(')/,`$1${ptBrDate}$2`);
+  .replace(/(version:\s*')[^']+(')/, `$1${newVersion}$2`)
+  .replace(/(releaseDate:\s*')[^']+(')/, `$1${ptBrDate}$2`);
 
 fs.writeFileSync(configPath, configContent, 'utf8');
 console.log('✔  src/app/config/version.config.ts');
