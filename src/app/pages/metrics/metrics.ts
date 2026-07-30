@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, OnInit, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { NgxEchartsDirective } from 'ngx-echarts';
 import type { EChartsOption } from 'echarts';
@@ -69,6 +70,7 @@ interface UserBaseSummary {
 })
 export class Metrics implements OnInit {
   private readonly metricsService = inject(MetricsService);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly appVersion: AppVersion = APP_VERSION;
   readonly t = COPY.metrics;
@@ -277,25 +279,28 @@ export class Metrics implements OnInit {
           }
         : { granularity: 'MONTHLY' };
 
-    this.metricsService.getOverview(params).subscribe({
-      next: (data) => {
-        this.metrics.set(data);
-        this.growthLoading.set(false);
-        this.loading.set(false);
-        if (!granularitySwitch) {
-          this.animateCounters(data);
-          requestAnimationFrame(() => requestAnimationFrame(() => this.setupRevealObserver()));
-        }
-      },
-      error: (err) => {
-        console.error('Erro ao buscar métricas da plataforma:', err);
-        this.growthLoading.set(false);
-        if (!granularitySwitch) {
-          this.error.set(true);
-        }
-        this.loading.set(false);
-      },
-    });
+    this.metricsService
+      .getOverview(params)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (data) => {
+          this.metrics.set(data);
+          this.growthLoading.set(false);
+          this.loading.set(false);
+          if (!granularitySwitch) {
+            this.animateCounters(data);
+            requestAnimationFrame(() => requestAnimationFrame(() => this.setupRevealObserver()));
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao buscar métricas da plataforma:', err);
+          this.growthLoading.set(false);
+          if (!granularitySwitch) {
+            this.error.set(true);
+          }
+          this.loading.set(false);
+        },
+      });
   }
 
   /** Alterna a granularidade e recarrega apenas o gráfico de crescimento. */

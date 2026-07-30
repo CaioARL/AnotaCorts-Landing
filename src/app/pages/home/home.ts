@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { APP_STORE_URLS, AppStoreUrls } from '../../config/app-store.config';
 import { COPY } from '../../config/copy';
 import { APP_VERSION, AppVersion } from '../../config/version.config';
@@ -17,6 +18,7 @@ export type LandingStats = LandingMetrics;
 })
 export class Home implements OnInit {
   private readonly metricsService = inject(MetricsService);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly storeUrls: AppStoreUrls = APP_STORE_URLS;
   readonly appVersion: AppVersion = APP_VERSION;
@@ -34,18 +36,21 @@ export class Home implements OnInit {
   fetchStats(): void {
     this.loading.set(true);
     this.error.set(false);
-    this.metricsService.getOverview().subscribe({
-      next: (data) => {
-        this.stats.set(data);
-        this.loading.set(false);
-        requestAnimationFrame(() => requestAnimationFrame(() => this.setupRevealObserver()));
-      },
-      error: (err) => {
-        console.error('Erro ao buscar estatísticas da landing page:', err);
-        this.error.set(true);
-        this.loading.set(false);
-      },
-    });
+    this.metricsService
+      .getOverview()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (data) => {
+          this.stats.set(data);
+          this.loading.set(false);
+          requestAnimationFrame(() => requestAnimationFrame(() => this.setupRevealObserver()));
+        },
+        error: (err) => {
+          console.error('Erro ao buscar estatísticas da landing page:', err);
+          this.error.set(true);
+          this.loading.set(false);
+        },
+      });
   }
 
   private setupRevealObserver(): void {
