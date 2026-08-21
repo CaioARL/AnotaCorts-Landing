@@ -1,0 +1,29 @@
+<div class="globe-wrapper" [class.theme-light]="currentTheme === 'light'">
+  <div #mapContainer class="globe-map-container"></div>
+  <canvas #arcsCanvas class="globe-arcs-canvas"></canvas>
+  <div #markersOverlay class="globe-markers-overlay"></div>
+
+  <!-- Sleek Floating Theme Switcher -->
+  <div class="globe-theme-toggle">
+    <button
+      type="button"
+      class="theme-btn"
+      [class.active]="currentTheme === 'dark'"
+      (click)="setTheme('dark')"
+      title="Tema Escuro"
+    >
+      <i class="bx bxs-moon"></i>
+      <span>Escuro</span>
+    </button>
+    <button
+      type="button"
+      class="theme-btn"
+      [class.active]="currentTheme === 'light'"
+      (click)="setTheme('light')"
+      title="Tema Claro"
+    >
+      <i class="bx bxs-sun"></i>
+      <span>Claro</span>
+    </button>
+  </div>
+</div>

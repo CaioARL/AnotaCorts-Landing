@@ -8,27 +8,37 @@
   left: 0;
   right: 0;
   z-index: 200;
-  background: rgba(8, 12, 20, 0.84);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--navbar-bg-top);
+  border-bottom: none;
+  box-shadow: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: var(--navbar-bg-scrolled);
+  border-bottom: none;
+  box-shadow: var(--navbar-shadow-scrolled);
 }
 
 .navbar-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  height: var(--navbar-h);
 }
 
 /* Logo */
 .navbar-logo {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 800;
-  color: var(--text);
+  color: var(--navbar-text-top);
   text-decoration: none;
   letter-spacing: -0.03em;
-  transition: opacity 0.2s;
+  transition: color 0.3s ease, opacity 0.2s;
+}
+
+.navbar.scrolled .navbar-logo {
+  color: var(--navbar-text-scrolled);
 }
 
 .navbar-logo:hover {
@@ -43,29 +53,52 @@
 .navbar-links {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 1.75rem;
   list-style: none;
 }
 
 .nav-link {
-  color: var(--text-muted);
+  color: var(--navbar-text-top);
   text-decoration: none;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  padding: 0.4rem 0.75rem;
-  border-radius: 8px;
-  transition:
-    color 0.2s,
-    background 0.2s;
+  padding: 0.5rem 0;
+  background: transparent;
+  border-radius: 0;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  opacity: 0.85;
 }
 
 .nav-link:hover {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.05);
+  color: var(--navbar-text-top);
+  opacity: 1;
+  background: transparent;
 }
 
 .nav-link.active {
-  color: var(--text);
+  color: var(--navbar-text-top);
+  opacity: 1;
+  font-weight: 700;
+  background: transparent;
+}
+
+.navbar.scrolled .nav-link {
+  color: var(--navbar-text-scrolled);
+  opacity: 0.85;
+  background: transparent;
+}
+
+.navbar.scrolled .nav-link:hover {
+  color: var(--navbar-text-scrolled);
+  opacity: 1;
+  background: transparent;
+}
+
+.navbar.scrolled .nav-link.active {
+  color: var(--navbar-text-scrolled);
+  opacity: 1;
+  font-weight: 700;
+  background: transparent;
 }
 
 /* Burger */
@@ -77,23 +110,31 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 6px;
+  padding: 8px;
   border-radius: 8px;
   transition: background 0.2s;
 }
 
 .navbar-burger:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: transparent;
+}
+
+.navbar.scrolled .navbar-burger:hover {
+  background: transparent;
 }
 
 .navbar-burger span {
   display: block;
-  width: 20px;
+  width: 22px;
   height: 2px;
-  background: var(--text-muted);
+  background: var(--navbar-text-top);
   border-radius: 2px;
-  transition: all 0.25s ease;
+  transition: all 0.25s ease, background-color 0.3s ease;
   transform-origin: center;
+}
+
+.navbar.scrolled .navbar-burger span {
+  background: var(--navbar-text-scrolled);
 }
 
 .navbar-burger.open span:nth-child(1) {
@@ -113,16 +154,19 @@
 .mobile-menu {
   overflow: hidden;
   max-height: 0;
-  transition: max-height 0.3s ease;
-  border-top: 0px solid transparent;
-  transition:
-    max-height 0.3s ease,
-    border-top 0.3s;
+  transition: max-height 0.3s ease, background-color 0.3s ease;
+  background: rgba(15, 23, 42, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.navbar.scrolled .mobile-menu {
+  background: var(--navbar-bg-scrolled);
+  box-shadow: var(--navbar-shadow-scrolled);
 }
 
 .mobile-menu.open {
   max-height: 280px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .mobile-links {
@@ -132,20 +176,35 @@
 
 .mobile-link {
   display: block;
-  padding: 0.7rem 1.5rem;
-  color: var(--text-muted);
+  padding: 0.75rem 1.5rem;
+  color: var(--navbar-text-top);
   text-decoration: none;
   font-weight: 500;
   font-size: 0.95rem;
-  transition:
-    color 0.2s,
-    background 0.2s;
+  background: transparent;
+  transition: color 0.2s, opacity 0.2s;
+  opacity: 0.85;
 }
 
 .mobile-link:hover,
 .mobile-link.active {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.04);
+  color: var(--navbar-text-top);
+  opacity: 1;
+  background: transparent;
+}
+
+.navbar.scrolled .mobile-link {
+  color: var(--navbar-text-scrolled);
+  opacity: 0.85;
+  background: transparent;
+}
+
+.navbar.scrolled .mobile-link:hover,
+.navbar.scrolled .mobile-link.active {
+  color: var(--navbar-text-scrolled);
+  opacity: 1;
+  font-weight: 700;
+  background: transparent;
 }
 
 @media (max-width: 640px) {

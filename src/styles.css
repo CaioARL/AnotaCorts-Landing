@@ -1,13 +1,16 @@
 :root {
-  /* Accent / brand */
-  --accent: #6366f1;
-  --accent-dark: #4f46e5;
-  --accent-dim: rgba(99, 102, 241, 0.12);
+  /* Cores da marca */
+  --accent: #c91d5c;
+  --brand-pink: #c91d5c;
+  --brand-blue: #1f33d4;
+  --accent-dark: #a8154a;
+  --accent-dim: rgba(201, 29, 92, 0.12);
 
   /* Kept for compatibility with existing components */
-  --primary: #6366f1;
-  --primary-dark: #4f46e5;
-  --secondary: #f43f5e;
+  --primary: #c91d5c;
+  --primary-dark: #a8154a;
+  --secondary: #001eaf;
+  --secondary-blue-dark: #0c0e36;
 
   /* Backgrounds */
   --bg: #080c14;
@@ -32,8 +35,15 @@
   /* Typography */
   --font-main: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
 
-  /* Layout */
-  --navbar-h: 64px;
+  /* Layout & Navbar */
+  --navbar-h: 80px;
+  --navbar-bg-top: transparent;
+  --navbar-bg-scrolled: #fff;
+  --navbar-text-top: #ffffff;
+  --navbar-text-scrolled: #0d0d38;
+  --navbar-shadow-scrolled: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  --bg-body: #ffffff;
   --radius-card: 16px;
   --radius-btn: 10px;
 }
@@ -51,7 +61,7 @@ video {
 }
 
 body {
-  background-color: var(--bg);
+  background-color: var(--bg-body);
   color: var(--text);
   font-family: var(--font-main);
   line-height: 1.6;
@@ -67,7 +77,7 @@ h3 {
 }
 
 .title-gradient {
-  background: linear-gradient(135deg, #fff 0%, #c7d2fe 45%, var(--accent) 100%);
+  background: linear-gradient(135deg, #fff 0%, #c7d2fe 45%, var(--brand-blue) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

@@ -6,13 +6,14 @@ import { COPY } from '../../config/copy';
 import { APP_VERSION, AppVersion } from '../../config/version.config';
 import { LandingMetrics, MetricsService } from '../../services/metrics.service';
 import { Footer } from '../../shared/footer/footer';
+import { GlobeMap } from '../../shared/globe-map/globe-map';
 import { Navbar } from '../../shared/navbar/navbar';
 
 export type LandingStats = LandingMetrics;
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, Navbar, Footer],
+  imports: [CommonModule, Navbar, Footer, GlobeMap],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -29,6 +30,13 @@ export class Home implements OnInit {
   readonly loading = signal<boolean>(true);
   readonly error = signal<boolean>(false);
 
+  // Animated and Formatted Stat Numbers
+  readonly animatedBarbearias = signal<string>('0');
+  readonly animatedCortes = signal<string>('0');
+  readonly animatedMedia = signal<string>('0');
+
+  private animationStarted = false;
+
   ngOnInit(): void {
     this.fetchStats();
   }
@@ -43,7 +51,11 @@ export class Home implements OnInit {
         next: (data) => {
           this.stats.set(data);
           this.loading.set(false);
-          requestAnimationFrame(() => requestAnimationFrame(() => this.setupRevealObserver()));
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              this.setupRevealObserver();
+            });
+          });
         },
         error: (err) => {
           console.error('Erro ao buscar estatísticas da landing page:', err);
@@ -54,18 +66,88 @@ export class Home implements OnInit {
   }
 
   private setupRevealObserver(): void {
-    if (typeof IntersectionObserver === 'undefined') return;
-    const observer = new IntersectionObserver(
+    if (typeof IntersectionObserver === 'undefined') {
+      this.animateNumbers();
+      return;
+    }
+
+    // 1. General reveal observer for page section fades
+    const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('in-view');
-            observer.unobserve(entry.target);
+            revealObserver.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.07 },
+      { threshold: 0.05 },
     );
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+    // 2. Dedicated observer strictly for the numbers grid
+    const statsGrid = document.querySelector('.stats-grid');
+    if (statsGrid) {
+      const statsObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.animateNumbers();
+              statsObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.35, rootMargin: '0px' },
+      );
+      statsObserver.observe(statsGrid);
+    }
+  }
+
+  private animateNumbers(): void {
+    if (this.animationStarted) return;
+    const data = this.stats();
+    if (!data) return;
+
+    this.animationStarted = true;
+
+    const targetBarbearias = data.totalBarbeariasAtivas ?? 465;
+    const targetCortes = data.totalAtendimentosRealizados ?? 8212;
+    const targetMedia = data.mediaAtendimentosPorBarbearia ?? 17.7;
+
+    const duration = 2200; // 2.2 seconds smooth roll
+    const startTime = performance.now();
+
+    const frame = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Smooth easeOutExpo curve
+      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+
+      const currentBarbearias = Math.floor(targetBarbearias * ease);
+      const currentCortes = Math.floor(targetCortes * ease);
+      const currentMedia = (targetMedia * ease).toFixed(1);
+
+      this.animatedBarbearias.set(currentBarbearias.toLocaleString('pt-BR'));
+      this.animatedCortes.set(currentCortes.toLocaleString('pt-BR'));
+      this.animatedMedia.set(parseFloat(currentMedia).toLocaleString('pt-BR', {
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1,
+      }));
+
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        // Final exact formatted numbers
+        this.animatedBarbearias.set(targetBarbearias.toLocaleString('pt-BR'));
+        this.animatedCortes.set(targetCortes.toLocaleString('pt-BR')); // e.g. 8.212
+        this.animatedMedia.set(targetMedia.toLocaleString('pt-BR', {
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1,
+        }));
+      }
+    };
+
+    requestAnimationFrame(frame);
   }
 }
