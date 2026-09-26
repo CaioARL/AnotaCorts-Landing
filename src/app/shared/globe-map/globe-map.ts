@@ -121,6 +121,11 @@ export class GlobeMap implements AfterViewInit, OnChanges, OnDestroy {
   private initMap(): void {
     if (!this.mapContainer?.nativeElement) return;
 
+    // O MapLibre 6 procura o worker ao lado do próprio módulo, caminho que o bundler do Angular
+    // não publica. O angular.json copia o worker (e o módulo compartilhado que ele importa)
+    // para /maplibre/, e aqui apontamos para lá.
+    maplibregl.setWorkerUrl(new URL('maplibre/maplibre-gl-worker.mjs', document.baseURI).href);
+
     try {
       const styleConfig: maplibregl.StyleSpecification = {
         version: 8,
