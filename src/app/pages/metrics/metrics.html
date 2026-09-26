@@ -1,47 +1,19 @@
 <div class="metrics-page">
-  <app-navbar></app-navbar>
+  <app-navbar [solid]="true"></app-navbar>
 
   <!-- Cabeçalho -->
-  <header class="metrics-hero container">
-    <span class="hero-eyebrow">
-      <span class="pulse-dot" [class.online]="isOperational()"></span>
-      {{ t.hero.eyebrow }}
-    </span>
-    <h1 class="metrics-title">
-      {{ t.hero.title }} <span class="title-gradient">{{ t.hero.titleHighlight }}</span>
-    </h1>
-    <p class="metrics-subtitle">{{ t.hero.subtitle }}</p>
-
-    @if (!loading() && !error() && metrics()) {
-      <div class="hero-meta">
-        <span class="status-pill" [class.online]="isOperational()">
-          <span class="pulse-dot" [class.online]="isOperational()"></span>
-          Plataforma {{ isOperational() ? t.status.online : t.status.unstable }} ·
-          {{ metrics()?.uptimePlataforma }}% uptime
-        </span>
-        <span class="updated-at">Atualizado em {{ formatTimestamp(metrics()?.timestamp) }}</span>
-        <span class="cache-pill" [class.expiring]="cacheTimeRemaining() === t.cache.fresh">
-          <svg
-            viewBox="0 0 24 24"
-            width="13"
-            height="13"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          @if (cacheTimeRemaining() === t.cache.fresh) {
-            {{ t.cache.fresh }}
-          } @else {
-            {{ t.cache.nextUpdate }} {{ cacheTimeRemaining() }}
-          }
-        </span>
-      </div>
-    }
+  <header class="metrics-hero">
+    <div class="container hero-inner">
+      <h1 class="metrics-title">
+        {{ t.hero.title }} <span class="title-gradient">{{ t.hero.titleHighlight }}</span>
+      </h1>
+      <p class="metrics-subtitle">{{ t.hero.subtitle }}</p>
+      <nav class="breadcrumb" aria-label="Você está em">
+        <a routerLink="/" class="breadcrumb-link">{{ t.hero.breadcrumb.home }}</a>
+        <span class="breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="breadcrumb-current" aria-current="page">{{ t.hero.breadcrumb.current }}</span>
+      </nav>
+    </div>
   </header>
 
   <!-- Carregando -->
@@ -79,6 +51,36 @@
   <!-- Conteúdo -->
   @if (!loading() && !error() && metrics(); as data) {
     <main class="metrics-content container">
+      <!-- Status da plataforma -->
+      <div class="status-bar">
+        <span class="status-pill" [class.online]="isOperational()">
+          <span class="pulse-dot" [class.online]="isOperational()"></span>
+          {{ isOperational() ? t.status.online : t.status.unstable }} · {{ data.uptimePlataforma }}%
+          uptime
+        </span>
+        <span class="updated-at">Atualizado em {{ formatTimestamp(data.timestamp) }}</span>
+        <span class="cache-pill" [class.expiring]="cacheTimeRemaining() === t.cache.fresh">
+          <svg
+            viewBox="0 0 24 24"
+            width="13"
+            height="13"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          @if (cacheTimeRemaining() === t.cache.fresh) {
+            {{ t.cache.fresh }}
+          } @else {
+            {{ t.cache.nextUpdate }} {{ cacheTimeRemaining() }}
+          }
+        </span>
+      </div>
+
       <!-- Indicadores principais -->
       <section class="metrics-grid reveal">
         <div class="metric-card">
@@ -233,7 +235,7 @@
         </div>
         <div class="highlight-divider"></div>
         <div class="highlight-item">
-          <span class="highlight-value">{{ topEstados().length }}</span>
+          <span class="highlight-value">{{ estados().length }}</span>
           <span class="highlight-label">{{ t.highlights.estados }}</span>
         </div>
         <div class="highlight-divider"></div>
@@ -512,7 +514,7 @@
           <p class="states-subtitle">{{ t.engagement.states.subtitle }}</p>
 
           <div class="states-list">
-            @for (estado of topEstados(); track estado.uf) {
+            @for (estado of estados(); track estado.uf) {
               <div class="state-row">
                 <span class="state-name">{{ estado.uf }}</span>
                 <div class="state-bar-track">

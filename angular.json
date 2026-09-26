@@ -60,6 +60,9 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "port": 8080
+          },
           "configurations": {
             "production": {
               "buildTarget": "anota-corts-web:build:production"

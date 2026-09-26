@@ -44,6 +44,12 @@
   --navbar-shadow-scrolled: 0 4px 20px rgba(0, 0, 0, 0.08);
 
   --bg-body: #ffffff;
+  /* Linha divisória "corda trançada" azul e rosa (seções do Sobre, topo do footer) */
+  --divider-rope: repeating-linear-gradient(
+    -55deg,
+    var(--brand-blue) 0 5px,
+    var(--brand-pink) 5px 10px
+  );
   --radius-card: 16px;
   --radius-btn: 10px;
 }
@@ -277,6 +283,34 @@ h3 {
 
 section {
   padding: 6rem 0;
+}
+
+/* Trilha "Home / Página" dos heros em degradê azul (Sobre, Métricas) */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.breadcrumb-link {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+  color: #ffffff;
+}
+
+.breadcrumb-sep {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.breadcrumb-current {
+  color: #ffffff;
 }
 
 /* Animations */

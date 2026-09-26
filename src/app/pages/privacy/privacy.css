@@ -1,7 +1,39 @@
 .legal-page {
   padding-top: var(--navbar-h, 64px);
   min-height: 100vh;
-  background-color: var(--bg);
+}
+
+/* Hero: mesmo degradê azul do Sobre, Métricas e Tutorial */
+.legal-hero {
+  padding: 6rem 0 5rem;
+  background: linear-gradient(135deg, var(--navbar-text-scrolled) 0%, var(--brand-blue) 100%);
+}
+
+.hero-inner {
+  max-width: 720px;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+  color: #ffffff;
+}
+
+/* O gradiente global termina no azul da marca, que some sobre o fundo azul do hero */
+.hero-title .title-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.hero-description {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.75;
+  max-width: 580px;
 }
 
 .legal-nav {
@@ -36,36 +68,30 @@
   color: var(--primary);
 }
 
-.legal-header {
-  text-align: center;
-  padding: 4rem 0 3rem;
-}
-
-.legal-header h1 {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, #fff 0%, var(--primary) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 .update-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(59, 130, 246, 0.12);
+  background: rgba(31, 51, 212, 0.08);
   color: var(--primary);
   padding: 0.5rem 1.2rem;
   border-radius: 100px;
   font-size: 0.9rem;
   font-weight: 500;
+  margin-bottom: 1.5rem;
 }
 
+/* O texto agora fica em fundo branco: redefine os tokens do tema escuro (styles.css);
+   --primary (rosa) vira o azul da marca nos marcadores, links e destaques */
 .legal-content {
+  --text: var(--navbar-text-scrolled);
+  --glass-border: rgba(31, 51, 212, 0.12);
+  --bg-soft: rgba(31, 51, 212, 0.04);
+  --primary: var(--brand-blue);
+  --primary-dark: var(--navbar-text-scrolled);
   max-width: 800px;
   margin: 0 auto;
-  padding-bottom: 4rem;
+  padding: 3rem 0 4rem;
 }
 
 .intro {
@@ -91,9 +117,10 @@
   border-left-color: var(--primary);
 }
 
+/* Vermelho fixo: --secondary deixou de ser vermelho na nova identidade visual */
 .highlight-warning {
   background: rgba(244, 63, 94, 0.08);
-  border-left-color: var(--secondary);
+  border-left-color: #f43f5e;
 }
 
 .highlight-box p {
@@ -202,12 +229,16 @@
 }
 
 @media (max-width: 768px) {
-  .legal-header {
-    padding: 2.5rem 0 2rem;
+  .legal-hero {
+    padding: 3rem 0 2.5rem;
   }
 
-  .legal-header h1 {
-    font-size: 2rem;
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
   }
 
   .legal-content {
@@ -234,8 +265,8 @@
 }
 
 @media (max-width: 480px) {
-  .legal-header h1 {
-    font-size: 1.65rem;
+  .hero-title {
+    font-size: 1.85rem;
   }
 
   .update-badge {

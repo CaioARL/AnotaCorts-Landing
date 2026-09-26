@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { RouterLink } from '@angular/router';
 
 import { APP_VERSION, AppVersion } from '../../config/version.config';
 import { COPY } from '../../config/copy';
@@ -15,7 +16,7 @@ interface Slide {
 
 @Component({
   selector: 'app-about',
-  imports: [CommonModule, Navbar, Footer],
+  imports: [CommonModule, RouterLink, Navbar, Footer],
   templateUrl: './about.html',
   styleUrl: './about.css',
 })

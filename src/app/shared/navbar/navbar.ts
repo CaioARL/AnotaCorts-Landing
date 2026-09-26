@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, inject, signal } from '@angular/core';
+import { Component, HostListener, OnInit, inject, input, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -17,6 +17,8 @@ export class Navbar implements OnInit {
   readonly links = COPY.nav.links;
   readonly mobileOpen = signal(false);
   readonly isScrolled = signal(false);
+  /** Mantém o visual de fundo branco desde o topo (páginas sem hero escuro atrás do navbar). */
+  readonly solid = input(false);
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {

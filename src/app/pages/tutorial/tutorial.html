@@ -1,90 +1,94 @@
 <div class="tutorial-page">
-  <app-navbar></app-navbar>
+  <app-navbar [solid]="true"></app-navbar>
 
   <!-- Hero -->
   <section class="tutorial-hero">
     <div class="container hero-inner">
-      <span class="section-tag animate-fade-in">{{ t.hero.eyebrow }}</span>
       <h1 class="hero-title animate-fade-in">
         {{ t.hero.title }}
         <span class="hero-highlight">{{ t.hero.titleHighlight }}</span>
       </h1>
       <p class="hero-description animate-fade-in">{{ t.hero.description }}</p>
+      <nav class="breadcrumb animate-fade-in" aria-label="Você está em">
+        <a routerLink="/" class="breadcrumb-link">{{ t.hero.breadcrumb.home }}</a>
+        <span class="breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="breadcrumb-current" aria-current="page">{{ t.hero.breadcrumb.current }}</span>
+      </nav>
     </div>
   </section>
 
-  <!-- Search bar (fora do hero pra não ser cortado pelo overflow) -->
-  <div class="search-section container">
-    <div class="search-wrap animate-fade-in" style="animation-delay: 0.45s">
-      <div class="search-box">
-        <svg
-          class="search-icon"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <circle cx="11" cy="11" r="8" />
-          <path d="M21 21l-4.35-4.35" />
-        </svg>
-        <input
-          type="text"
-          class="search-input"
-          placeholder="{{ t.search.placeholder }}"
-          [value]="searchQuery()"
-          (input)="onSearchInput($event)"
-          (focus)="setSearchFocused(true)"
-          (blur)="setSearchFocused(false)"
-          aria-label="Buscar no tutorial"
-        />
-        @if (searchQuery()) {
-          <button class="search-clear" (click)="clearSearch()" aria-label="Limpar busca">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
-        }
-      </div>
-
-      @if (searchFocused() && searchQuery()) {
-        <div class="search-results">
-          @if (filteredResults().length > 0) {
-            @for (result of filteredResults(); track result.sectionId + result.title) {
-              <button class="search-result" (mousedown)="selectSearchResult(result)">
-                <div class="search-result-main">
-                  <span class="search-result-title">{{ result.title }}</span>
-                  <span class="search-result-desc">{{ result.description }}</span>
-                </div>
-                <span class="search-result-tag">{{ result.sectionId }}</span>
-              </button>
-            }
-          } @else {
-            <div class="search-empty">
-              <span>Nada encontrado para "{{ searchQuery() }}"</span>
-              <small>Tente outra palavra-chave.</small>
-            </div>
+  <!-- Layout TOC + Conteúdo -->
+  <div class="tutorial-layout">
+    <!-- Busca: dentro do layout, na coluna do conteúdo (a barra do guia começa colada no hero) -->
+    <div class="search-section">
+      <div class="search-wrap animate-fade-in" style="animation-delay: 0.45s">
+        <div class="search-box">
+          <svg
+            class="search-icon"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="M21 21l-4.35-4.35" />
+          </svg>
+          <input
+            type="text"
+            class="search-input"
+            placeholder="{{ t.search.placeholder }}"
+            [value]="searchQuery()"
+            (input)="onSearchInput($event)"
+            (focus)="setSearchFocused(true)"
+            (blur)="setSearchFocused(false)"
+            aria-label="Buscar no tutorial"
+          />
+          @if (searchQuery()) {
+            <button class="search-clear" (click)="clearSearch()" aria-label="Limpar busca">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
           }
         </div>
-      }
-    </div>
-  </div>
 
-  <!-- Layout TOC + Conteúdo -->
-  <div class="tutorial-layout container">
+        @if (searchFocused() && searchQuery()) {
+          <div class="search-results">
+            @if (filteredResults().length > 0) {
+              @for (result of filteredResults(); track result.sectionId + result.title) {
+                <button class="search-result" (mousedown)="selectSearchResult(result)">
+                  <div class="search-result-main">
+                    <span class="search-result-title">{{ result.title }}</span>
+                    <span class="search-result-desc">{{ result.description }}</span>
+                  </div>
+                  <span class="search-result-tag">{{ result.sectionId }}</span>
+                </button>
+              }
+            } @else {
+              <div class="search-empty">
+                <span>Nada encontrado para "{{ searchQuery() }}"</span>
+                <small>Tente outra palavra-chave.</small>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
     <!-- Toggle TOC mobile -->
     <button class="toc-toggle" (click)="toggleMenu()" aria-label="Abrir índice">
       <svg
@@ -213,7 +217,10 @@
                 />
               </figure>
 
-              <figure class="tutorial-media tutorial-media--phone" #cadastroFig>
+              <figure
+                class="tutorial-media tutorial-media--phone tutorial-media--landscape"
+                #cadastroFig
+              >
                 <video
                   #cadastroVid
                   src="tutorial/screenshorts/cadastro/cadastro-video.mp4"

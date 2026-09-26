@@ -1,14 +1,18 @@
 <div class="about-page">
-  <app-navbar></app-navbar>
+  <app-navbar [solid]="true"></app-navbar>
 
   <!-- Hero -->
   <section class="about-hero">
     <div class="container hero-inner">
-      <span class="eyebrow animate-fade-in">{{ t.hero.eyebrow }}</span>
       <h1 class="hero-title animate-fade-in">
         {{ t.hero.title }} <span class="title-gradient">{{ t.hero.titleHighlight }}</span>
       </h1>
       <p class="hero-description animate-fade-in">{{ t.hero.description }}</p>
+      <nav class="breadcrumb animate-fade-in" aria-label="Você está em">
+        <a routerLink="/" class="breadcrumb-link">{{ t.hero.breadcrumb.home }}</a>
+        <span class="breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="breadcrumb-current" aria-current="page">{{ t.hero.breadcrumb.current }}</span>
+      </nav>
     </div>
   </section>
 

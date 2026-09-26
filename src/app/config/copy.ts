@@ -99,7 +99,7 @@ export const COPY = {
 
   about: {
     hero: {
-      eyebrow: 'Sobre nós',
+      breadcrumb: { home: 'Home', current: 'Sobre' },
       title: 'Conheça o',
       titleHighlight: 'AnotaCorts',
       description:
@@ -167,7 +167,7 @@ export const COPY = {
 
   metrics: {
     hero: {
-      eyebrow: 'Métricas em tempo real',
+      breadcrumb: { home: 'Home', current: 'Métricas' },
       title: 'Os números que movem o',
       titleHighlight: 'AnotaCorts',
       subtitle:
@@ -244,7 +244,7 @@ export const COPY = {
 
   tutorial: {
     hero: {
-      eyebrow: 'Guia completo',
+      breadcrumb: { home: 'Home', current: 'Tutorial' },
       title: 'Tutorial',
       titleHighlight: 'AnotaCorts',
       description:
@@ -257,7 +257,11 @@ export const COPY = {
   },
 
   privacy: {
-    title: 'Política de Privacidade',
+    breadcrumb: { home: 'Home', current: 'Privacidade' },
+    title: 'Política de',
+    titleHighlight: 'Privacidade',
+    description:
+      'Como coletamos, usamos, armazenamos e protegemos seus dados pessoais, em conformidade com a LGPD.',
     updatedAt: 'Atualizado em 25 de Janeiro de 2026',
     intro:
       'O Anota Corts tem o compromisso de proteger sua privacidade e seus dados pessoais. Esta Política de Privacidade descreve como coletamos, usamos, armazenamos e protegemos suas informações, em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).',
@@ -266,7 +270,11 @@ export const COPY = {
   },
 
   terms: {
-    title: 'Termos de Uso',
+    breadcrumb: { home: 'Home', current: 'Termos' },
+    title: 'Termos de',
+    titleHighlight: 'Uso',
+    description:
+      'As regras e condições para usar o aplicativo AnotaCorts, com seus direitos e responsabilidades.',
     updatedAt: 'Atualizado em 25 de Janeiro de 2026',
     intro:
       'Bem-vindo ao Anota Corts! Ao utilizar nosso aplicativo, você concorda com os termos e condições descritos abaixo. Leia atentamente antes de continuar.',

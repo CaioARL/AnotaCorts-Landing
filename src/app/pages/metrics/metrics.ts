@@ -53,6 +53,11 @@ const ZERO_VALUES: AnimatedValues = {
   despesas: 0,
 };
 
+/** Siglas das 27 UFs. A API também devolve códigos que não são UF (ex.: "BR", "SA"). */
+const UFS_BRASIL = new Set(
+  'AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO'.split(' '),
+);
+
 interface UserBaseSummary {
   totalUsuariosMonitorados: number;
   usuariosAtivos: number;
@@ -112,18 +117,17 @@ export class Metrics implements OnInit {
   /** Valores exibidos nos contadores (animados de 0 até o alvo). */
   readonly displayValues = signal<AnimatedValues>({ ...ZERO_VALUES });
 
-  /** Estados ordenados por quantidade de barbearias ativas (top 10). */
-  readonly topEstados = computed<EstadoRow[]>(() => {
+  /** Todos os estados com barbearias ativas, do maior para o menor (a lista rola no card). */
+  readonly estados = computed<EstadoRow[]>(() => {
     const data = this.metrics();
     if (!data?.barbeariasPorEstado) {
       return [];
     }
-    const entries = Object.entries(data.barbeariasPorEstado);
+    const entries = Object.entries(data.barbeariasPorEstado).filter(([uf]) => UFS_BRASIL.has(uf));
     const max = entries.reduce((acc, [, value]) => Math.max(acc, value), 0) || 1;
     return entries
       .map(([uf, total]) => ({ uf, total, percent: Math.round((total / max) * 100) }))
-      .sort((a, b) => b.total - a.total)
-      .slice(0, 10);
+      .sort((a, b) => b.total - a.total);
   });
 
   readonly isOperational = computed(() => this.metrics()?.statusPlataforma === 'OPERATIONAL');
@@ -174,7 +178,7 @@ export class Metrics implements OnInit {
       tooltip: {
         trigger: 'axis',
         backgroundColor: 'rgba(15,15,20,0.92)',
-        borderColor: 'rgba(139,92,246,0.3)',
+        borderColor: 'rgba(31,51,212,0.4)',
         borderWidth: 1,
         textStyle: { color: '#e2e8f0', fontFamily: 'inherit', fontSize: 13 },
         formatter: (params: unknown) => {
@@ -182,13 +186,13 @@ export class Metrics implements OnInit {
             axisValue: string;
             value: number;
           };
-          return `<b>${p.axisValue}</b><br/>Entradas: <b style="color:#a78bfa">${p.value}</b>`;
+          return `<b>${p.axisValue}</b><br/>Entradas: <b style="color:#c7d2fe">${p.value}</b>`;
         },
       },
       xAxis: {
         type: 'category',
         data: labels,
-        axisLine: { lineStyle: { color: 'rgba(255,255,255,0.08)' } },
+        axisLine: { lineStyle: { color: 'rgba(13,13,56,0.12)' } },
         axisTick: { show: false },
         axisLabel: { color: '#94a3b8', fontSize: 12, fontFamily: 'inherit' },
         splitLine: { show: false },
@@ -203,7 +207,7 @@ export class Metrics implements OnInit {
           fontFamily: 'inherit',
           formatter: (v: number) => v.toLocaleString('pt-BR'),
         },
-        splitLine: { lineStyle: { color: 'rgba(255,255,255,0.06)', type: 'dashed' } },
+        splitLine: { lineStyle: { color: 'rgba(13,13,56,0.08)', type: 'dashed' } },
       },
       series: [
         {
@@ -220,13 +224,13 @@ export class Metrics implements OnInit {
               x2: 0,
               y2: 1,
               colorStops: [
-                { offset: 0, color: '#a78bfa' },
-                { offset: 1, color: '#7c3aed' },
+                { offset: 0, color: '#1f33d4' },
+                { offset: 1, color: '#0d0d38' },
               ],
             },
           },
           emphasis: {
-            itemStyle: { color: '#c4b5fd' },
+            itemStyle: { color: '#4f5fe8' },
           },
         },
       ],

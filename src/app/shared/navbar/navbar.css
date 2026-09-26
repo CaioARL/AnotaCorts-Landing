@@ -47,6 +47,11 @@
 
 .logo-accent {
   color: var(--accent);
+  transition: color 0.3s ease;
+}
+
+.navbar.scrolled .logo-accent {
+  color: var(--brand-blue);
 }
 
 /* Desktop links */

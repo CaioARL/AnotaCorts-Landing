@@ -2,8 +2,18 @@
 .tutorial-page {
   padding-top: var(--navbar-h, 64px);
   min-height: 100vh;
-  background-color: var(--bg);
   position: relative;
+}
+
+/* A página agora tem fundo branco: redefine os tokens do tema escuro (styles.css) na busca
+   e no conteúdo. --primary (rosa) vira o azul da marca em todos os destaques do tutorial. */
+.search-section,
+.tutorial-layout {
+  --text: var(--navbar-text-scrolled);
+  --glass-border: rgba(31, 51, 212, 0.12);
+  --bg-soft: #ffffff;
+  --primary: var(--brand-blue);
+  color: var(--text);
 }
 
 .section-tag {
@@ -61,11 +71,12 @@
   background: rgba(59, 130, 246, 0.08);
 }
 
-/* ===== Hero ===== */
+/* ===== Hero: mesmo hero em degradê azul do Sobre e das Métricas ===== */
 .tutorial-hero {
   position: relative;
-  padding: 5rem 0 2.5rem;
+  padding: 6rem 0 5rem;
   overflow: hidden;
+  background: linear-gradient(135deg, var(--navbar-text-scrolled) 0%, var(--brand-blue) 100%);
 }
 
 .hero-orb {
@@ -106,44 +117,32 @@
 }
 
 .hero-inner {
-  text-align: center;
+  max-width: 720px;
   position: relative;
   z-index: 2;
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 5.5vw, 4rem);
-  margin-bottom: 1.5rem;
-  line-height: 1.05;
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  margin-bottom: 1.25rem;
+  line-height: 1.1;
   letter-spacing: -0.03em;
+  color: #ffffff;
 }
 
+/* O gradiente antigo terminava em rosa/azul-escuro, que somem sobre o fundo azul do hero */
 .hero-highlight {
-  display: block;
-  background: linear-gradient(135deg, #fff 0%, var(--primary) 50%, var(--secondary) 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-size: 200% 200%;
-  animation: gradShift 6s ease-in-out infinite;
-}
-
-@keyframes gradShift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
 }
 
 .hero-description {
-  color: var(--text-muted);
-  font-size: 1.15rem;
-  line-height: 1.8;
-  max-width: 680px;
-  margin: 0 auto 2.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  max-width: 580px;
 }
 
 .hero-line {
@@ -155,11 +154,14 @@
 }
 
 /* ===== Search ===== */
+/* Na coluna do conteúdo, subindo sobre a borda do hero */
 .search-section {
+  grid-column: 2;
+  grid-row: 1;
   position: relative;
   z-index: 100;
   margin-top: -1.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0 3rem 0.5rem;
 }
 
 .search-wrap {
@@ -173,21 +175,21 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: linear-gradient(145deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.65));
+  background: #ffffff;
   border: 1px solid var(--glass-border);
   border-radius: 14px;
   padding: 0.4rem 0.5rem 0.4rem 1.1rem;
+  box-shadow: 0 12px 30px -12px rgba(13, 13, 56, 0.25);
   transition:
     border-color 0.3s,
     box-shadow 0.3s;
-  backdrop-filter: blur(10px);
 }
 
 .search-box:focus-within {
-  border-color: rgba(59, 130, 246, 0.45);
+  border-color: rgba(31, 51, 212, 0.45);
   box-shadow:
-    0 0 0 4px rgba(59, 130, 246, 0.1),
-    0 12px 30px -10px rgba(59, 130, 246, 0.25);
+    0 0 0 4px rgba(31, 51, 212, 0.1),
+    0 12px 30px -10px rgba(31, 51, 212, 0.25);
 }
 
 .search-icon {
@@ -223,7 +225,7 @@
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(31, 51, 212, 0.05);
   border: 1px solid var(--glass-border);
   color: var(--text-muted);
   cursor: pointer;
@@ -242,19 +244,18 @@
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  background: linear-gradient(160deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98));
+  background: #ffffff;
   border: 1px solid var(--glass-border);
   border-radius: 14px;
   padding: 0.5rem;
   max-height: 360px;
   overflow-y: auto;
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 50px -10px rgba(13, 13, 56, 0.25);
   z-index: 200;
   text-align: left;
   animation: searchPop 0.2s ease-out;
   scrollbar-width: thin;
-  scrollbar-color: rgba(59, 130, 246, 0.4) transparent;
+  scrollbar-color: rgba(31, 51, 212, 0.3) transparent;
 }
 
 .search-results::-webkit-scrollbar {
@@ -262,19 +263,18 @@
 }
 
 .search-results::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(31, 51, 212, 0.04);
   border-radius: 8px;
   margin: 4px 0;
 }
 
 .search-results::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(59, 130, 246, 0.45), rgba(244, 63, 94, 0.45));
+  background: rgba(31, 51, 212, 0.3);
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .search-results::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(59, 130, 246, 0.7), rgba(244, 63, 94, 0.7));
+  background: rgba(31, 51, 212, 0.5);
 }
 
 @keyframes searchPop {
@@ -371,32 +371,32 @@
 }
 
 /* ===== Layout (TOC + content) ===== */
+/* Sem .container: o guia fica encostado na borda esquerda da tela e vai até o footer;
+   o conteúdo se centraliza no espaço que sobra */
 .tutorial-layout {
   display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 3rem;
-  padding-top: 2rem;
-  padding-bottom: 5rem;
+  grid-template-columns: 280px 1fr;
   align-items: start;
   position: relative;
   z-index: 1;
 }
 
-/* TOC */
+/* TOC: barra lateral colada na borda esquerda, com a altura toda do conteúdo;
+   a lista dentro dela acompanha a rolagem */
 .toc {
-  position: sticky;
-  top: calc(var(--navbar-h, 64px) + 1.5rem);
+  /* Ocupa as duas linhas (busca + conteúdo), então começa colada na borda do hero */
+  grid-column: 1;
+  grid-row: 1 / span 2;
   z-index: 10;
-  height: fit-content;
-  align-self: start;
+  align-self: stretch;
+  background: rgba(31, 51, 212, 0.03);
+  border-right: 1px solid var(--glass-border);
 }
 
 .toc-inner {
-  background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.4));
-  border: 1px solid var(--glass-border);
-  border-radius: 18px;
-  padding: 1.5rem 1rem;
-  backdrop-filter: blur(8px);
+  position: sticky;
+  top: var(--navbar-h, 64px);
+  padding: 2rem 1.25rem 2rem 1.5rem;
 }
 
 .toc-title {
@@ -483,7 +483,13 @@
 
 /* ===== Content ===== */
 .tutorial-content {
+  grid-column: 2;
+  grid-row: 2;
   min-width: 0;
+  width: 100%;
+  max-width: calc(920px + 6rem);
+  margin: 0 auto;
+  padding: 1.5rem 3rem 5rem;
 }
 
 .t-section {
@@ -528,11 +534,10 @@
 
 /* Cards */
 .t-card {
-  background: linear-gradient(145deg, rgba(30, 41, 59, 0.55), rgba(15, 23, 42, 0.35));
+  background: #ffffff;
   border: 1px solid var(--glass-border);
   border-radius: 20px;
   padding: 2rem;
-  backdrop-filter: blur(8px);
   margin-bottom: 1.5rem;
   transition: border-color 0.3s;
 }
@@ -560,7 +565,7 @@
   gap: 0.5rem;
   margin-bottom: 1.25rem;
   padding: 1rem 1.15rem;
-  background: rgba(15, 23, 42, 0.45);
+  background: rgba(31, 51, 212, 0.04);
   border: 1px solid var(--glass-border);
   border-left: 3px solid var(--primary);
   border-radius: 10px;
@@ -690,7 +695,7 @@
 }
 
 .t-mini-card {
-  background: rgba(15, 23, 42, 0.45);
+  background: rgba(31, 51, 212, 0.04);
   border: 1px solid var(--glass-border);
   border-radius: 12px;
   padding: 1.1rem 1.25rem;
@@ -767,13 +772,13 @@
   background:
     repeating-linear-gradient(
       45deg,
-      rgba(255, 255, 255, 0.015),
-      rgba(255, 255, 255, 0.015) 12px,
+      rgba(31, 51, 212, 0.03),
+      rgba(31, 51, 212, 0.03) 12px,
       transparent 12px,
       transparent 24px
     ),
-    rgba(15, 23, 42, 0.4);
-  border: 1.5px dashed rgba(255, 255, 255, 0.12);
+    rgba(31, 51, 212, 0.02);
+  border: 1.5px dashed rgba(31, 51, 212, 0.2);
   margin: 1rem 0;
   transition: all 0.3s;
 }
@@ -796,7 +801,7 @@
       transparent 12px,
       transparent 24px
     ),
-    rgba(15, 23, 42, 0.5);
+    rgba(31, 51, 212, 0.03);
 }
 
 .media-placeholder--video {
@@ -813,7 +818,7 @@
       transparent 12px,
       transparent 24px
     ),
-    rgba(15, 23, 42, 0.5);
+    rgba(31, 51, 212, 0.03);
 }
 
 .media-icon {
@@ -853,22 +858,25 @@
   margin: 1.25rem 0;
   border-radius: 14px;
   overflow: hidden;
-  background: #000;
+  /* Branco como as bordas dos prints e das telas gravadas (o preto vazava nos cantos) */
+  background: #ffffff;
   border: 1px solid var(--glass-border);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 12px 30px -10px rgba(13, 13, 56, 0.25);
 }
 
 .tutorial-media img {
   display: block;
   width: 100%;
   height: auto;
-  object-fit: contain;
-  background: #000;
 }
 
-.tutorial-media:has(> img) {
+/* Vídeos: as gravações (1080×1920) têm a tela do celular com a altura inteira e faixas pretas
+   de ~6% em cada lateral. A moldura usa a proporção da tela do celular (0.48, com folga) e o
+   object-fit: cover corta só as faixas — sem zoom, então a parte de baixo aparece inteira. */
+.tutorial-media:has(> video) {
+  position: relative;
   overflow: hidden;
-  max-height: 600px;
+  aspect-ratio: 0.48;
 }
 
 .tutorial-media video {
@@ -876,17 +884,12 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 51.5% 50%;
-  background: #000;
-  /* transform: scale(1.18); */
-  transform: scale(1.16);
-  transform-origin: top center;
+  object-position: 50% 50%;
 }
 
-.tutorial-media:has(> video) {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 9 / 16;
+/* Gravação deitada (1920×1080) com a tela do celular numa coluna um pouco à direita do centro */
+.tutorial-media--landscape video {
+  object-position: 51.6% 50%;
 }
 
 /* Botão de play customizado no centro do vídeo */
@@ -952,15 +955,11 @@
   }
 }
 
+/* 320px de largura: a tela inteira do celular fica com ~650px de altura (prints e vídeos) */
 .tutorial-media--phone {
-  max-width: 420px;
+  max-width: 320px;
   margin-left: auto;
   margin-right: auto;
-}
-
-.tutorial-media--phone video {
-  aspect-ratio: 9 / 16;
-  object-fit: cover;
 }
 
 /* Para vídeos já gravados com a tela do celular ocupando tudo (sem barras pretas) */
@@ -990,7 +989,7 @@
 }
 
 .faq-item {
-  background: linear-gradient(145deg, rgba(30, 41, 59, 0.55), rgba(15, 23, 42, 0.35));
+  background: #ffffff;
   border: 1px solid var(--glass-border);
   border-radius: 14px;
   padding: 0;
@@ -1070,7 +1069,7 @@
   display: flex;
   align-items: center;
   gap: 0.85rem;
-  background: linear-gradient(145deg, rgba(30, 41, 59, 0.55), rgba(15, 23, 42, 0.35));
+  background: #ffffff;
   border: 1px solid var(--glass-border);
   border-radius: 14px;
   padding: 1rem 1.25rem;
@@ -1168,7 +1167,19 @@
   .tutorial-layout {
     grid-template-columns: 1fr;
     gap: 1.25rem;
-    padding-top: 1.5rem;
+    padding: 0 1.25rem;
+  }
+
+  /* Uma coluna só: volta à ordem do HTML (busca, botão "Índice", índice, conteúdo) */
+  .search-section,
+  .toc,
+  .tutorial-content {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .search-section {
+    padding: 0 0 0.5rem;
   }
 
   .toc-toggle {
@@ -1176,9 +1187,16 @@
     align-self: flex-start;
   }
 
+  /* No celular o índice abre como um painel abaixo do botão "Índice" */
   .toc {
     position: static;
     display: none;
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+  }
+
+  .tutorial-content {
+    padding: 0 0 3.5rem;
   }
 
   .toc--open {

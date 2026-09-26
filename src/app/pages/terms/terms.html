@@ -1,9 +1,23 @@
 <div class="legal-page">
-  <app-navbar></app-navbar>
+  <app-navbar [solid]="true"></app-navbar>
+
+  <!-- Hero -->
+  <section class="legal-hero">
+    <div class="container hero-inner">
+      <h1 class="hero-title animate-fade-in">
+        {{ t.title }} <span class="title-gradient">{{ t.titleHighlight }}</span>
+      </h1>
+      <p class="hero-description animate-fade-in">{{ t.description }}</p>
+      <nav class="breadcrumb animate-fade-in" aria-label="Você está em">
+        <a routerLink="/" class="breadcrumb-link">{{ t.breadcrumb.home }}</a>
+        <span class="breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="breadcrumb-current" aria-current="page">{{ t.breadcrumb.current }}</span>
+      </nav>
+    </div>
+  </section>
 
   <div class="container">
-    <header class="legal-header animate-fade-in">
-      <h1>{{ t.title }}</h1>
+    <div class="legal-content animate-fade-in">
       <div class="update-badge">
         <svg
           width="16"
@@ -20,9 +34,7 @@
         </svg>
         {{ t.updatedAt }}
       </div>
-    </header>
 
-    <div class="legal-content animate-fade-in">
       <p class="intro">
         Bem-vindo ao Anota Corts! Ao utilizar nosso aplicativo, você concorda com os termos e
         condições descritos abaixo. Leia atentamente antes de continuar.
@@ -261,7 +273,7 @@
         </div>
       </section>
     </div>
-
-    <app-footer></app-footer>
   </div>
+
+  <app-footer></app-footer>
 </div>

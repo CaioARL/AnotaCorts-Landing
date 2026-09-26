@@ -10,7 +10,15 @@ import {
   ViewChild,
 } from '@angular/core';
 import * as maplibregl from 'maplibre-gl';
+import { CARTO_BASEMAPS_KEY } from '../../config/api.config';
 import { LandingStats } from '../../pages/home/home';
+
+/** URLs dos tiles raster da CARTO (servidores a/b/c), com a chave da conta. */
+const cartoTiles = (style: 'dark_nolabels' | 'light_nolabels'): string[] =>
+  ['a', 'b', 'c'].map(
+    (s) =>
+      `https://${s}.basemaps.cartocdn.com/${style}/{z}/{x}/{y}@2x.png?key=${CARTO_BASEMAPS_KEY}`,
+  );
 
 export const BRAZIL_STATE_COORDS: Record<string, { name: string; coords: [number, number] }> = {
   SP: { name: 'São Paulo', coords: [-46.6333, -23.5505] },
@@ -119,21 +127,13 @@ export class GlobeMap implements AfterViewInit, OnChanges, OnDestroy {
         sources: {
           'carto-dark': {
             type: 'raster',
-            tiles: [
-              'https://a.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}@2x.png',
-              'https://b.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}@2x.png',
-              'https://c.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}@2x.png',
-            ],
+            tiles: cartoTiles('dark_nolabels'),
             tileSize: 256,
             attribution: '© CARTO, © OpenStreetMap',
           },
           'carto-light': {
             type: 'raster',
-            tiles: [
-              'https://a.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}@2x.png',
-              'https://b.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}@2x.png',
-              'https://c.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}@2x.png',
-            ],
+            tiles: cartoTiles('light_nolabels'),
             tileSize: 256,
             attribution: '© CARTO, © OpenStreetMap',
           },
@@ -172,7 +172,8 @@ export class GlobeMap implements AfterViewInit, OnChanges, OnDestroy {
         zoom: initialZoom,
         minZoom: 1.0,
         maxZoom: 6,
-        attributionControl: false,
+        // A CARTO exige o crédito "© CARTO, © OpenStreetMap" visível; fica recolhido num ícone "i"
+        attributionControl: { compact: true },
         scrollZoom: true,
         dragPan: true,
       });

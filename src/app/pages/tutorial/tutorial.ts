@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { APP_VERSION, AppVersion } from '../../config/version.config';
 import { COPY } from '../../config/copy';
 import { Navbar } from '../../shared/navbar/navbar';
@@ -20,7 +21,7 @@ interface SearchItem {
 
 @Component({
   selector: 'app-tutorial',
-  imports: [CommonModule, Navbar, Footer],
+  imports: [CommonModule, RouterLink, Navbar, Footer],
   templateUrl: './tutorial.html',
   styleUrl: './tutorial.css',
 })

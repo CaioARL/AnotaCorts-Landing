@@ -14,54 +14,50 @@
   display: none;
 }
 
-/* Cabeçalho */
+/* Cabeçalho: mesmo hero em degradê azul da página Sobre */
 .metrics-hero {
-  text-align: center;
-  padding-top: 4rem;
-  padding-bottom: 3rem;
-  max-width: 820px;
+  padding: 6rem 0 5rem;
+  background: linear-gradient(135deg, var(--navbar-text-scrolled) 0%, var(--brand-blue) 100%);
 }
 
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 30px;
-  margin-bottom: 1.75rem;
+.hero-inner {
+  max-width: 720px;
 }
 
 .metrics-title {
   font-size: clamp(2rem, 5vw, 3.5rem);
   margin-bottom: 1.25rem;
+  color: #ffffff;
+}
+
+/* O gradiente global termina no azul da marca, que some sobre o fundo azul do hero */
+.metrics-title .title-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 .metrics-subtitle {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.8);
   font-size: 1.15rem;
   max-width: 640px;
-  margin: 0 auto;
 }
 
-.hero-meta {
+/* Status da plataforma: logo abaixo do hero, acima dos cards */
+.status-bar {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-bottom: 3rem;
 }
 
 .status-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(148, 163, 184, 0.1);
+  background: rgba(31, 51, 212, 0.06);
   color: var(--text-muted);
   border: 1px solid var(--glass-border);
   font-size: 0.85rem;
@@ -72,8 +68,8 @@
 
 .status-pill.online {
   background: rgba(34, 197, 94, 0.1);
-  color: #22c55e;
-  border-color: rgba(34, 197, 94, 0.25);
+  color: #16a34a;
+  border-color: rgba(34, 197, 94, 0.3);
 }
 
 .updated-at {
@@ -88,16 +84,16 @@
   font-size: 0.8rem;
   font-weight: 500;
   color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border);
+  background: rgba(31, 51, 212, 0.04);
+  border: 1px solid var(--glass-border);
   padding: 4px 10px;
   border-radius: 20px;
 }
 
 .cache-pill.expiring {
-  color: #22c55e;
-  background: rgba(34, 197, 94, 0.07);
-  border-color: rgba(34, 197, 94, 0.2);
+  color: #16a34a;
+  background: rgba(34, 197, 94, 0.08);
+  border-color: rgba(34, 197, 94, 0.25);
 }
 
 /* Ponto pulsante */
@@ -165,7 +161,14 @@
 
 /* Conteúdo */
 .metrics-content {
+  padding-top: 4rem;
   padding-bottom: 5rem;
+  /* A página agora tem fundo branco: redefine aqui os tokens do tema escuro (styles.css) */
+  --text: var(--navbar-text-scrolled);
+  --glass: #ffffff;
+  --glass-border: rgba(31, 51, 212, 0.12);
+  --border: rgba(31, 51, 212, 0.12);
+  color: var(--text);
 }
 
 /* Grade de indicadores */
@@ -174,11 +177,12 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1.75rem;
   margin-bottom: 3rem;
+  /* Anula o padding global de <section> para os cards ficarem colados à barra de status */
+  padding-top: 0;
 }
 
 .metric-card {
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
+  background: linear-gradient(135deg, var(--navbar-text-scrolled) 0%, var(--brand-blue) 100%);
   border-radius: 20px;
   padding: 2.25rem 2rem;
   text-align: center;
@@ -189,8 +193,7 @@
 
 .metric-card:hover {
   transform: translateY(-5px);
-  border-color: var(--primary);
-  box-shadow: 0 12px 30px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 12px 28px rgba(31, 51, 212, 0.25);
 }
 
 .metric-glow {
@@ -211,9 +214,9 @@
 }
 
 .metric-icon {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--glass-border);
-  color: var(--primary);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
   width: 56px;
   height: 56px;
   border-radius: 14px;
@@ -229,14 +232,14 @@
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
   margin-bottom: 0.5rem;
-  color: var(--text);
+  color: #ffffff;
   position: relative;
   z-index: 1;
   font-variant-numeric: tabular-nums;
 }
 
 .metric-label {
-  color: var(--text);
+  color: #ffffff;
   font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
@@ -246,9 +249,9 @@
 
 .metric-badge {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--glass-border);
-  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 0.78rem;
   font-weight: 600;
   padding: 4px 10px;
@@ -283,12 +286,12 @@
 .highlight-value {
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 800;
-  color: var(--primary);
+  color: #2044dc;
   font-variant-numeric: tabular-nums;
 }
 
 .highlight-label {
-  color: var(--text-muted);
+  color: var(--navbar-text-scrolled);
   font-size: 0.95rem;
   text-align: center;
 }
@@ -328,7 +331,7 @@
 
 .granularity-toggle {
   display: flex;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(31, 51, 212, 0.04);
   border: 1px solid var(--glass-border);
   border-radius: 12px;
   padding: 4px;
@@ -355,13 +358,13 @@
 }
 
 .granularity-btn.active {
-  background: var(--primary);
+  background: var(--brand-blue);
   color: #fff;
-  box-shadow: 0 2px 12px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 2px 12px rgba(31, 51, 212, 0.35);
 }
 
 .granularity-btn:not(.active):hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(31, 51, 212, 0.08);
   color: var(--text);
 }
 
@@ -379,7 +382,7 @@
 }
 
 .date-input {
-  background: rgba(255, 255, 255, 0.04);
+  background: #ffffff;
   border: 1px solid var(--glass-border);
   border-radius: 10px;
   color: var(--text);
@@ -389,18 +392,18 @@
   cursor: pointer;
   transition: border-color 0.2s;
   outline: none;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 .date-input:hover,
 .date-input:focus {
-  border-color: var(--primary);
+  border-color: var(--brand-blue);
 }
 
 .btn-apply {
   padding: 7px 20px;
   border-radius: 10px;
-  background: var(--primary);
+  background: var(--brand-blue);
   color: #fff;
   border: none;
   font-size: 0.88rem;
@@ -411,11 +414,11 @@
     background 0.2s,
     transform 0.15s,
     opacity 0.2s;
-  box-shadow: 0 2px 12px rgba(59, 130, 246, 0.35);
+  box-shadow: 0 2px 12px rgba(31, 51, 212, 0.35);
 }
 
 .btn-apply:hover:not(:disabled) {
-  background: var(--primary-dark);
+  background: var(--navbar-text-scrolled);
   transform: translateY(-1px);
 }
 
@@ -473,7 +476,7 @@
 }
 
 .legend-dot.in {
-  background: var(--primary);
+  background: var(--brand-blue);
 }
 
 .legend-dot.out {
@@ -494,7 +497,7 @@
 }
 
 .growth-total.in {
-  color: var(--primary);
+  color: var(--brand-blue);
 }
 
 .growth-total.out {
@@ -585,7 +588,7 @@
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: 2rem;
-  align-items: start;
+  align-items: stretch;
   margin-bottom: 3rem;
 }
 
@@ -633,7 +636,7 @@
 }
 
 .bar-track {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(31, 51, 212, 0.08);
   border-radius: 10px;
   height: 10px;
   overflow: hidden;
@@ -693,10 +696,25 @@
   margin-bottom: 2rem;
 }
 
+.states-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* A lista rola dentro do card: com height 0 + flex-grow ela ocupa só o espaço que sobra,
+   então o card acompanha a altura do box de fidelização em vez de crescer com os estados.
+   (Não usar `flex: 1`: a base 0% vira o tamanho do conteúdo e o card volta a crescer.) */
 .states-list {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  flex-grow: 1;
+  height: 0;
+  min-height: 240px;
+  overflow-y: auto;
+  padding-right: 0.75rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(31, 51, 212, 0.3) transparent;
 }
 
 .state-row {
@@ -714,7 +732,7 @@
 
 .state-bar-track {
   flex: 1;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(31, 51, 212, 0.08);
   height: 6px;
   border-radius: 4px;
   overflow: hidden;
@@ -746,14 +764,14 @@
   position: relative;
   overflow: hidden;
   text-align: center;
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
+  background: linear-gradient(135deg, var(--navbar-text-scrolled) 0%, var(--brand-blue) 100%);
   border-radius: 24px;
-  padding: 4rem 2rem;
+  padding: 4.5rem 2rem;
+  box-shadow: 0 20px 40px rgba(31, 51, 212, 0.2);
 }
 
 .cta-glow {
-  background: radial-gradient(circle at center, var(--primary) 0%, transparent 70%);
+  background: radial-gradient(circle at center, #c7d2fe 0%, transparent 70%);
   position: absolute;
   width: 320px;
   height: 320px;
@@ -770,10 +788,11 @@
   margin-bottom: 1rem;
   position: relative;
   z-index: 1;
+  color: #ffffff;
 }
 
 .cta-desc {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.8);
   font-size: 1.1rem;
   margin-bottom: 2rem;
   position: relative;
@@ -783,6 +802,20 @@
 .metrics-cta .btn {
   position: relative;
   z-index: 1;
+}
+
+/* Botão branco: destaca sobre o degradê sem trazer mais rosa para a página */
+.metrics-cta .btn-primary {
+  background: #ffffff;
+  color: var(--navbar-text-scrolled);
+  padding: 0.875rem 2rem;
+  box-shadow: 0 6px 20px rgba(13, 13, 56, 0.25);
+}
+
+.metrics-cta .btn-primary:hover {
+  background: #eef1ff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(13, 13, 56, 0.35);
 }
 
 /* Rodapé */
@@ -935,9 +968,9 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--primary);
-  background: rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.22);
+  color: var(--brand-blue);
+  background: rgba(31, 51, 212, 0.08);
+  border: 1px solid rgba(31, 51, 212, 0.22);
   padding: 5px 13px;
   border-radius: 20px;
   margin-bottom: 1.5rem;
@@ -1003,8 +1036,8 @@
   display: flex;
   align-items: center;
   gap: 2rem;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.07) 0%, rgba(59, 130, 246, 0.02) 100%);
-  border: 1px solid rgba(59, 130, 246, 0.22);
+  background: linear-gradient(135deg, rgba(31, 51, 212, 0.07) 0%, rgba(31, 51, 212, 0.02) 100%);
+  border: 1px solid rgba(31, 51, 212, 0.22);
   border-radius: 22px;
   padding: 2rem 2.5rem;
   margin-bottom: 2.5rem;
@@ -1017,7 +1050,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 0% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 0% 50%, rgba(31, 51, 212, 0.08) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -1033,9 +1066,9 @@
   width: 62px;
   height: 62px;
   border-radius: 18px;
-  background: rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.22);
-  color: var(--primary);
+  background: rgba(31, 51, 212, 0.1);
+  border: 1px solid rgba(31, 51, 212, 0.22);
+  color: var(--brand-blue);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1118,13 +1151,13 @@
 }
 
 .growth-kpi-card:hover {
-  border-color: rgba(59, 130, 246, 0.3);
-  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.08);
+  border-color: rgba(31, 51, 212, 0.3);
+  box-shadow: 0 4px 16px rgba(31, 51, 212, 0.08);
 }
 
 .growth-kpi-card.accent {
-  border-color: rgba(59, 130, 246, 0.25);
-  background: rgba(59, 130, 246, 0.05);
+  border-color: rgba(31, 51, 212, 0.25);
+  background: rgba(31, 51, 212, 0.05);
 }
 
 .growth-kpi-card.danger {
@@ -1158,7 +1191,7 @@
 }
 
 .growth-kpi-card.accent .growth-kpi-value {
-  color: var(--primary);
+  color: var(--brand-blue);
 }
 
 .growth-kpi-card.danger .growth-kpi-value {

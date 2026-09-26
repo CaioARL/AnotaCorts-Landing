@@ -44,3 +44,7 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Segredos locais (chaves de API) e o arquivo gerado a partir deles por scripts/set-env.js
+.env
+/src/environments/env.generated.ts
