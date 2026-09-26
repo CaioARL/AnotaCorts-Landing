@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://anotacorts.com.br/</loc>
+    <loc>https://www.anotacorts.com.br/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://anotacorts.com.br/sobre</loc>
+    <loc>https://www.anotacorts.com.br/sobre</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://anotacorts.com.br/tutorial</loc>
+    <loc>https://www.anotacorts.com.br/tutorial</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://anotacorts.com.br/metricas</loc>
+    <loc>https://www.anotacorts.com.br/metricas</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://anotacorts.com.br/termos</loc>
+    <loc>https://www.anotacorts.com.br/termos</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://anotacorts.com.br/privacidade</loc>
+    <loc>https://www.anotacorts.com.br/privacidade</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

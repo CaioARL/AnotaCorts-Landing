@@ -1,0 +1,41 @@
+{
+  "siteUrl": "https://www.anotacorts.com.br",
+  "pages": [
+    {
+      "path": "",
+      "title": "AnotaCorts - Gestão Digital para sua Barbearia",
+      "description": "AnotaCorts: app completo de gestão para barbearias. Agendamentos, clientes, despesas, dashboard financeiro e ranking. Disponível para Android e iOS.",
+      "breadcrumb": null
+    },
+    {
+      "path": "sobre",
+      "title": "Sobre o AnotaCorts - Conheça o App",
+      "description": "Conheça o AnotaCorts, a plataforma de gestão criada para barbearias: atendimentos, clientes, despesas e faturamento em um só lugar.",
+      "breadcrumb": "Sobre"
+    },
+    {
+      "path": "metricas",
+      "title": "Métricas da Plataforma - AnotaCorts",
+      "description": "Os números do AnotaCorts em tempo real: barbearias ativas, cortes realizados, crescimento da base de usuários e atividade por estado.",
+      "breadcrumb": "Métricas"
+    },
+    {
+      "path": "tutorial",
+      "title": "Tutorial - Como usar o AnotaCorts",
+      "description": "Guia passo a passo do AnotaCorts: cadastro, dashboard, clientes, atendimentos, serviços, despesas, assinatura e perguntas frequentes.",
+      "breadcrumb": "Tutorial"
+    },
+    {
+      "path": "privacidade",
+      "title": "Política de Privacidade - AnotaCorts",
+      "description": "Política de Privacidade do AnotaCorts: como coletamos, usamos, armazenamos e protegemos seus dados pessoais, em conformidade com a LGPD.",
+      "breadcrumb": "Privacidade"
+    },
+    {
+      "path": "termos",
+      "title": "Termos de Uso - AnotaCorts",
+      "description": "Termos de Uso do AnotaCorts: as regras e condições para usar o aplicativo, com seus direitos e responsabilidades.",
+      "breadcrumb": "Termos"
+    }
+  ]
+}

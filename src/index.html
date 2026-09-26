@@ -10,7 +10,9 @@
       content="AnotaCorts: app completo de gestão para barbearias. Agendamentos, clientes, despesas, dashboard financeiro e ranking. Disponível para Android e iOS."
     />
     <meta name="theme-color" content="#080c14" />
-    <link rel="canonical" href="https://anotacorts.com.br/" />
+    <!-- Título, descrição, canonical e og/twitter de cada rota: src/app/config/seo.json
+         (scripts/prerender-seo.js grava os valores de cada página no build) -->
+    <link rel="canonical" href="https://www.anotacorts.com.br/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -18,10 +20,10 @@
     <meta property="og:title" content="AnotaCorts - Gestão Digital para sua Barbearia" />
     <meta
       property="og:description"
-      content="App completo de gestão para barbearias: agendamentos, clientes, despesas e dashboard financeiro."
+      content="AnotaCorts: app completo de gestão para barbearias. Agendamentos, clientes, despesas, dashboard financeiro e ranking. Disponível para Android e iOS."
     />
-    <meta property="og:url" content="https://anotacorts.com.br/" />
-    <meta property="og:image" content="https://anotacorts.com.br/AnotaCorts.png" />
+    <meta property="og:url" content="https://www.anotacorts.com.br/" />
+    <meta property="og:image" content="https://www.anotacorts.com.br/AnotaCorts.png" />
     <meta property="og:locale" content="pt_BR" />
 
     <!-- Twitter Card -->
@@ -29,11 +31,14 @@
     <meta name="twitter:title" content="AnotaCorts - Gestão Digital para sua Barbearia" />
     <meta
       name="twitter:description"
-      content="App completo de gestão para barbearias: agendamentos, clientes, despesas e dashboard financeiro."
+      content="AnotaCorts: app completo de gestão para barbearias. Agendamentos, clientes, despesas, dashboard financeiro e ranking. Disponível para Android e iOS."
     />
-    <meta name="twitter:image" content="https://anotacorts.com.br/AnotaCorts.png" />
+    <meta name="twitter:image" content="https://www.anotacorts.com.br/AnotaCorts.png" />
 
-    <link rel="icon" type="image/png" href="AnotaCorts.png" />
+    <!-- Ícones quadrados e opacos (o Google exibe o favicon num círculo; múltiplos de 48px) -->
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -54,7 +59,7 @@
         "operatingSystem": "ANDROID, IOS",
         "applicationCategory": "BusinessApplication",
         "description": "App completo de gestão para barbearias: agendamentos, clientes, despesas e dashboard financeiro.",
-        "url": "https://anotacorts.com.br/",
+        "url": "https://www.anotacorts.com.br/",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" }
       }
     </script>
