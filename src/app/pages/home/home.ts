@@ -130,10 +130,12 @@ export class Home implements OnInit {
 
       this.animatedBarbearias.set(currentBarbearias.toLocaleString('pt-BR'));
       this.animatedCortes.set(currentCortes.toLocaleString('pt-BR'));
-      this.animatedMedia.set(parseFloat(currentMedia).toLocaleString('pt-BR', {
-        minimumFractionDigits: 1,
-        maximumFractionDigits: 1,
-      }));
+      this.animatedMedia.set(
+        parseFloat(currentMedia).toLocaleString('pt-BR', {
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1,
+        }),
+      );
 
       if (progress < 1) {
         requestAnimationFrame(frame);
@@ -141,10 +143,12 @@ export class Home implements OnInit {
         // Final exact formatted numbers
         this.animatedBarbearias.set(targetBarbearias.toLocaleString('pt-BR'));
         this.animatedCortes.set(targetCortes.toLocaleString('pt-BR')); // e.g. 8.212
-        this.animatedMedia.set(targetMedia.toLocaleString('pt-BR', {
-          minimumFractionDigits: 1,
-          maximumFractionDigits: 1,
-        }));
+        this.animatedMedia.set(
+          targetMedia.toLocaleString('pt-BR', {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1,
+          }),
+        );
       }
     };
 

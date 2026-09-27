@@ -45,10 +45,30 @@
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap"
       rel="stylesheet"
     />
-    <!-- Boxicons -->
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <!-- MapLibre GL -->
-    <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+    <!-- Boxicons: baixa com prioridade baixa (media="print") e só então vale para a tela, sem
+         bloquear a primeira pintura nem disputar banda com o topo (nenhum ícone fica no topo) -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript>
+      <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    </noscript>
+    <!-- O CSS do MapLibre é carregado pelo próprio globo (globe-map.ts), só na home -->
+
+    <!-- Imagem principal da home (LCP): começa a baixar junto com o HTML.
+         data-home-only: scripts/prerender-seo.js tira esta tag das outras páginas -->
+    <link
+      rel="preload"
+      as="image"
+      href="mobile2-720.webp"
+      imagesrcset="mobile2-480.webp 480w, mobile2-720.webp 720w, mobile2-1024.webp 1024w"
+      imagesizes="(max-width: 640px) 360px, (max-width: 900px) 420px, 540px"
+      fetchpriority="high"
+      data-home-only
+    />
 
     <!-- Structured Data (schema.org) -->
     <script type="application/ld+json">

@@ -56,7 +56,18 @@
       </div>
       <div class="hero-visual animate-fade-in">
         <div class="hero-mockup-glow"></div>
-        <img src="mobile2.png" alt="AnotaCorts App" class="hero-mockup" />
+        <!-- Imagem principal (LCP): WebP em 3 tamanhos, largura/altura para reservar o espaço
+             e prioridade alta; o index.html também pré-carrega essa imagem na home -->
+        <img
+          src="mobile2-720.webp"
+          srcset="mobile2-480.webp 480w, mobile2-720.webp 720w, mobile2-1024.webp 1024w"
+          sizes="(max-width: 640px) 360px, (max-width: 900px) 420px, 540px"
+          width="1024"
+          height="1024"
+          fetchpriority="high"
+          alt="AnotaCorts App"
+          class="hero-mockup"
+        />
       </div>
     </header>
   </div>
@@ -123,7 +134,12 @@
         <p class="section-subtitle">{{ t.stats.subtitle }}</p>
       </div>
       <div class="globe-section-wrapper reveal">
-        <app-globe-map [stats]="stats()"></app-globe-map>
+        <!-- O globo (MapLibre, ~1,4 MB) só carrega quando chega perto da tela -->
+        @defer (on viewport) {
+          <app-globe-map [stats]="stats()"></app-globe-map>
+        } @placeholder {
+          <div class="globe-placeholder"></div>
+        }
       </div>
     </section>
   }

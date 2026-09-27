@@ -136,7 +136,9 @@
   transform: translate(-50%, -50%);
   pointer-events: auto;
   cursor: pointer;
-  transition: opacity 0.25s ease, transform 0.15s ease-out;
+  transition:
+    opacity 0.25s ease,
+    transform 0.15s ease-out;
   will-change: transform, opacity;
 }
 
@@ -154,7 +156,9 @@
   box-shadow: 0 0 10px #3b82f6;
   position: relative;
   z-index: 2;
-  transition: background-color 0.3s, box-shadow 0.3s;
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s;
 }
 
 :host ::ng-deep .globe-state-marker.hub .marker-pin-dot {
@@ -209,7 +213,11 @@
   white-space: nowrap;
   letter-spacing: 0.03em;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  transition: transform 0.2s, border-color 0.2s, background 0.3s, color 0.3s;
+  transition:
+    transform 0.2s,
+    border-color 0.2s,
+    background 0.3s,
+    color 0.3s;
   user-select: none;
 }
 

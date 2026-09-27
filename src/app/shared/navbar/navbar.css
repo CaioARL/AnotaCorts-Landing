@@ -11,7 +11,9 @@
   background: var(--navbar-bg-top);
   border-bottom: none;
   box-shadow: none;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .navbar.scrolled {
@@ -34,7 +36,9 @@
   color: var(--navbar-text-top);
   text-decoration: none;
   letter-spacing: -0.03em;
-  transition: color 0.3s ease, opacity 0.2s;
+  transition:
+    color 0.3s ease,
+    opacity 0.2s;
 }
 
 .navbar.scrolled .navbar-logo {
@@ -70,7 +74,9 @@
   padding: 0.5rem 0;
   background: transparent;
   border-radius: 0;
-  transition: color 0.2s ease, opacity 0.2s ease;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
   opacity: 0.85;
 }
 
@@ -134,7 +140,9 @@
   height: 2px;
   background: var(--navbar-text-top);
   border-radius: 2px;
-  transition: all 0.25s ease, background-color 0.3s ease;
+  transition:
+    all 0.25s ease,
+    background-color 0.3s ease;
   transform-origin: center;
 }
 
@@ -159,7 +167,9 @@
 .mobile-menu {
   overflow: hidden;
   max-height: 0;
-  transition: max-height 0.3s ease, background-color 0.3s ease;
+  transition:
+    max-height 0.3s ease,
+    background-color 0.3s ease;
   background: rgba(15, 23, 42, 0.96);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -187,7 +197,9 @@
   font-weight: 500;
   font-size: 0.95rem;
   background: transparent;
-  transition: color 0.2s, opacity 0.2s;
+  transition:
+    color 0.2s,
+    opacity 0.2s;
   opacity: 0.85;
 }
 

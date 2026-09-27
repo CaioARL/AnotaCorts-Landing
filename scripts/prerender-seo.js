@@ -103,6 +103,10 @@ for (const page of seo.pages) {
   if (page.breadcrumb) {
     html = html.replace('</head>', () => `  ${breadcrumbJsonLd(page, url)}\n  </head>`);
   }
+  if (page.path) {
+    // Pré-carregamentos marcados como data-home-only (imagem do topo) só servem na home
+    html = html.replace(/<link\b[^>]*\bdata-home-only\b[^>]*>\s*/g, '');
+  }
 
   const outDir = page.path ? path.join(DIST, page.path) : DIST;
   fs.mkdirSync(outDir, { recursive: true });

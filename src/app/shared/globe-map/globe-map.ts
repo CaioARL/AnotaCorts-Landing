@@ -50,18 +50,49 @@ export const BRAZIL_STATE_COORDS: Record<string, { name: string; coords: [number
 };
 
 const ARC_CONNECTIONS: [string, string][] = [
-  ['SP', 'RJ'], ['SP', 'MG'], ['SP', 'PR'], ['SP', 'BA'], ['SP', 'GO'],
-  ['SP', 'AM'], ['SP', 'PA'], ['SP', 'MA'], ['SP', 'CE'], ['SP', 'PE'],
-  ['RJ', 'MG'], ['RJ', 'ES'], ['RJ', 'BA'],
-  ['MG', 'GO'], ['MG', 'DF'], ['MG', 'BA'],
-  ['BA', 'PE'], ['BA', 'CE'], ['BA', 'PI'], ['BA', 'SE'], ['BA', 'AL'],
-  ['CE', 'PB'], ['CE', 'RN'], ['CE', 'PE'],
-  ['PE', 'AL'], ['PE', 'PB'],
-  ['PA', 'AM'], ['PA', 'AP'], ['PA', 'TO'], ['PA', 'MA'],
-  ['AM', 'AC'], ['AM', 'RO'], ['AM', 'MT'],
-  ['PR', 'SC'], ['SC', 'RS'], ['RS', 'MS'],
-  ['MS', 'MT'], ['MS', 'GO'], ['GO', 'DF'], ['GO', 'TO'],
-  ['MT', 'RO'], ['PI', 'MA'], ['PI', 'TO'],
+  ['SP', 'RJ'],
+  ['SP', 'MG'],
+  ['SP', 'PR'],
+  ['SP', 'BA'],
+  ['SP', 'GO'],
+  ['SP', 'AM'],
+  ['SP', 'PA'],
+  ['SP', 'MA'],
+  ['SP', 'CE'],
+  ['SP', 'PE'],
+  ['RJ', 'MG'],
+  ['RJ', 'ES'],
+  ['RJ', 'BA'],
+  ['MG', 'GO'],
+  ['MG', 'DF'],
+  ['MG', 'BA'],
+  ['BA', 'PE'],
+  ['BA', 'CE'],
+  ['BA', 'PI'],
+  ['BA', 'SE'],
+  ['BA', 'AL'],
+  ['CE', 'PB'],
+  ['CE', 'RN'],
+  ['CE', 'PE'],
+  ['PE', 'AL'],
+  ['PE', 'PB'],
+  ['PA', 'AM'],
+  ['PA', 'AP'],
+  ['PA', 'TO'],
+  ['PA', 'MA'],
+  ['AM', 'AC'],
+  ['AM', 'RO'],
+  ['AM', 'MT'],
+  ['PR', 'SC'],
+  ['SC', 'RS'],
+  ['RS', 'MS'],
+  ['MS', 'MT'],
+  ['MS', 'GO'],
+  ['GO', 'DF'],
+  ['GO', 'TO'],
+  ['MT', 'RO'],
+  ['PI', 'MA'],
+  ['PI', 'TO'],
 ];
 
 @Component({
@@ -114,7 +145,11 @@ export class GlobeMap implements AfterViewInit, OnChanges, OnDestroy {
 
     if (this.map && this.map.isStyleLoaded()) {
       this.map.setLayoutProperty('dark-layer', 'visibility', theme === 'dark' ? 'visible' : 'none');
-      this.map.setLayoutProperty('light-layer', 'visibility', theme === 'light' ? 'visible' : 'none');
+      this.map.setLayoutProperty(
+        'light-layer',
+        'visibility',
+        theme === 'light' ? 'visible' : 'none',
+      );
     }
   }
 
@@ -125,6 +160,7 @@ export class GlobeMap implements AfterViewInit, OnChanges, OnDestroy {
     // não publica. O angular.json copia o worker (e o módulo compartilhado que ele importa)
     // para /maplibre/, e aqui apontamos para lá.
     maplibregl.setWorkerUrl(new URL('maplibre/maplibre-gl-worker.mjs', document.baseURI).href);
+    this.loadMapLibreCss();
 
     try {
       const styleConfig: maplibregl.StyleSpecification = {
@@ -230,6 +266,20 @@ export class GlobeMap implements AfterViewInit, OnChanges, OnDestroy {
     } catch (e) {
       console.warn('MapLibre init failed:', e);
     }
+  }
+
+  /**
+   * Carrega o CSS do MapLibre só quando o globo aparece (antes era um <link> no index.html
+   * que atrasava a primeira pintura de todas as páginas). O angular.json copia o arquivo.
+   */
+  private loadMapLibreCss(): void {
+    const id = 'maplibre-gl-css';
+    if (document.getElementById(id)) return;
+    const link = document.createElement('link');
+    link.id = id;
+    link.rel = 'stylesheet';
+    link.href = new URL('maplibre/maplibre-gl.css', document.baseURI).href;
+    document.head.appendChild(link);
   }
 
   private setupCanvas(): void {
@@ -396,7 +446,8 @@ export class GlobeMap implements AfterViewInit, OnChanges, OnDestroy {
     const lat2 = coords[1] * rad;
     const dLng = (coords[0] - center.lng) * rad;
 
-    const cosDist = Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLng);
+    const cosDist =
+      Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLng);
     return cosDist > 0.08;
   }
 
@@ -405,10 +456,32 @@ export class GlobeMap implements AfterViewInit, OnChanges, OnDestroy {
       return this.stats.barbeariasPorEstado as Record<string, number>;
     }
     return {
-      SP: 100, MG: 25, BA: 20, PE: 18, PR: 17, CE: 16, RJ: 15,
-      PA: 13, AM: 11, SC: 11, ES: 9, PI: 9, GO: 8, RS: 8, MA: 7,
-      MT: 6, PB: 5, AL: 4, MS: 4, SE: 4, AC: 3, DF: 3, RN: 3,
-      RO: 2, TO: 2, AP: 1,
+      SP: 100,
+      MG: 25,
+      BA: 20,
+      PE: 18,
+      PR: 17,
+      CE: 16,
+      RJ: 15,
+      PA: 13,
+      AM: 11,
+      SC: 11,
+      ES: 9,
+      PI: 9,
+      GO: 8,
+      RS: 8,
+      MA: 7,
+      MT: 6,
+      PB: 5,
+      AL: 4,
+      MS: 4,
+      SE: 4,
+      AC: 3,
+      DF: 3,
+      RN: 3,
+      RO: 2,
+      TO: 2,
+      AP: 1,
     };
   }
 }

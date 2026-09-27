@@ -1,12 +1,15 @@
 import { Routes } from '@angular/router';
 
 import { pageSeo } from './config/seo.config';
+import { Home } from './pages/home/home';
 
 export const routes: Routes = [
   {
+    // A home vai no pacote inicial (é a porta de entrada e ficou leve com o globo em @defer):
+    // carregá-la sob demanda somava mais idas e voltas de rede antes de desenhar o topo
     path: '',
     title: pageSeo('').title,
-    loadComponent: () => import('./pages/home/home').then((m) => m.Home),
+    component: Home,
   },
   {
     path: 'sobre',
