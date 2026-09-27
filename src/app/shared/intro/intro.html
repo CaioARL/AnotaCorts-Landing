@@ -1,0 +1,19 @@
+@if (visible()) {
+  <div
+    class="intro"
+    aria-hidden="true"
+    [style.grid-template-columns]="'repeat(' + cols + ', 1fr)'"
+    [style.grid-template-rows]="'repeat(' + rows + ', 1fr)'"
+    [style.--fade-delay]="fadeDelay"
+    [style.--square-ms]="squareMs"
+    (animationend)="onAnimationEnd($event)"
+  >
+    @for (cell of cells; track $index) {
+      @if (cell.delay) {
+        <span class="intro-square" [style.--delay]="cell.delay"></span>
+      } @else {
+        <span></span>
+      }
+    }
+  </div>
+}

@@ -24,6 +24,9 @@
   background-repeat: no-repeat;
   padding-top: var(--navbar-h, 64px);
   box-sizing: border-box;
+  /* O brilho atrás do celular (.hero-mockup-glow, 520px) passava da tela no mobile, alargava a
+     página e empurrava o botão de menu para fora da tela */
+  overflow-x: clip;
 }
 
 /* ── Hero ─────────────────────────────────────────────────── */
@@ -210,7 +213,13 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); */
 
-.stat-card:hover {
+/* O hover sobe só o conteúdo: se subisse o card inteiro, a linha divisória (a borda do card)
+   subiria junto e ficaria desalinhada */
+.stat-card > * {
+  transition: transform 0.25s ease;
+}
+
+.stat-card:hover > * {
   transform: translateY(-4px);
 }
 
@@ -245,7 +254,7 @@
 }
 
 .stat-card:hover .stat-icon {
-  transform: translateY(-2px) scale(1.1);
+  transform: translateY(-6px) scale(1.1);
   opacity: 1;
 }
 
@@ -291,6 +300,65 @@
   letter-spacing: -0.03em;
   margin-bottom: 1rem;
   color: var(--navbar-text-scrolled);
+}
+
+/* Destaque da funcionalidade mais recente, acima da grade (mesmo degradê das outras páginas) */
+.feature-highlight {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  text-align: left;
+  padding: 2rem 2.5rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, var(--navbar-text-scrolled) 0%, var(--brand-blue) 100%);
+  box-shadow: 0 16px 36px rgba(31, 51, 212, 0.2);
+}
+
+.feature-highlight-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 2.5rem;
+}
+
+.feature-highlight-badge {
+  display: inline-block;
+  margin-bottom: 0.6rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.feature-highlight-title {
+  margin-bottom: 0.35rem;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.feature-highlight-desc {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .feature-highlight {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.75rem 1.5rem;
+  }
 }
 
 .features-grid {
@@ -453,8 +521,31 @@
   .store-buttons {
     justify-content: center;
   }
+  /* Números empilhados: altura automática, cada card com a própria cor e faixa de ponta a
+     ponta da tela (a divisão horizontal de cores do desktop não serve para cards empilhados) */
   .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    gap: 0;
+    height: auto;
+    background: none;
+    margin-inline: calc(50% - 50vw);
+  }
+  .stats-grid::before,
+  .stats-grid::after {
+    display: none;
+  }
+  .stat-card-blue,
+  .stat-card-navy {
+    height: auto;
+    padding: 1.75rem 1.25rem;
+  }
+  .stat-card-blue {
+    background: var(--secondary);
+    border-right: none;
+    border-bottom: 1px solid rgba(241, 245, 249, 0.25);
+  }
+  .stat-card-navy {
+    background: var(--secondary-blue-dark);
   }
   .features-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -465,9 +556,6 @@
 }
 
 @media (max-width: 640px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
   .features-grid {
     grid-template-columns: 1fr;
   }

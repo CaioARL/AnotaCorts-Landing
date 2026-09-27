@@ -91,6 +91,17 @@
           <h2 class="features-title">{{ t.features.title }}</h2>
         </div>
 
+        <div class="feature-highlight">
+          <div class="feature-highlight-icon">
+            <i class="bx {{ t.features.highlight.icon }}"></i>
+          </div>
+          <div>
+            <span class="feature-highlight-badge">{{ t.features.highlight.badge }}</span>
+            <h3 class="feature-highlight-title">{{ t.features.highlight.title }}</h3>
+            <p class="feature-highlight-desc">{{ t.features.highlight.description }}</p>
+          </div>
+        </div>
+
         <div class="features-grid">
           @for (item of t.features.items; track item.title) {
             <div class="feature-card">
