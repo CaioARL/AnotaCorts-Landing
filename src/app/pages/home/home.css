@@ -37,7 +37,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 4rem;
-  padding: 0;
+  /* Só o vertical: o lateral vem do .container (com "padding: 0" o texto encostava na borda
+     da tela abaixo de ~1264px de largura) */
+  padding-block: 0;
   width: 100%;
 }
 
@@ -316,6 +318,7 @@
   margin-bottom: 1.5rem;
   background: linear-gradient(135deg, var(--navbar-text-scrolled) 0%, var(--brand-blue) 100%);
   box-shadow: 0 16px 36px rgba(31, 51, 212, 0.2);
+  border-radius: 8px;
 }
 
 .feature-highlight-icon {
@@ -374,6 +377,7 @@
   overflow: hidden;
   margin-bottom: 0;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
 }
 
 .feature-card {
@@ -534,7 +538,7 @@
   .hero {
     flex-direction: column;
     gap: 3rem;
-    padding: 2rem 0;
+    padding-block: 2rem;
     text-align: center;
   }
   .hero-content {

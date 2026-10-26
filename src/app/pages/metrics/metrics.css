@@ -1059,7 +1059,7 @@
   align-items: center;
   gap: 1.25rem;
   flex: 1;
-  min-width: 200px;
+  min-width: min(200px, 100%);
 }
 
 .user-stat-icon {
@@ -1132,7 +1132,7 @@
 
 .growth-kpi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr));
   gap: 1rem;
   margin-bottom: 1.25rem;
 }
@@ -1405,5 +1405,17 @@
 
   .growth-grid-lines {
     display: none;
+  }
+}
+
+/* Celulares de 320px: ícone e respiro menores para "Usuários cadastrados" caber no cartão */
+@media (max-width: 480px) {
+  .user-stat-row {
+    padding: 1.25rem;
+  }
+
+  .user-stat-icon {
+    width: 52px;
+    height: 52px;
   }
 }

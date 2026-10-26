@@ -74,6 +74,14 @@ body {
   overflow-x: hidden;
 }
 
+/* Nada passa da largura da tela: decorações que vão até a borda (faixa de números da home,
+   linhas do Sobre) são cortadas nela, sem gerar rolagem lateral no celular. "clip" não cria
+   área de rolagem, então não afeta o position: sticky (Tutorial) nem os elementos fixos. */
+app-root {
+  display: block;
+  overflow-x: clip;
+}
+
 h1,
 h2,
 h3 {
@@ -329,6 +337,12 @@ section {
 
 .animate-fade-in {
   animation: fadeInUp 0.8s forwards;
+}
+
+/* Enquanto a abertura (app-intro) cobre a tela, as animações de entrada ficam paradas no
+   primeiro quadro (invisíveis); quando ela termina de sumir, a classe sai e elas tocam */
+.intro-playing .animate-fade-in {
+  animation-play-state: paused;
 }
 
 /* Global responsive */
