@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RouterLink } from '@angular/router';
 import { APP_STORE_URLS, AppStoreUrls } from '../../config/app-store.config';
 import { COPY } from '../../config/copy';
 import { APP_VERSION, AppVersion } from '../../config/version.config';
@@ -11,9 +12,11 @@ import { Navbar } from '../../shared/navbar/navbar';
 
 export type LandingStats = LandingMetrics;
 
+type FeatureItem = (typeof COPY.home.features.groups)[number]['items'][number];
+
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, Navbar, Footer, GlobeMap],
+  imports: [CommonModule, RouterLink, Navbar, Footer, GlobeMap],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -35,7 +38,44 @@ export class Home implements OnInit {
   readonly animatedCortes = signal<string>('0');
   readonly animatedMedia = signal<string>('0');
 
+  // Explorador de funcionalidades: área (aba) e funcionalidade abertas
+  readonly activeGroup = signal(0);
+  readonly activeFeature = signal(0);
+  readonly currentGroup = computed(() => this.t.features.groups[this.activeGroup()]);
+  readonly currentFeature = computed(() => this.currentGroup().items[this.activeFeature()]);
+
   private animationStarted = false;
+
+  selectGroup(index: number): void {
+    this.activeGroup.set(index);
+    this.activeFeature.set(0);
+  }
+
+  // Setas, Home e End trocam de aba, como no padrão de abas do WAI-ARIA
+  onTabKeydown(event: KeyboardEvent, index: number): void {
+    const total = this.t.features.groups.length;
+    const next: Record<string, number> = {
+      ArrowRight: (index + 1) % total,
+      ArrowLeft: (index - 1 + total) % total,
+      Home: 0,
+      End: total - 1,
+    };
+    if (!(event.key in next)) return;
+    event.preventDefault();
+    this.selectGroup(next[event.key]);
+    const tabs = (event.currentTarget as HTMLElement).parentElement?.querySelectorAll(
+      '[role="tab"]',
+    );
+    (tabs?.[next[event.key]] as HTMLElement | undefined)?.focus();
+  }
+
+  /** Número ao vivo da API ligado à funcionalidade (ex.: "17.563 clientes cadastrados no app"). */
+  featureStat(item: FeatureItem): string | null {
+    const data = this.stats();
+    if (!data || !('stat' in item)) return null;
+    const value = data[item.stat.key];
+    return value > 0 ? `${value.toLocaleString('pt-BR')} ${item.stat.label}` : null;
+  }
 
   ngOnInit(): void {
     this.fetchStats();

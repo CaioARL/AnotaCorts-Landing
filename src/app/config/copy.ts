@@ -74,7 +74,6 @@ export const COPY = {
     },
     features: {
       title: 'Funcionalidades do AnotaCorts',
-      btnAll: 'VEJA TODAS AS FUNCIONALIDADES',
       // Funcionalidade mais recente, em destaque acima da grade
       highlight: {
         badge: 'NOVO',
@@ -83,22 +82,140 @@ export const COPY = {
         description:
           'Cadastre os colaboradores da sua barbearia e acompanhe as comissões de cada um.',
       },
+      subtitle: 'Escolha uma área e veja a tela do app que resolve cada parte do seu dia.',
       // Só o que o app tem hoje (conferido com a página Tutorial). Ranking, horários de
       // funcionamento e cartões salvos ficam de fora enquanto não estiverem disponíveis.
-      items: [
-        { icon: 'bx-line-chart', title: 'DASHBOARD FINANCEIRO' },
-        { icon: 'bx-calendar-check', title: 'GESTÃO DE ATENDIMENTOS' },
-        { icon: 'bx-group', title: 'CADASTRO DE CLIENTES' },
-        { icon: 'bx-cut', title: 'CATÁLOGO DE SERVIÇOS' },
-        { icon: 'bx-wallet', title: 'CONTROLE DE DESPESAS' },
-        { icon: 'bx-credit-card', title: 'FORMAS DE PAGAMENTO' },
-        { icon: 'bx-time-five', title: 'HORÁRIOS DE PICO' },
-        { icon: 'bx-trending-up', title: 'SERVIÇOS MAIS VENDIDOS' },
-        { icon: 'bx-refresh', title: 'FREQUÊNCIA DE RETORNO' },
-        { icon: 'bx-sync', title: 'CADASTRO RECORRENTE' },
-        { icon: 'bx-bell', title: 'NOTIFICAÇÕES' },
-        { icon: 'bx-devices', title: 'USE EM MAIS DE UM CELULAR' },
+      // image: print do app em public/features; tutorial: seção da página Tutorial (#id);
+      // stat: número ao vivo da API (LandingMetrics) mostrado junto da funcionalidade.
+      groups: [
+        {
+          id: 'dia',
+          label: 'Organize o dia',
+          icon: 'bx-calendar-check',
+          items: [
+            {
+              icon: 'bx-calendar-check',
+              name: 'Gestão de atendimentos',
+              benefit: 'Registre cada corte em segundos',
+              description:
+                'Anote o serviço, o cliente e o valor na hora e acompanhe o status: agendado, confirmado, em andamento ou concluído.',
+              image: 'features/atendimentos.webp',
+              tutorial: 'gerenciar',
+              stat: { key: 'totalAtendimentosRealizados', label: 'atendimentos já registrados' },
+            },
+            {
+              icon: 'bx-group',
+              name: 'Cadastro de clientes',
+              benefit: 'Conheça cada cliente pelo nome',
+              description:
+                'Guarde contato e histórico de cada cliente e encontre qualquer um pela busca.',
+              image: 'features/clientes.webp',
+              tutorial: 'gerenciar',
+              stat: { key: 'totalClientesGerenciados', label: 'clientes cadastrados no app' },
+            },
+            {
+              icon: 'bx-cut',
+              name: 'Catálogo de serviços',
+              benefit: 'Seus preços e tempos sempre à mão',
+              description:
+                'Cadastre cortes, barba e combos com preço, duração e cor. Na hora de anotar, é só escolher.',
+              image: 'features/servicos.webp',
+              tutorial: 'gerenciar',
+              stat: { key: 'totalServicosCadastrados', label: 'serviços cadastrados' },
+            },
+            {
+              icon: 'bx-bell',
+              name: 'Notificações',
+              benefit: 'Fique sabendo de tudo sem abrir o app',
+              description:
+                'Receba alertas de novos agendamentos, mudanças de status e atualizações importantes.',
+              image: 'features/notificacoes.webp',
+              tutorial: 'notificacoes',
+            },
+          ],
+        },
+        {
+          id: 'dinheiro',
+          label: 'Controle o dinheiro',
+          icon: 'bx-wallet',
+          items: [
+            {
+              icon: 'bx-line-chart',
+              name: 'Dashboard financeiro',
+              benefit: 'Saiba quanto sobrou no fim do mês',
+              description:
+                'Receita, despesas, lucro e margem do dia, da semana ou do mês, com a evolução em gráfico.',
+              image: 'features/financeiro.webp',
+              tutorial: 'dashboard',
+              stat: { key: 'totalBarbeariasAtivas', label: 'barbearias acompanham o caixa no app' },
+            },
+            {
+              icon: 'bx-wallet',
+              name: 'Controle de despesas',
+              benefit: 'Veja para onde vai cada centavo',
+              description:
+                'Registre aluguel, produtos e outros gastos por categoria e saiba quanto custa manter a barbearia.',
+              image: 'features/despesas.webp',
+              tutorial: 'gerenciar',
+              stat: { key: 'totalDespesasRegistradas', label: 'despesas registradas' },
+            },
+            {
+              icon: 'bx-credit-card',
+              name: 'Formas de pagamento',
+              benefit: 'Pix, cartão ou dinheiro, tudo separado',
+              description:
+                'Informe como cada atendimento e cada despesa foi pago e veja os totais por forma de pagamento.',
+              image: 'features/pagamentos.webp',
+              tutorial: 'dashboard',
+            },
+            {
+              icon: 'bx-sync',
+              name: 'Cadastro recorrente',
+              benefit: 'O que se repete, o app anota sozinho',
+              description:
+                'Serviços e despesas que se repetem, como o aluguel do mês, são registrados automaticamente.',
+              image: 'features/recorrente.webp',
+              tutorial: 'faq',
+            },
+          ],
+        },
+        {
+          id: 'negocio',
+          label: 'Entenda o negócio',
+          icon: 'bx-bar-chart-alt-2',
+          items: [
+            {
+              icon: 'bx-time-five',
+              name: 'Horários de pico',
+              benefit: 'Descubra seus horários mais movimentados',
+              description:
+                'Veja os dias da semana e os horários com mais atendimentos e planeje a agenda e a equipe.',
+              image: 'features/horarios-pico.webp',
+              tutorial: 'dashboard',
+            },
+            {
+              icon: 'bx-trending-up',
+              name: 'Serviços mais vendidos',
+              benefit: 'Saiba o que seus clientes mais pedem',
+              description:
+                'Descubra quais serviços mais saem para ajustar preços, montar combos e criar promoções.',
+              image: 'features/mais-vendidos.webp',
+              tutorial: 'dashboard',
+            },
+            {
+              icon: 'bx-refresh',
+              name: 'Frequência de retorno',
+              benefit: 'Saiba de quanto em quanto tempo o cliente volta',
+              description:
+                'Acompanhe a fidelização com o intervalo médio entre as visitas e os clientes novos do período.',
+              image: 'features/retorno.webp',
+              tutorial: 'dashboard',
+            },
+          ],
+        },
       ],
+      multiDevice: 'Use a mesma conta em mais de um celular, ideal para barbearias com equipe.',
+      tutorialLink: 'Ver no tutorial',
     },
     loading: 'Carregando indicadores de atividade...',
   },

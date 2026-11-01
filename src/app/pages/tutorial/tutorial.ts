@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, computed, inject, signal } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { APP_VERSION, AppVersion } from '../../config/version.config';
 import { COPY } from '../../config/copy';
 import { Navbar } from '../../shared/navbar/navbar';
@@ -45,6 +45,12 @@ export class Tutorial {
     { id: 'faq', label: 'Perguntas frequentes', number: '09' },
     { id: 'suporte', label: 'Suporte', number: '10' },
   ];
+
+  constructor() {
+    // Links como /tutorial#dashboard (ex.: "Ver no tutorial" da Home) abrem direto na seção
+    const fragment = inject(ActivatedRoute).snapshot.fragment;
+    if (fragment && this.sections.some((s) => s.id === fragment)) this.activeSection.set(fragment);
+  }
 
   searchIndex: SearchItem[] = [
     {
