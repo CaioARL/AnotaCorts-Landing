@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Gera src/environments/env.generated.ts com as chaves lidas do .env (ou das variáveis de
- * ambiente do sistema, útil no CI e na Vercel). Os dois arquivos ficam fora do Git (.gitignore).
+ * ambiente do sistema, útil no CI e no deploy do GitHub Pages). Os dois arquivos ficam fora do Git (.gitignore).
  *
  * Roda sozinho no npm install, npm start e npm run build. Para rodar à mão:
  *   npm run env

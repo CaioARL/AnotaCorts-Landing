@@ -163,7 +163,13 @@ npm run build
 
 ## CI/CD & Deploy
 
-Deploy automatizado via **GitHub Actions** → **GitHub Pages** a cada push na branch principal.
+Deploy automatizado via **GitHub Actions** → **GitHub Pages** a cada push na `main`
+([deploy.yml](.github/workflows/deploy.yml)). O build publica `dist/anota-corts-web/browser`.
+
+- **Secret necessário:** `CARTO_BASEMAPS_KEY` (Settings → Secrets and variables → Actions).
+- **Domínio:** `public/CNAME` (`www.anotacorts.com.br`); o domínio raiz redireciona para o `www`.
+- **Rotas do SPA:** cada rota tem um `<rota>.html` gerado por `scripts/prerender-seo.js`;
+  URLs desconhecidas caem no `public/404.html`, que devolve a navegação para o Angular.
 
 ---
 

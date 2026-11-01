@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Pós-build: gera um HTML por rota (dist/anota-corts-web/browser/<rota>/index.html) com
+ * Pós-build: gera um HTML por rota (dist/anota-corts-web/browser/<rota>.html) com
  * título, descrição, canonical, og/twitter e breadcrumb (JSON-LD) da própria página, lidos
  * de src/app/config/seo.json.
  *
@@ -108,8 +108,10 @@ for (const page of seo.pages) {
     html = html.replace(/<link\b[^>]*\bdata-home-only\b[^>]*>\s*/g, '');
   }
 
-  const outDir = page.path ? path.join(DIST, page.path) : DIST;
-  fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), html, 'utf8');
+  // <rota>.html (e não <rota>/index.html): o GitHub Pages serve /sobre direto desse arquivo,
+  // sem o redirect 301 para /sobre/ que divergiria do canonical
+  const outFile = page.path ? path.join(DIST, `${page.path}.html`) : path.join(DIST, 'index.html');
+  fs.mkdirSync(path.dirname(outFile), { recursive: true });
+  fs.writeFileSync(outFile, html, 'utf8');
   console.log(`✔  /${page.path} → ${page.title}`);
 }
