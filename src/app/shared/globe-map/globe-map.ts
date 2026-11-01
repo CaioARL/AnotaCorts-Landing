@@ -10,15 +10,21 @@ import {
   ViewChild,
 } from '@angular/core';
 import * as maplibregl from 'maplibre-gl';
-import { CARTO_BASEMAPS_KEY } from '../../config/api.config';
 import { LandingStats } from '../../pages/home/home';
 
-/** URLs dos tiles raster da CARTO (servidores a/b/c), com a chave da conta. */
-const cartoTiles = (style: 'dark_nolabels' | 'light_nolabels'): string[] =>
-  ['a', 'b', 'c'].map(
-    (s) =>
-      `https://${s}.basemaps.cartocdn.com/${style}/{z}/{x}/{y}@2x.png?key=${CARTO_BASEMAPS_KEY}`,
-  );
+type Theme = 'dark' | 'light';
+
+/**
+ * Cores do mapa-base por tema. O mapa é desenhado a partir de GeoJSON estático do
+ * Natural Earth (domínio público) servido pelo próprio site — sem tiles nem cota externa.
+ */
+const BASEMAP_COLORS: Record<
+  Theme,
+  { ocean: string; land: string; country: string; state: string }
+> = {
+  dark: { ocean: '#2b3238', land: '#0b0b0b', country: '#5a5f63', state: '#3a3f43' },
+  light: { ocean: '#d4dadc', land: '#f5f3f3', country: '#d9b8b8', state: '#e6d3d3' },
+};
 
 export const BRAZIL_STATE_COORDS: Record<string, { name: string; coords: [number, number] }> = {
   SP: { name: 'São Paulo', coords: [-46.6333, -23.5505] },
@@ -108,7 +114,7 @@ export class GlobeMap implements AfterViewInit, OnChanges, OnDestroy {
   @ViewChild('arcsCanvas', { static: false }) arcsCanvasRef!: ElementRef<HTMLCanvasElement>;
   @ViewChild('markersOverlay', { static: false }) markersOverlayRef!: ElementRef<HTMLDivElement>;
 
-  currentTheme: 'dark' | 'light' = 'dark';
+  currentTheme: Theme = 'dark';
 
   private map: maplibregl.Map | null = null;
   private resizeObserver: ResizeObserver | null = null;
@@ -139,17 +145,16 @@ export class GlobeMap implements AfterViewInit, OnChanges, OnDestroy {
     }
   }
 
-  setTheme(theme: 'dark' | 'light'): void {
+  setTheme(theme: Theme): void {
     if (this.currentTheme === theme) return;
     this.currentTheme = theme;
 
     if (this.map && this.map.isStyleLoaded()) {
-      this.map.setLayoutProperty('dark-layer', 'visibility', theme === 'dark' ? 'visible' : 'none');
-      this.map.setLayoutProperty(
-        'light-layer',
-        'visibility',
-        theme === 'light' ? 'visible' : 'none',
-      );
+      const c = BASEMAP_COLORS[theme];
+      this.map.setPaintProperty('ocean', 'background-color', c.ocean);
+      this.map.setPaintProperty('land', 'fill-color', c.land);
+      this.map.setPaintProperty('country-borders', 'line-color', c.country);
+      this.map.setPaintProperty('state-borders', 'line-color', c.state);
     }
   }
 
@@ -163,42 +168,30 @@ export class GlobeMap implements AfterViewInit, OnChanges, OnDestroy {
     this.loadMapLibreCss();
 
     try {
+      const c = BASEMAP_COLORS[this.currentTheme];
+      const geoUrl = (file: string) => new URL(`geo/${file}`, document.baseURI).href;
       const styleConfig: maplibregl.StyleSpecification = {
         version: 8,
         sources: {
-          'carto-dark': {
-            type: 'raster',
-            tiles: cartoTiles('dark_nolabels'),
-            tileSize: 256,
-            attribution: '© CARTO, © OpenStreetMap',
-          },
-          'carto-light': {
-            type: 'raster',
-            tiles: cartoTiles('light_nolabels'),
-            tileSize: 256,
-            attribution: '© CARTO, © OpenStreetMap',
-          },
+          land: { type: 'geojson', data: geoUrl('land.json') },
+          borders: { type: 'geojson', data: geoUrl('borders.json') },
         },
         layers: [
+          { id: 'ocean', type: 'background', paint: { 'background-color': c.ocean } },
+          { id: 'land', type: 'fill', source: 'land', paint: { 'fill-color': c.land } },
           {
-            id: 'dark-layer',
-            type: 'raster',
-            source: 'carto-dark',
-            minzoom: 0,
-            maxzoom: 19,
-            layout: {
-              visibility: this.currentTheme === 'dark' ? 'visible' : 'none',
-            },
+            id: 'state-borders',
+            type: 'line',
+            source: 'borders',
+            filter: ['==', ['get', 'kind'], 'state'],
+            paint: { 'line-color': c.state, 'line-width': 0.6 },
           },
           {
-            id: 'light-layer',
-            type: 'raster',
-            source: 'carto-light',
-            minzoom: 0,
-            maxzoom: 19,
-            layout: {
-              visibility: this.currentTheme === 'light' ? 'visible' : 'none',
-            },
+            id: 'country-borders',
+            type: 'line',
+            source: 'borders',
+            filter: ['==', ['get', 'kind'], 'country'],
+            paint: { 'line-color': c.country, 'line-width': 0.8 },
           },
         ],
       };
@@ -213,8 +206,8 @@ export class GlobeMap implements AfterViewInit, OnChanges, OnDestroy {
         zoom: initialZoom,
         minZoom: 1.0,
         maxZoom: 6,
-        // A CARTO exige o crédito "© CARTO, © OpenStreetMap" visível; fica recolhido num ícone "i"
-        attributionControl: { compact: true },
+        // Natural Earth é domínio público: não exige crédito
+        attributionControl: false,
         scrollZoom: true,
         dragPan: true,
       });
@@ -319,7 +312,7 @@ export class GlobeMap implements AfterViewInit, OnChanges, OnDestroy {
       marker.innerHTML = `
         <div class="marker-pulse-ring"></div>
         <div class="marker-pin-dot"></div>
-        <div class="marker-badge-tag">${ufUpper} <span class="badge-count">${count}</span></div>
+        <div class="marker-badge-tag">${ufUpper} <span class="badge-count">${Number(count) || 0}</span></div>
       `;
 
       overlay.appendChild(marker);

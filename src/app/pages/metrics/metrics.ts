@@ -58,6 +58,16 @@ const UFS_BRASIL = new Set(
   'AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO'.split(' '),
 );
 
+/** O tooltip do ECharts é HTML: escapa o texto vindo da API antes de interpolar. */
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 interface UserBaseSummary {
   totalUsuariosMonitorados: number;
   usuariosAtivos: number;
@@ -186,7 +196,7 @@ export class Metrics implements OnInit {
             axisValue: string;
             value: number;
           };
-          return `<b>${p.axisValue}</b><br/>Entradas: <b style="color:#c7d2fe">${p.value}</b>`;
+          return `<b>${escapeHtml(String(p.axisValue))}</b><br/>Entradas: <b style="color:#c7d2fe">${Number(p.value) || 0}</b>`;
         },
       },
       xAxis: {

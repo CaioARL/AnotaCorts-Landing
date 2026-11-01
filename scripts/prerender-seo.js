@@ -6,16 +6,73 @@
  *
  * Sem isso, toda rota do SPA entrega o HTML da home, com o canonical apontando para a home,
  * e o Google trata /sobre, /metricas etc. como cópias dela (e não mostra sitelinks).
+ * Também grava em cada página a Content-Security-Policy (ver contentSecurityPolicy).
  *
  * Roda sozinho depois do `npm run build` (script postbuild).
  */
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist', 'anota-corts-web', 'browser');
 const seo = require(path.join(ROOT, 'src', 'app', 'config', 'seo.json'));
+
+const CSP_META = /<meta\s+http-equiv="Content-Security-Policy"[^>]*>\s*/g;
+
+function sha256(value) {
+  // O navegador calcula o hash depois do parser HTML, que converte CRLF/CR em LF
+  const normalized = value.replace(/\r\n?/g, '\n');
+  return `'sha256-${crypto.createHash('sha256').update(normalized, 'utf8').digest('base64')}'`;
+}
+
+/**
+ * O GitHub Pages não permite cabeçalhos HTTP próprios, então a CSP vai numa <meta>. Os hashes
+ * dos scripts inline (e dos onload="..." gerados pelo Angular) são calculados do HTML final,
+ * para a política nunca ficar desatualizada em relação ao que é publicado.
+ */
+function contentSecurityPolicy(html) {
+  const scriptHashes = new Set();
+  const inlineScript =
+    /<script\b(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)[^>]*>([\s\S]*?)<\/script>/g;
+  for (const [, body] of html.matchAll(inlineScript)) scriptHashes.add(sha256(body));
+
+  const handlerHashes = new Set();
+  for (const [tag] of html.matchAll(/<[a-z][^>]*>/gi)) {
+    for (const [, value] of tag.matchAll(/\son[a-z]+="([^"]*)"/gi))
+      handlerHashes.add(sha256(value));
+  }
+
+  const scriptSrc = ["'self'", ...scriptHashes];
+  if (handlerHashes.size) scriptSrc.push("'unsafe-hashes'", ...handlerHashes);
+
+  return [
+    "default-src 'self'",
+    `script-src ${scriptSrc.join(' ')}`,
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com",
+    "font-src 'self' https://fonts.gstatic.com https://unpkg.com",
+    "img-src 'self' data: blob:",
+    "connect-src 'self' https://api.anotacorts.com.br",
+    "worker-src 'self' blob:",
+    "media-src 'self'",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    'upgrade-insecure-requests',
+  ].join('; ');
+}
+
+function withCsp(html) {
+  html = html.replace(CSP_META, '');
+  const meta = `<meta http-equiv="Content-Security-Policy" content="${contentSecurityPolicy(html)}">`;
+  return replaceTag(
+    html,
+    /<meta charset="utf-8"\s*\/?>/i,
+    `<meta charset="utf-8">\n    ${meta}`,
+    'meta charset',
+  );
+}
 
 function escapeHtml(value) {
   return value
@@ -112,6 +169,6 @@ for (const page of seo.pages) {
   // sem o redirect 301 para /sobre/ que divergiria do canonical
   const outFile = page.path ? path.join(DIST, `${page.path}.html`) : path.join(DIST, 'index.html');
   fs.mkdirSync(path.dirname(outFile), { recursive: true });
-  fs.writeFileSync(outFile, html, 'utf8');
+  fs.writeFileSync(outFile, withCsp(html), 'utf8');
   console.log(`✔  /${page.path} → ${page.title}`);
 }

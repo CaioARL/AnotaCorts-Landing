@@ -3,11 +3,7 @@
   "version": "2.0.0",
   "scripts": {
     "ng": "ng",
-    "env": "node scripts/set-env.js",
-    "postinstall": "node scripts/set-env.js",
-    "prestart": "node scripts/set-env.js",
     "start": "ng serve",
-    "prebuild": "node scripts/set-env.js",
     "build": "ng build",
     "postbuild": "node scripts/prerender-seo.js",
     "watch": "ng build --watch --configuration development",
@@ -19,12 +15,12 @@
   "private": true,
   "packageManager": "npm@10.9.2",
   "dependencies": {
-    "@angular/common": "21.2.18",
-    "@angular/compiler": "21.2.18",
-    "@angular/core": "21.2.18",
-    "@angular/forms": "21.2.18",
-    "@angular/platform-browser": "21.2.18",
-    "@angular/router": "21.2.18",
+    "@angular/common": "21.2.25",
+    "@angular/compiler": "21.2.25",
+    "@angular/core": "21.2.25",
+    "@angular/forms": "21.2.25",
+    "@angular/platform-browser": "21.2.25",
+    "@angular/router": "21.2.25",
     "echarts": "^6.1.0",
     "globe.gl": "^2.46.1",
     "maplibre-gl": "^6.4.1",
@@ -33,9 +29,9 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@angular/build": "21.2.18",
-    "@angular/cli": "^21.0.4",
-    "@angular/compiler-cli": "21.2.18",
+    "@angular/build": "21.2.29",
+    "@angular/cli": "^21.2.29",
+    "@angular/compiler-cli": "21.2.25",
     "@eslint/js": "^10.0.1",
     "@types/three": "^0.185.4",
     "angular-eslint": "21.4.0",
@@ -49,8 +45,8 @@
   "overrides": {
     "@angular/cli": {
       "@modelcontextprotocol/sdk": {
-        ".": "1.30.0",
-        "@hono/node-server": "2.0.12"
+        ".": "1.32.1",
+        "@hono/node-server": "2.1.5"
       }
     }
   }
