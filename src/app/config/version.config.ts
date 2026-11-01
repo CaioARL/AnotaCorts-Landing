@@ -8,7 +8,7 @@ export interface AppVersion {
 }
 
 export const APP_VERSION: AppVersion = {
-  version: '2.0.0',
-  releaseDate: '01/11/2026 às 14:56',
+  version: '2.1.0',
+  releaseDate: '01/11/2026 às 15:47',
   environment: 'production',
 };
