@@ -324,6 +324,9 @@ export class GlobeMap implements AfterViewInit, OnChanges, OnDestroy {
     if (!this.map) return;
 
     const stateData = this.getStateData();
+    const container = this.mapContainer.nativeElement;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
 
     Object.keys(stateData).forEach((uf) => {
       const ufUpper = uf.toUpperCase();
@@ -339,6 +342,12 @@ export class GlobeMap implements AfterViewInit, OnChanges, OnDestroy {
 
       try {
         const point = this.map!.project(stateInfo.coords);
+        // Com zoom, estados fora da área do mapa somem em vez de aparecer sobre o resto da página
+        const insideMap = point.x >= 0 && point.x <= width && point.y >= 0 && point.y <= height;
+        if (!insideMap) {
+          markerEl.classList.add('hidden');
+          return;
+        }
         if (point && !isNaN(point.x) && !isNaN(point.y)) {
           markerEl.style.transform = `translate3d(${point.x}px, ${point.y}px, 0)`;
           markerEl.classList.remove('hidden');
