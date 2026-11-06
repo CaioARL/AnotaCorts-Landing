@@ -216,6 +216,21 @@ export const COPY = {
       ],
       multiDevice: 'Use a mesma conta em mais de um celular, ideal para barbearias com equipe.',
       tutorialLink: 'Ver no tutorial',
+      // Versão A do teste A/B (grade de 12 cards); a versão B é o explorador acima (groups)
+      gridItems: [
+        { icon: 'bx-line-chart', title: 'DASHBOARD FINANCEIRO' },
+        { icon: 'bx-calendar-check', title: 'GESTÃO DE ATENDIMENTOS' },
+        { icon: 'bx-group', title: 'CADASTRO DE CLIENTES' },
+        { icon: 'bx-cut', title: 'CATÁLOGO DE SERVIÇOS' },
+        { icon: 'bx-wallet', title: 'CONTROLE DE DESPESAS' },
+        { icon: 'bx-credit-card', title: 'FORMAS DE PAGAMENTO' },
+        { icon: 'bx-time-five', title: 'HORÁRIOS DE PICO' },
+        { icon: 'bx-trending-up', title: 'SERVIÇOS MAIS VENDIDOS' },
+        { icon: 'bx-refresh', title: 'FREQUÊNCIA DE RETORNO' },
+        { icon: 'bx-sync', title: 'CADASTRO RECORRENTE' },
+        { icon: 'bx-bell', title: 'NOTIFICAÇÕES' },
+        { icon: 'bx-devices', title: 'USE EM MAIS DE UM CELULAR' },
+      ],
     },
     loading: 'Carregando indicadores de atividade...',
   },
@@ -385,7 +400,7 @@ export const COPY = {
     titleHighlight: 'Privacidade',
     description:
       'Como coletamos, usamos, armazenamos e protegemos seus dados pessoais, em conformidade com a LGPD.',
-    updatedAt: 'Atualizado em 25 de Janeiro de 2026',
+    updatedAt: 'Atualizado em 6 de Novembro de 2026',
     intro:
       'O Anota Corts tem o compromisso de proteger sua privacidade e seus dados pessoais. Esta Política de Privacidade descreve como coletamos, usamos, armazenamos e protegemos suas informações, em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).',
     controller: 'Anota Corts Tecnologia LTDA',

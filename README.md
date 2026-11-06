@@ -150,6 +150,19 @@ npm run build
 
 ---
 
+## Analytics e Teste A/B
+
+- **Google Analytics 4** (`G-J2F7XTS1XZ`): só é carregado depois do aceite no aviso de cookies e
+  só mede no domínio oficial (em `localhost` nada é enviado).
+- **Teste A/B** da section de funcionalidades da Home: versão **A** (grade de 12 cards) e versão
+  **B** (explorador por área). Cada visitante é sorteado uma vez e a versão vai ao GA4 como a
+  propriedade do usuário `versao_funcionalidades`.
+
+Para ver uma versão específica, abra `/?versao_funcionalidades=A` ou `/?versao_funcionalidades=B`.
+A escolha fica guardada no navegador.
+
+---
+
 ## Design System
 
 - **Paleta:** fundo `#080c14`, acento indigo `#6366f1`, texto `#f1f5f9`

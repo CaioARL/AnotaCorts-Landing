@@ -5,6 +5,8 @@ import { RouterLink } from '@angular/router';
 import { APP_STORE_URLS, AppStoreUrls } from '../../config/app-store.config';
 import { COPY } from '../../config/copy';
 import { APP_VERSION, AppVersion } from '../../config/version.config';
+import { AnalyticsService } from '../../services/analytics.service';
+import { ExperimentService } from '../../services/experiment.service';
 import { LandingMetrics, MetricsService } from '../../services/metrics.service';
 import { Footer } from '../../shared/footer/footer';
 import { GlobeMap } from '../../shared/globe-map/globe-map';
@@ -23,6 +25,7 @@ type FeatureItem = (typeof COPY.home.features.groups)[number]['items'][number];
 export class Home implements OnInit {
   private readonly metricsService = inject(MetricsService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly analytics = inject(AnalyticsService);
 
   readonly storeUrls: AppStoreUrls = APP_STORE_URLS;
   readonly appVersion: AppVersion = APP_VERSION;
@@ -44,11 +47,27 @@ export class Home implements OnInit {
   readonly currentGroup = computed(() => this.t.features.groups[this.activeGroup()]);
   readonly currentFeature = computed(() => this.currentGroup().items[this.activeFeature()]);
 
+  /** Teste A/B da section de funcionalidades: A = grade de 12 cards, B = explorador por área. */
+  readonly featuresVariant = inject(ExperimentService).variant('versao_funcionalidades', [
+    'A',
+    'B',
+  ] as const);
+
   private animationStarted = false;
 
   selectGroup(index: number): void {
     this.activeGroup.set(index);
     this.activeFeature.set(0);
+    this.analytics.event('explorar_area', { area: this.currentGroup().id });
+  }
+
+  /** Clique nos botões das lojas: a principal conversão da landing. */
+  trackStore(store: 'google_play' | 'app_store'): void {
+    this.analytics.event('clique_loja', { loja: store, local: 'hero' });
+  }
+
+  trackTutorial(feature: string): void {
+    this.analytics.event('ver_tutorial', { funcionalidade: feature });
   }
 
   // Setas, Home e End trocam de aba, como no padrão de abas do WAI-ARIA

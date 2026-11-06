@@ -17,6 +17,7 @@
         <div class="store-buttons">
           <a
             [href]="storeUrls.googlePlay"
+            (click)="trackStore('google_play')"
             target="_blank"
             rel="noopener noreferrer"
             class="btn store-btn"
@@ -33,6 +34,7 @@
           </a>
           <a
             [href]="storeUrls.appleAppStore ?? '#'"
+            (click)="trackStore('app_store')"
             [class.store-btn-disabled]="!storeUrls.appleAppStore"
             [attr.target]="storeUrls.appleAppStore ? '_blank' : null"
             [attr.rel]="storeUrls.appleAppStore ? 'noopener noreferrer' : null"
@@ -100,7 +102,9 @@
       <section class="features-section reveal" aria-labelledby="features-title">
         <div class="features-header">
           <h2 class="features-title" id="features-title">{{ t.features.title }}</h2>
-          <p class="features-subtitle">{{ t.features.subtitle }}</p>
+          @if (featuresVariant === 'B') {
+            <p class="features-subtitle">{{ t.features.subtitle }}</p>
+          }
         </div>
 
         <div class="feature-highlight">
@@ -114,104 +118,125 @@
           </div>
         </div>
 
-        <div class="explorer">
-          <div class="explorer-tabs" role="tablist" aria-label="Áreas do app">
-            @for (group of t.features.groups; track group.id; let i = $index) {
-              <button
-                type="button"
-                role="tab"
-                class="explorer-tab"
-                [id]="'explorer-tab-' + group.id"
-                [class.active]="i === activeGroup()"
-                [attr.aria-selected]="i === activeGroup()"
-                [attr.tabindex]="i === activeGroup() ? 0 : -1"
-                aria-controls="explorer-panel"
-                (click)="selectGroup(i)"
-                (keydown)="onTabKeydown($event, i)"
-              >
-                <i class="bx {{ group.icon }}" aria-hidden="true"></i>
-                {{ group.label }}
-              </button>
-            }
-          </div>
-
-          <div
-            class="explorer-panel"
-            id="explorer-panel"
-            role="tabpanel"
-            [attr.aria-labelledby]="'explorer-tab-' + currentGroup().id"
-          >
-            <ul class="explorer-list">
-              @for (item of currentGroup().items; track item.name; let j = $index) {
-                <li class="explorer-item" [class.active]="j === activeFeature()">
-                  <button
-                    type="button"
-                    class="explorer-item-btn"
-                    [attr.aria-expanded]="j === activeFeature()"
-                    (click)="activeFeature.set(j)"
-                  >
-                    <span class="explorer-item-icon">
-                      <i class="bx {{ item.icon }}" aria-hidden="true"></i>
-                    </span>
-                    <span class="explorer-item-text">
-                      <span class="explorer-item-name">{{ item.name }}</span>
-                      <span class="explorer-item-benefit">{{ item.benefit }}</span>
-                    </span>
-                  </button>
-                  @if (j === activeFeature()) {
-                    <div class="explorer-item-detail">
-                      <p class="explorer-item-desc">{{ item.description }}</p>
-                      <div class="explorer-item-meta">
-                        @if (featureStat(item); as stat) {
-                          <span class="explorer-stat">
-                            <span class="explorer-stat-dot" aria-hidden="true"></span>
-                            {{ stat }}
-                          </span>
-                        }
-                        <a class="explorer-link" routerLink="/tutorial" [fragment]="item.tutorial">
-                          {{ t.features.tutorialLink }}
-                          <i class="bx bx-right-arrow-alt" aria-hidden="true"></i>
-                        </a>
-                      </div>
-                      <!-- No celular o print aparece aqui, logo abaixo da funcionalidade aberta -->
-                      <img
-                        class="explorer-item-shot"
-                        [src]="item.image"
-                        [alt]="'Tela do app: ' + item.name"
-                        width="540"
-                        height="1079"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </div>
-                  }
-                </li>
+        <!-- Teste A/B (ExperimentService): B = explorador por área, A = grade antiga -->
+        @if (featuresVariant === 'B') {
+          <div class="explorer">
+            <div class="explorer-tabs" role="tablist" aria-label="Áreas do app">
+              @for (group of t.features.groups; track group.id; let i = $index) {
+                <button
+                  type="button"
+                  role="tab"
+                  class="explorer-tab"
+                  [id]="'explorer-tab-' + group.id"
+                  [class.active]="i === activeGroup()"
+                  [attr.aria-selected]="i === activeGroup()"
+                  [attr.tabindex]="i === activeGroup() ? 0 : -1"
+                  aria-controls="explorer-panel"
+                  (click)="selectGroup(i)"
+                  (keydown)="onTabKeydown($event, i)"
+                >
+                  <i class="bx {{ group.icon }}" aria-hidden="true"></i>
+                  {{ group.label }}
+                </button>
               }
-            </ul>
+            </div>
 
-            <div class="explorer-stage">
-              <div class="explorer-phone">
-                <!-- Recria a imagem a cada troca para a transição de entrada tocar de novo -->
-                @for (item of [currentFeature()]; track item.image) {
-                  <img
-                    class="explorer-shot"
-                    [src]="item.image"
-                    [alt]="'Tela do app: ' + item.name"
-                    width="540"
-                    height="1079"
-                    loading="lazy"
-                    decoding="async"
-                  />
+            <div
+              class="explorer-panel"
+              id="explorer-panel"
+              role="tabpanel"
+              [attr.aria-labelledby]="'explorer-tab-' + currentGroup().id"
+            >
+              <ul class="explorer-list">
+                @for (item of currentGroup().items; track item.name; let j = $index) {
+                  <li class="explorer-item" [class.active]="j === activeFeature()">
+                    <button
+                      type="button"
+                      class="explorer-item-btn"
+                      [attr.aria-expanded]="j === activeFeature()"
+                      (click)="activeFeature.set(j)"
+                    >
+                      <span class="explorer-item-icon">
+                        <i class="bx {{ item.icon }}" aria-hidden="true"></i>
+                      </span>
+                      <span class="explorer-item-text">
+                        <span class="explorer-item-name">{{ item.name }}</span>
+                        <span class="explorer-item-benefit">{{ item.benefit }}</span>
+                      </span>
+                    </button>
+                    @if (j === activeFeature()) {
+                      <div class="explorer-item-detail">
+                        <p class="explorer-item-desc">{{ item.description }}</p>
+                        <div class="explorer-item-meta">
+                          @if (featureStat(item); as stat) {
+                            <span class="explorer-stat">
+                              <span class="explorer-stat-dot" aria-hidden="true"></span>
+                              {{ stat }}
+                            </span>
+                          }
+                          <a
+                            class="explorer-link"
+                            routerLink="/tutorial"
+                            [fragment]="item.tutorial"
+                            (click)="trackTutorial(item.name)"
+                          >
+                            {{ t.features.tutorialLink }}
+                            <i class="bx bx-right-arrow-alt" aria-hidden="true"></i>
+                          </a>
+                        </div>
+                        <!-- No celular o print aparece aqui, logo abaixo da funcionalidade aberta -->
+                        <img
+                          class="explorer-item-shot"
+                          [src]="item.image"
+                          [alt]="'Tela do app: ' + item.name"
+                          width="540"
+                          height="1079"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
+                    }
+                  </li>
                 }
+              </ul>
+
+              <div class="explorer-stage">
+                <div class="explorer-phone">
+                  <!-- Recria a imagem a cada troca para a transição de entrada tocar de novo -->
+                  @for (item of [currentFeature()]; track item.image) {
+                    <img
+                      class="explorer-shot"
+                      [src]="item.image"
+                      [alt]="'Tela do app: ' + item.name"
+                      width="540"
+                      height="1079"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  }
+                </div>
               </div>
             </div>
-          </div>
 
-          <p class="explorer-note">
-            <i class="bx bx-devices" aria-hidden="true"></i>
-            {{ t.features.multiDevice }}
-          </p>
-        </div>
+            <p class="explorer-note">
+              <i class="bx bx-devices" aria-hidden="true"></i>
+              {{ t.features.multiDevice }}
+            </p>
+          </div>
+        } @else {
+          <!-- Versão A: grade de 12 cards (a versão anterior da section) -->
+          <div class="features-grid">
+            @for (item of t.features.gridItems; track item.title) {
+              <div class="feature-card">
+                <div class="feature-icon-wrapper">
+                  <i class="bx {{ item.icon }} feature-icon"></i>
+                </div>
+                <h3 class="feature-name">{{ item.title }}</h3>
+                <span class="feature-link">VER DETALHES</span>
+              </div>
+            }
+          </div>
+        }
       </section>
 
       <div class="section-header">
