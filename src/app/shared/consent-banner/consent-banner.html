@@ -1,0 +1,79 @@
+@if (open()) {
+  <div class="consent" role="dialog" aria-labelledby="consent-title" aria-modal="false">
+    <button
+      type="button"
+      class="consent-close"
+      aria-label="Recolher aviso de cookies"
+      (click)="minimize()"
+    >
+      <i class="bx bx-x" aria-hidden="true"></i>
+    </button>
+
+    <h2 class="consent-title" id="consent-title">Este site usa cookies</h2>
+    <p class="consent-text">
+      Usamos cookies do Google Analytics para entender como o site é usado e melhorá-lo. Não usamos
+      cookies de publicidade. <a routerLink="/privacidade">Política de Privacidade</a>.
+    </p>
+
+    <div class="consent-options">
+      <label class="consent-option">
+        <input type="checkbox" checked disabled />
+        <span class="consent-check" aria-hidden="true"></span>
+        Estritamente necessários
+      </label>
+      <label class="consent-option">
+        <input
+          type="checkbox"
+          [checked]="analyticsChecked()"
+          (change)="analyticsChecked.set($any($event.target).checked)"
+        />
+        <span class="consent-check" aria-hidden="true"></span>
+        Análise (Google Analytics)
+      </label>
+    </div>
+
+    @if (showDetails()) {
+      <dl class="consent-details" id="consent-details">
+        <dt>Estritamente necessários</dt>
+        <dd>
+          Guardam a sua escolha neste aviso. Ficam só no seu navegador e não são enviados a ninguém.
+        </dd>
+        <dt>Análise (Google Analytics)</dt>
+        <dd>
+          Cookies <code>_ga</code> e <code>_ga_*</code>: contam visitas, páginas vistas e cliques
+          nos botões das lojas, de forma agregada. Duram até 2 anos.
+        </dd>
+      </dl>
+    }
+
+    <div class="consent-actions">
+      <button type="button" class="consent-btn consent-btn-accept" (click)="confirm()">
+        {{ analyticsChecked() ? 'Aceitar todos' : 'Salvar escolhas' }}
+      </button>
+      <button type="button" class="consent-btn consent-btn-decline" (click)="declineAll()">
+        Recusar todos
+      </button>
+    </div>
+
+    <button
+      type="button"
+      class="consent-details-toggle"
+      [attr.aria-expanded]="showDetails()"
+      aria-controls="consent-details"
+      (click)="showDetails.set(!showDetails())"
+    >
+      <i class="bx bxs-cog" aria-hidden="true"></i>
+      {{ showDetails() ? 'Ocultar detalhes' : 'Mostrar detalhes' }}
+    </button>
+  </div>
+} @else {
+  <button
+    type="button"
+    class="consent-reopen"
+    aria-label="Configuração de cookies"
+    (click)="reopen()"
+  >
+    <i class="bx bxs-cookie" aria-hidden="true"></i>
+    <span class="consent-reopen-label">Configuração de cookies</span>
+  </button>
+}
